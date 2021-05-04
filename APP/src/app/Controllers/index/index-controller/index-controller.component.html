@@ -1,0 +1,168 @@
+<nav class="navbar navbar-dark navbar-expand-lg navbar-light" style="background-color: #012e46;">
+  <a class="navbar-brand" href="#" style="font-size: 2em;">TYPESTY</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto ml-auto">
+      <li class="nav-item">
+        <div class="nav-link" href="#">
+          <label for="upload" class="mt-2 btn btn-block btn-dark">Cargar Archivo</label>
+          <input
+            type="file"
+            #tySubida
+            id="upload"
+            name="tySubida"
+            style="display: none"
+            accept="application,.ty"
+            (input)="cargar($event)"
+          />
+        </div>
+      </li>
+      <li class="nav-item">
+        <div class="nav-link" href="#">
+          <label for="GUARDAR" class="mt-2 btn btn-block btn-dark">Guardar Archivo</label>
+          <input
+            type="button"
+            #GUARDAR
+            id="GUARDAR"
+            name="GUARDAR"
+            style="display: none"
+            accept="application,.ty"
+            (click)="guardar()"
+          />
+        </div>
+      </li>
+      <li class="nav-item">
+        <div class="nav-link" href="#">
+          <label for="AST" class="mt-2 btn btn-block btn-dark">Generar AST</label>
+          <input
+            type="button"
+            #AST
+            id="AST"
+            name="AST"
+            style="display: none"
+            accept="application,.ty"
+            (click)="graficar()"
+          />
+        </div>
+      </li>
+      <li class="nav-item">
+        <div class="nav-link" href="#">
+          <label for="Eliminar" class="mt-2 btn btn-block btn-dark">Eliminar Pestañas</label>
+          <input
+            type="button"
+            #Eliminar
+            id="Eliminar"
+            name="Eliminar"
+            style="display: none"
+            accept="application,.ty"
+            (click)="eliminartodas()"
+          />
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="scroll_main m-0 p-0">
+  <div class="row justify-content-center align align-items-center">
+    <div class="col-12">
+      <dx-toolbar class="moduleToolbar" [items]="Options"></dx-toolbar>
+      <div class="default">
+        <div class="row h-100" style="margin: 0px; padding: 0px;">
+          <div class="col-12 h-100" style="margin: 0px; padding: 0px;">
+            <dx-tab-panel style="height: 46vh;"
+              [dataSource]="tabs"
+              [selectedIndex]="0"
+              [loop]="false"
+              [animationEnabled]="true"
+              [showNavButtons]="true"
+              [swipeEnabled]="false"
+              (onSelectionChanged)="seleccionartab($event)"
+              [selectedIndex]="Num">
+              <div *dxTemplate="let element of 'title'">
+                <span>{{ element.ID }}</span><i *ngIf="showCloseButton()" class="dx-icon dx-icon-close mr4" (click)="eliminartab()"></i>
+              </div>
+              <div *dxTemplate="let element of 'item'">
+                  <ngx-codemirror
+                  style="margin: 0px; padding: 0px;"
+                  [(ngModel)]="element.CONTENIDO"
+                  (ngModelChange) = "actualizarContent(element.CONTENIDO)"
+                  [options]="{
+                    theme: 'dracula',
+                    mode: 'go',
+                    lineNumbers: true,
+                    styleActiveLine: true
+                  }"
+                  ></ngx-codemirror>
+              </div>
+            </dx-tab-panel>
+          </div>
+          <div class="col-12 mt-2" style="height:35vh;margin: 0px; padding: 0px;">
+            <ngx-codemirror
+            style="margin: 0px; padding: 0px;"
+            [(ngModel)]="CONSOLA"
+            [options]="{
+              theme: 'dracula',
+              mode: 'go',
+              readOnly: true,
+              lineNumbers: true
+            }"
+            ></ngx-codemirror>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-6 scroll">
+            <table class="table table-dark">
+              <thead style="background-color: #2a2a2a;">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Grupo</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Fila</th>
+                  <th scope="col">Columna</th>
+                  <th scope="col">Ambito</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let simbolo of SIMBOLOS">
+                  <td>{{ simbolo.numero }}</td>
+                  <td>{{simbolo.ID}}</td>
+                  <td>{{ simbolo.grupo }}</td>
+                  <td>{{ simbolo.tipo }}</td>
+                  <td>{{ simbolo.fila }}</td>
+                  <td>{{ simbolo.columna }}</td>
+                  <td>{{ simbolo.ambito }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-6 scroll">
+            <table class="table diseñoTabla table-dark">
+              <thead style="background-color: #2a2a2a;">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Fila</th>
+                  <th scope="col">Columna</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let error of ERRORES">
+                  <td>{{ error.numero }}</td>
+                  <td>{{ error.tipo }}</td>
+                  <td>{{ error.descripcion }}</td>
+                  <td>{{ error.fila }}</td>
+                  <td>{{ error.columna }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
