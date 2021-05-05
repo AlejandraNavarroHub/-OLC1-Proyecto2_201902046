@@ -1,0 +1,1 @@
+{"version":3,"file":"Instruccion.js","sourceRoot":"","sources":["../../../../src/controllers/Analizador/Abstract/Instruccion.ts"],"names":[],"mappings":";;;AAKA,MAAsB,WAAW;IAK7B,YAAY,KAAc,EAAE,OAAc,EAAE,IAAa;QACrD,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;QACnB,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;QACvB,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;IACrB,CAAC;CAKJ;AAdD,kCAcC"}
