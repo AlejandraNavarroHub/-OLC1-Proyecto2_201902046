@@ -18,27 +18,29 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Instruccion_1 = require("../Abstract/Instruccion");
-const TIPO_1 = require("../tablaSimbolo/TIPO");
-const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
-class Imprimir extends Instruccion_1.Instruccion {
-    constructor(expresion, linea, columna) {
-        super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.OTROS));
-        this.expresion = expresion;
-        this.linea = linea;
-        this.columna = columna;
+const EXPRESION_1 = require("../Abstract/EXPRESION");
+const TIPO_1 = __importStar(require("../tablaSimbolo/TIPO"));
+const PRIMITIVO_1 = __importDefault(require("./PRIMITIVO"));
+class VARIABLE extends EXPRESION_1.Expresion {
+    constructor(ID, linea, columna) {
+        super(linea, columna, undefined, new TIPO_1.default(TIPO_1.tipos.ENTERO), ID);
     }
-    ejecutar(tree, table) {
-        var value = this.expresion.getValor(tree, table);
-        if (value.Tipo.getTipos() === TIPO_1.tipos.ERROR) {
-            return;
+    getValor(tree, table) {
+        let comprobar = table.get(this.ID);
+        if (comprobar.tipo.getTipos() !== TIPO_1.tipos.ERROR) {
+            let valor = comprobar;
+            return new PRIMITIVO_1.default(valor.tipo, valor.valor, this.linea, this.columna);
         }
-        tree.updateConsola(value.valor + "");
+        tree.newERROR("SEMANTICO", "VARIABLE NO DECLARADA", this.linea, this.columna);
+        return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
     }
     getNodo() {
         throw new Error("Method not implemented.");
     }
 }
-exports.default = Imprimir;
-//# sourceMappingURL=IMPRIMIR.js.map
+exports.default = VARIABLE;
+//# sourceMappingURL=VARIABLE.js.map

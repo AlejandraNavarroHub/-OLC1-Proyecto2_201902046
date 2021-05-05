@@ -25,4 +25,4 @@ var tipos;
     tipos["CADENA"] = "CADENA";
     tipos["ERROR"] = "ERROR";
 })(tipos = exports.tipos || (exports.tipos = {}));
-//# sourceMappingURL=Tipo.js.map
+//# sourceMappingURL=TIPO.js.map

@@ -1,7 +1,7 @@
 import { Expresion } from "../Abstract/EXPRESION";
 import TRADUCTOR from "../tablaSimbolo/TRADUCTOR";
 import tablaSimbolos from "../tablaSimbolo/ENTORNO";
-import Tipo from "../tablaSimbolo/Tipo";
+import Tipo from "../tablaSimbolo/TIPO";
 import { nodoAST } from "../Abstract/nodoAST";
 
 
@@ -12,7 +12,7 @@ export default class Primitivo extends Expresion{
     }
 
     public getValor(tree:TRADUCTOR, table:tablaSimbolos){
-        return this.valor;
+        return this;
     }
 
     public getNodo(): nodoAST {

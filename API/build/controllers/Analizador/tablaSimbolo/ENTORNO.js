@@ -22,8 +22,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Simbolo_1 = __importDefault(require("./Simbolo"));
-const Tipo_1 = __importStar(require("./Tipo"));
+const SIMBOLO_1 = __importDefault(require("./SIMBOLO"));
+const TIPO_1 = __importStar(require("./TIPO"));
 class Entorno {
     constructor(nombre = "GLOBAL", anterior) {
         this.nombre = nombre;
@@ -33,11 +33,11 @@ class Entorno {
     set(simbolo, valor, tipo, DIMENSION = undefined, TAMAÑO = undefined) {
         simbolo = simbolo.toUpperCase();
         if (!this.tabla.has(simbolo)) {
-            let nueva = new Simbolo_1.default(tipo, simbolo, valor, DIMENSION, TAMAÑO);
+            let nueva = new SIMBOLO_1.default(tipo, simbolo, valor, DIMENSION, TAMAÑO);
             this.tabla.set(simbolo, nueva);
             return nueva;
         }
-        return new Simbolo_1.default(new Tipo_1.default(Tipo_1.tipos.ERROR), "", undefined);
+        return new SIMBOLO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), "", undefined);
     }
     get(variable) {
         variable = variable.toUpperCase();
@@ -50,7 +50,7 @@ class Entorno {
             }
         }
         //Error
-        return new Simbolo_1.default(new Tipo_1.default(Tipo_1.tipos.ERROR), "", undefined);
+        return new SIMBOLO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), "", undefined);
     }
 }
 exports.default = Entorno;

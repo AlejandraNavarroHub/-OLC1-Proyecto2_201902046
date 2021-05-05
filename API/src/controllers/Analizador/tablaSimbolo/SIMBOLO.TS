@@ -1,4 +1,4 @@
-import Tipo from "./Tipo";
+import Tipo from "./TIPO";
 
 export default class Simbolo
 {
@@ -8,19 +8,11 @@ export default class Simbolo
     public TAMAÑO: any;
     public valor: any;
 
-    constructor(tipo: Tipo, identificador: String, valor?:any, DIMENSION?:any, CANTIDAD?:any)
+    constructor(tipo: Tipo, identificador: String, valor:any, DIMENSION?:any, CANTIDAD?:any)
     {
         this.tipo = tipo;
         this.identificador = identificador;
-        if(valor)
-        {
-            this.valor = valor;
-        }
-        else
-        {
-            this.valor = null;
-        }
-
+        this.valor = valor;
     }
 
     public getIdentificador() {

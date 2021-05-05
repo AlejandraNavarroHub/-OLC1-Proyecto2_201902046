@@ -2,9 +2,9 @@ export class PESTANA{
   ID = '';
   CONTENIDO = '';
   CONSOLA = '';
-  ERRORES = [];
-  SIMBOLOS = [];
-  
+  ERRORES:any[] = [];
+  SIMBOLOS:any[] = [];
+
   constructor(ID:string){
       this.ID = ID;
   }

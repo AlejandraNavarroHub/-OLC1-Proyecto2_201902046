@@ -8,8 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.compiladorController = void 0;
+const ENTORNO_1 = __importDefault(require("./Analizador/tablaSimbolo/ENTORNO"));
+const TRADUCTOR_1 = __importDefault(require("./Analizador/tablaSimbolo/TRADUCTOR"));
 class CompiladorController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -18,8 +23,17 @@ class CompiladorController {
     }
     run(req, res) {
         const CONTENIDO = req.body.CONTENIDO;
-        console.log(CONTENIDO);
-        res.json({ CONSOLA: CONTENIDO, ERRORES: [], SIMBOLOS: [] });
+        let arbol = new TRADUCTOR_1.default([]);
+        let parse = require("./Analizador/gramatica");
+        arbol = parse.parse(CONTENIDO);
+        if (typeof (arbol) == typeof (true)) {
+            arbol = new TRADUCTOR_1.default([]);
+            arbol.newERROR("SINTACTICO", "ERROR INRECUPERABLE", -1, -1);
+        }
+        const tabla = new ENTORNO_1.default();
+        arbol.global = tabla;
+        arbol.traducir();
+        res.json({ CONSOLA: arbol.consola, ERRORES: arbol.errores, SIMBOLOS: [] });
     }
     graph(req, res) {
         // try{

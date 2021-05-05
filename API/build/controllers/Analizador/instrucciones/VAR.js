@@ -26,8 +26,8 @@ const Instruccion_1 = require("../Abstract/Instruccion");
 const TIPO_1 = require("../tablaSimbolo/TIPO");
 const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
-const PRIMITIVO_1 = __importDefault(require("../expresiones/PRIMITIVO"));
-class VARIABLE extends Instruccion_1.Instruccion {
+const SIMBOLO_1 = __importDefault(require("../tablaSimbolo/SIMBOLO"));
+class VARIABLES extends Instruccion_1.Instruccion {
     constructor(linea, columna, TipoV, nombre, expresion) {
         super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.DECLARACION));
         this.expresion = expresion;
@@ -55,7 +55,7 @@ class VARIABLE extends Instruccion_1.Instruccion {
                     break;
             }
         }
-        else if (this.expresion) {
+        else {
             if (this.TipoV.getTipos() !== this.expresion.Tipo.getTipos() &&
                 this.TipoV.getTipos() !== TIPO_1.tipos.ENTERO && this.expresion.Tipo.getTipos() !== TIPO_1.tipos.DECIMAL
                 && this.TipoV.getTipos() !== TIPO_1.tipos.DECIMAL && this.expresion.Tipo.getTipos() !== TIPO_1.tipos.ENTERO) {
@@ -71,7 +71,7 @@ class VARIABLE extends Instruccion_1.Instruccion {
             }
         }
         let respuesta = undefined;
-        if (valor instanceof PRIMITIVO_1.default) {
+        if (valor instanceof SIMBOLO_1.default) {
             respuesta = table.set(this.ID, valor.valor, this.TipoV);
         }
         else {
@@ -85,5 +85,5 @@ class VARIABLE extends Instruccion_1.Instruccion {
         throw new Error("Method not implemented.");
     }
 }
-exports.default = VARIABLE;
-//# sourceMappingURL=VARIABLE.js.map
+exports.default = VARIABLES;
+//# sourceMappingURL=VAR.js.map

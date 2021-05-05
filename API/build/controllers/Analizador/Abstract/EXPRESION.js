@@ -7,6 +7,8 @@ class Expresion {
         this.valor = valor;
         this.ID = ID;
         this.P = P;
+        this.linea = linea;
+        this.columna = columna;
     }
 }
 exports.Expresion = Expresion;

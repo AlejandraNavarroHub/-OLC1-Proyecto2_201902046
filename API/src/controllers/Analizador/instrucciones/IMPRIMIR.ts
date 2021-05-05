@@ -2,7 +2,7 @@ import { Instruccion } from "../Abstract/Instruccion";
 import Excepcion from "../exceptions/EXCEPTION";
 import TRADUCTOR from "../tablaSimbolo/TRADUCTOR";
 import tablaSimbolos from "../tablaSimbolo/ENTORNO";
-import Tipo, { tipos } from "../tablaSimbolo/Tipo";
+import Tipo, { tipos } from "../tablaSimbolo/TIPO";
 import { Expresion } from "../Abstract/EXPRESION";
 import Tipo_INS, { T_INS } from "../tablaSimbolo/TIPO_INSTRUCCION";
 import { nodoAST } from "../Abstract/nodoAST";
@@ -15,15 +15,16 @@ export default class Imprimir extends Instruccion{
     constructor(expresion:Expresion, linea:number, columna:number){
         super(linea, columna, new Tipo_INS(T_INS.OTROS));
         this.expresion = expresion;
+        this.linea = linea;
+        this.columna = columna;
     }
 
     public ejecutar(tree:TRADUCTOR, table:tablaSimbolos){
-        var value = this.expresion.getValor(tree, table); //OBTIENE EL VALOR
-
-        if(value instanceof Excepcion){
+        var value = this.expresion.getValor(tree, table);
+        if(value.Tipo.getTipos()===tipos.ERROR){
             return;
         }
-        tree.updateConsola(value+"");
+        tree.updateConsola(value.valor+"");
     }
 
     public getNodo(): nodoAST {

@@ -6,7 +6,7 @@ class Primitivo extends EXPRESION_1.Expresion {
         super(linea, columna, valor, tipo);
     }
     getValor(tree, table) {
-        return this.valor;
+        return this;
     }
     getNodo() {
         throw new Error("Method not implemented.");

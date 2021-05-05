@@ -197,11 +197,11 @@ export class IndexControllerComponent implements OnInit {
     this.compilar.COMPILAR(cont).subscribe(
       (res: any) => {
         this.CONSOLA = res.CONSOLA;
-        this.ERRORES = res.ERRRORES;
-        this.SIMBOLOS = res.SIMBOLO;
+        this.ERRORES = res.ERRORES;
+        this.SIMBOLOS = res.SIMBOLOS;
         this.TAB_ACTUAL.consola = this.CONSOLA;
-        this.TAB_ACTUAL.simbolo = res.Simbolo;
-        this.TAB_ACTUAL.errores = res.Errores;
+        this.TAB_ACTUAL.SIMBOLOS = res.SIMBOLOS;
+        this.TAB_ACTUAL.ERRORES = res.ERRORES;
       },
       (err: any) => console.log(err)
     );

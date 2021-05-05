@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const ENTORNO_1 = __importDefault(require("./ENTORNO"));
 const EXCEPTION_1 = __importDefault(require("../exceptions/EXCEPTION"));
+const Instruccion_1 = require("../Abstract/Instruccion");
 class TRADUCTOR {
     // public pila_exec: Array<E> = new Array<Expresion>();
     constructor(instrucciones) {
@@ -14,6 +15,19 @@ class TRADUCTOR {
         this.consola = "";
         this.global = new ENTORNO_1.default();
         this.errores = new Array();
+        this.simbolos = new Array();
+    }
+    traducir() {
+        for (let instrucion of this.instrucciones) {
+            if (instrucion instanceof Instruccion_1.Instruccion) {
+                instrucion.ejecutar(this, this.global);
+            }
+        }
+    }
+    imprimirErrores() {
+        for (let error of this.errores) {
+            this.updateConsola(error.toString());
+        }
     }
     updateConsola(update) {
         this.consola = `${this.consola}${update}\n`;

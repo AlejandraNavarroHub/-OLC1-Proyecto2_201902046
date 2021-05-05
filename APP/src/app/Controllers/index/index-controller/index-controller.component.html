@@ -1,12 +1,14 @@
-<nav class="navbar navbar-dark navbar-expand-lg navbar-light" style="background-color: #012e46;">
-  <a class="navbar-brand" href="#" style="font-size: 2em;">TYPESTY</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto ml-auto">
-      <li class="nav-item">
-        <div class="nav-link" href="#">
+<div class="row align-content-center justify-content-center">
+  <div class="col-12">
+    <div class="row align-content-center justify-content-center">
+      <div class="col-4 text-center">
+        <h1 class="text-white font-weight-bold">TYPESTY</h1>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+      <div class="row">
+        <div class="col-3">
           <label for="upload" class="mt-2 btn btn-block btn-dark">Cargar Archivo</label>
           <input
             type="file"
@@ -18,59 +20,46 @@
             (input)="cargar($event)"
           />
         </div>
-      </li>
-      <li class="nav-item">
-        <div class="nav-link" href="#">
+        <div class="col-3">
           <label for="GUARDAR" class="mt-2 btn btn-block btn-dark">Guardar Archivo</label>
           <input
-            type="button"
-            #GUARDAR
             id="GUARDAR"
-            name="GUARDAR"
+            type="button"
             style="display: none"
             accept="application,.ty"
             (click)="guardar()"
           />
         </div>
-      </li>
-      <li class="nav-item">
-        <div class="nav-link" href="#">
+        <div class="col-3" href="#">
           <label for="AST" class="mt-2 btn btn-block btn-dark">Generar AST</label>
           <input
-            type="button"
-            #AST
             id="AST"
-            name="AST"
+            type="button"
             style="display: none"
             accept="application,.ty"
             (click)="graficar()"
           />
         </div>
-      </li>
-      <li class="nav-item">
-        <div class="nav-link" href="#">
+        <div class="col-3" href="#">
           <label for="Eliminar" class="mt-2 btn btn-block btn-dark">Eliminar Pestañas</label>
           <input
-            type="button"
-            #Eliminar
             id="Eliminar"
-            name="Eliminar"
+            type="button"
             style="display: none"
             accept="application,.ty"
             (click)="eliminartodas()"
           />
         </div>
-      </li>
-    </ul>
+      </div>
   </div>
-</nav>
+</div>
 <div class="scroll_main m-0 p-0">
-  <div class="row justify-content-center align align-items-center">
+  <div class="row">
     <div class="col-12">
       <dx-toolbar class="moduleToolbar" [items]="Options"></dx-toolbar>
       <div class="default">
-        <div class="row h-100" style="margin: 0px; padding: 0px;">
-          <div class="col-12 h-100" style="margin: 0px; padding: 0px;">
+        <div class="row">
+          <div class="col-12 " style="background-color: #282a36;">
             <dx-tab-panel style="height: 46vh;"
               [dataSource]="tabs"
               [selectedIndex]="0"
@@ -85,7 +74,6 @@
               </div>
               <div *dxTemplate="let element of 'item'">
                   <ngx-codemirror
-                  style="margin: 0px; padding: 0px;"
                   [(ngModel)]="element.CONTENIDO"
                   (ngModelChange) = "actualizarContent(element.CONTENIDO)"
                   [options]="{
@@ -98,9 +86,8 @@
               </div>
             </dx-tab-panel>
           </div>
-          <div class="col-12 mt-2" style="height:35vh;margin: 0px; padding: 0px;">
+          <div class="col-12 mt-2" style="height:35vh;">
             <ngx-codemirror
-            style="margin: 0px; padding: 0px;"
             [(ngModel)]="CONSOLA"
             [options]="{
               theme: 'dracula',
@@ -112,10 +99,10 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-6 scroll">
+          <div class="col-12 scroll">
             <table class="table table-dark">
-              <thead style="background-color: #2a2a2a;">
-                <tr>
+              <thead style="background-color: #476678;">
+                <tr style="background-color: #484c4e;">
                   <th scope="col">ID</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Grupo</th>
@@ -139,10 +126,10 @@
               </tbody>
             </table>
           </div>
-          <div class="col-6 scroll">
-            <table class="table diseñoTabla table-dark">
-              <thead style="background-color: #2a2a2a;">
-                <tr>
+          <div class="col-12 scroll">
+            <table class="table table-dark">
+              <thead style="background-color: #476678;">
+                <tr style="background-color: #484c4e;">
                   <th scope="col">#</th>
                   <th scope="col">Tipo</th>
                   <th scope="col">Descripción</th>
