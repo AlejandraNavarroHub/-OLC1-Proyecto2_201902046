@@ -6,7 +6,9 @@
     const IMPRIMIR  = require('./instrucciones/IMPRIMIR');
     const DECLARAR_VAR  = require('./instrucciones/VARIABLE');
     const TIPO = require('./tablaSimbolo/TIPO');
+    const aritmetica = require('./expresiones/ARITMETICA');
     const TIPO_INSTRUCCION = require('./tablaSimbolo/TIPO_INSTRUCCION');
+    const relacional = require('./expresiones/RELACIONALES');
 
     let Texto="";
     let TRADUCTOR1 = new TRADUCTOR.default([]);
@@ -290,23 +292,23 @@ INS_RETURN
 ;
 
 EX
-    :EX MAS EX                                      {$$="";}
-    |EX MENOS EX                                    {$$="";}
-    |EX POR EX                                      {$$="";}
-    |EX DIV EX                                      {$$="";}
-    |EX MODULO EX                                   {$$="";}
-    |EX ELEVADO EX                                  {$$="";}
-    |MENOS EX %prec UMENOS                          {$$="";}
-    |PIZQ EX PDER                                   {$$="";}
-    |NOMBRE CIZQ  EX CDER                           {$$="";}
-    |NOMBRE CIZQ CIZQ EX CDER CDER                  {$$="";}
+    :EX MAS EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX MENOS EX                                    {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX POR EX                                      {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX DIV EX                                      {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX MODULO EX                                   {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX ELEVADO EX                                  {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |MENOS EX %prec UMENOS                          {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$2,$1);}
+    |PIZQ EX PDER                                   {$$="";}//jerarquia
+    |NOMBRE CIZQ  EX CDER                           {$$="";}//vector
+    |NOMBRE CIZQ CIZQ EX CDER CDER                  {$$="";}//lista
     |VALORES                                        {$$ = $1;}
-    |EX MENORQUE EX                                 {$$="";}
-    |EX MAYORQUE EX                                 {$$="";}
-    |EX DIFERENTE EX                                {$$="";}
-    |EX IGUALDAD EX                                 {$$="";}
-    |EX MAYORIGUAL EX                               {$$="";}
-    |EX MENORIGUAL EX                               {$$="";}
+    |EX MENORQUE EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX MAYORQUE EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX DIFERENTE EX                                {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX IGUALDAD EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX MAYORIGUAL EX                               {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX MENORIGUAL EX                               {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX AND EX                                      {$$="";}
     |EX OR EX                                       {$$="";}
     |NOT EX                                         {$$="";}

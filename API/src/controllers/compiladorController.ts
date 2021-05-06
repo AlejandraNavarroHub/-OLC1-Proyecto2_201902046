@@ -21,7 +21,7 @@ class CompiladorController {
         const tabla = new Entorno();
         arbol.global = tabla;
         arbol.traducir();
-        res.json({CONSOLA:arbol.consola, ERRORES:arbol.errores, SIMBOLOS:[]});
+        res.json({CONSOLA:arbol.consola, ERRORES:arbol.errores, SIMBOLOS:arbol.simbolos});
         
     }
 

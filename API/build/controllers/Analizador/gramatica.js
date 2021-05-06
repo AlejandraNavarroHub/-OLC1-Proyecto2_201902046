@@ -116,17 +116,26 @@ break;
 case 26:
 this.$= new DECLARAR_VAR.default(this._$.first_line, this._$.first_column, $$[$0-3], $$[$0-2], $$[$0]);
 break;
-case 27: case 28: case 29: case 30: case 31: case 32: case 33: case 34: case 35: case 36: case 37: case 38: case 39: case 40: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 48: case 49: case 50: case 51: case 55: case 56: case 57: case 58: case 59: case 60: case 61: case 62: case 63: case 64: case 65: case 66: case 67: case 70: case 71: case 72: case 73: case 74: case 75: case 76: case 77: case 78: case 79: case 81: case 82: case 83: case 84: case 85: case 86: case 87: case 88: case 89: case 90: case 91: case 92: case 93: case 94: case 95: case 96: case 98: case 110: case 111: case 112: case 113: case 114: case 115: case 116: case 117: case 118: case 119: case 120:
+case 27: case 28: case 29: case 30: case 31: case 32: case 33: case 34: case 35: case 36: case 37: case 38: case 39: case 40: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 48: case 49: case 50: case 51: case 55: case 56: case 57: case 58: case 59: case 60: case 61: case 62: case 63: case 64: case 65: case 66: case 67: case 77: case 78: case 79: case 81: case 82: case 83: case 84: case 85: case 86: case 87: case 88: case 89: case 90: case 91: case 92: case 93: case 94: case 95: case 96: case 98: case 110: case 111: case 112: case 113: case 114: case 115: case 116: case 117: case 118: case 119: case 120:
 this.$="";
 break;
 case 69:
 this.$ = $$[$0-2]
 break;
+case 70:
+this.$= new aritmetica.default(this._$.first_line, this._$.first_column,$$[$0-2],$$[$0-1],$$[$0]);
+break;
+case 71: case 72: case 73: case 74: case 75:
+this.$=new aritmetica.default(this._$.first_line, this._$.first_column,$$[$0-2],$$[$0-1],$$[$0]);
+break;
+case 76:
+this.$=new aritmetica.default(this._$.first_line, this._$.first_column,$$[$0],$$[$0-1]);
+break;
 case 80:
 this.$ = $$[$0];
 break;
 case 97:
-this.$= new VARIABLE.default($$[$0]);
+this.$= new VARIABLE.default($$[$0],this._$.first_line, this._$.first_column);
 break;
 case 99:
 this.$ = new TIPO.default(TIPO.tipos.ENTERO);
@@ -417,6 +426,7 @@ _handle_error:
     const IMPRIMIR  = require('./instrucciones/IMPRIMIR');
     const DECLARAR_VAR  = require('./instrucciones/VARIABLE');
     const TIPO = require('./tablaSimbolo/TIPO');
+    const aritmetica = require('./expresiones/Aritmetica');
     const TIPO_INSTRUCCION = require('./tablaSimbolo/TIPO_INSTRUCCION');
 
     let Texto="";

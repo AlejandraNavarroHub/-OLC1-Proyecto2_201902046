@@ -66,6 +66,25 @@ class VARIABLE extends Instruccion_1.Instruccion {
             if (valor.Tipo.getTipos() === TIPO_1.tipos.ERROR) {
                 return;
             }
+            switch (this.TipoV.getTipos()) {
+                case TIPO_1.tipos.ENTERO:
+                    valor.valor = Number(valor.valor);
+                    break;
+                case TIPO_1.tipos.DECIMAL:
+                    valor.valor = Number(valor.valor);
+                    break;
+                case TIPO_1.tipos.BOOLEANO:
+                    if (valor.valor == "true") {
+                        valor.valor = true;
+                    }
+                    else {
+                        valor.valor = false;
+                    }
+                    break;
+                case TIPO_1.tipos.CADENA:
+                    valor.valor = String(valor.valor);
+                    break;
+            }
             if (this.TipoV.getTipos() === TIPO_1.tipos.ENTERO && valor.Tipo.getTipos() === TIPO_1.tipos.DECIMAL) {
                 valor.valor = Math.trunc(valor.valor);
             }
@@ -79,6 +98,9 @@ class VARIABLE extends Instruccion_1.Instruccion {
         }
         if (respuesta.tipo.getTipos() === TIPO_1.tipos.ERROR) {
             tree.newERROR("SEMANTICO", "LA VARIABLE YA ESTA DECLARADA", this.linea, this.columna);
+        }
+        else {
+            tree.newSimbol(this.ID, "VARIABLE", this.TipoV.getTipos(), table.nombre, this.linea, this.columna);
         }
     }
     getNodo() {

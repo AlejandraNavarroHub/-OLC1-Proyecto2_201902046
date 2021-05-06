@@ -33,7 +33,7 @@ class CompiladorController {
         const tabla = new ENTORNO_1.default();
         arbol.global = tabla;
         arbol.traducir();
-        res.json({ CONSOLA: arbol.consola, ERRORES: arbol.errores, SIMBOLOS: [] });
+        res.json({ CONSOLA: arbol.consola, ERRORES: arbol.errores, SIMBOLOS: arbol.simbolos });
     }
     graph(req, res) {
         // try{

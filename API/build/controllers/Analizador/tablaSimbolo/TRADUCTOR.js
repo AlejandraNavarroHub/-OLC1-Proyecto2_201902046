@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ENTORNO_1 = __importDefault(require("./ENTORNO"));
 const EXCEPTION_1 = __importDefault(require("../exceptions/EXCEPTION"));
 const Instruccion_1 = require("../Abstract/Instruccion");
+const list_simbol_1 = __importDefault(require("./list_simbol"));
 class TRADUCTOR {
     // public pila_exec: Array<E> = new Array<Expresion>();
     constructor(instrucciones) {
@@ -34,6 +35,9 @@ class TRADUCTOR {
     }
     newERROR(tipo, descripcion, fila, columna) {
         this.errores.push(new EXCEPTION_1.default(this.errores.length + 1, tipo, descripcion, fila, columna));
+    }
+    newSimbol(nombre, grupo, tipo, ambito, fila, columna) {
+        this.simbolos.push(new list_simbol_1.default(this.simbolos.length + 1, nombre, grupo, tipo, ambito, fila, columna));
     }
 }
 exports.default = TRADUCTOR;
