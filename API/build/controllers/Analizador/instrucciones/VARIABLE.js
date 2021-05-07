@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
-const TIPO_1 = require("../tablaSimbolo/TIPO");
+const TIPO_1 = __importStar(require("../tablaSimbolo/TIPO"));
 const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
 const PRIMITIVO_1 = __importDefault(require("../expresiones/PRIMITIVO"));
@@ -74,7 +74,7 @@ class VARIABLE extends Instruccion_1.Instruccion {
                     valor.valor = Number(valor.valor);
                     break;
                 case TIPO_1.tipos.BOOLEANO:
-                    if (valor.valor == "true") {
+                    if (valor.valor.toUpperCase() == "TRUE") {
                         valor.valor = true;
                     }
                     else {
@@ -86,7 +86,9 @@ class VARIABLE extends Instruccion_1.Instruccion {
                     break;
             }
             if (this.TipoV.getTipos() === TIPO_1.tipos.ENTERO && valor.Tipo.getTipos() === TIPO_1.tipos.DECIMAL) {
-                valor.valor = Math.trunc(valor.valor);
+                //valor.valor = Math.trunc(valor.valor);
+                tree.newERROR("SEMANTICO", "TIPO INT SOLO PUEDE RECIBIR ENTEROS", this.linea, this.columna);
+                return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
             }
         }
         let respuesta = undefined;

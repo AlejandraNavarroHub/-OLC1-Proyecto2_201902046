@@ -59,7 +59,7 @@ export default class VARIABLE extends Instruccion{
                     valor.valor = Number(valor.valor);
                     break
                 case tipos.BOOLEANO:
-                    if (valor.valor == "true"){
+                    if (valor.valor.toUpperCase() == "TRUE"){
                         valor.valor = true;
                     }else{
                         valor.valor = false;
@@ -70,7 +70,9 @@ export default class VARIABLE extends Instruccion{
                     break
             }
             if (this.TipoV.getTipos()===tipos.ENTERO && valor.Tipo.getTipos()===tipos.DECIMAL) {
-                valor.valor = Math.trunc(valor.valor);
+                //valor.valor = Math.trunc(valor.valor);
+                tree.newERROR("SEMANTICO","TIPO INT SOLO PUEDE RECIBIR ENTEROS", this.linea, this.columna);
+                return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
             }
         }
         let respuesta = undefined;

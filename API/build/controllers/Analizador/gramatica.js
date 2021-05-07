@@ -98,11 +98,14 @@ break;
 case 6:
 this.$ = new IMPRIMIR.default($$[$0-2],this._$.first_line, this._$.first_column);
 break;
-case 7: case 8: case 10: case 11: case 13: case 19: case 21: case 22: case 52: case 53: case 54: case 68:
+case 7: case 8: case 13: case 19: case 21: case 22: case 52: case 53: case 54: case 68:
 this.$ = $$[$0-1]
 break;
 case 9:
 this.$ = $$[$0-6]
+break;
+case 10: case 11:
+this.$ = new indec.default($$[$0-1],this._$.first_line, this._$.first_column);
 break;
 case 12: case 14: case 15: case 16: case 17: case 18: case 20:
 this.$ = $$[$0]
@@ -116,23 +119,44 @@ break;
 case 26:
 this.$= new DECLARAR_VAR.default(this._$.first_line, this._$.first_column, $$[$0-3], $$[$0-2], $$[$0]);
 break;
-case 27: case 28: case 29: case 30: case 31: case 32: case 33: case 34: case 35: case 36: case 37: case 38: case 39: case 40: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 48: case 49: case 50: case 51: case 55: case 56: case 57: case 58: case 59: case 60: case 61: case 62: case 63: case 64: case 65: case 66: case 67: case 77: case 78: case 79: case 81: case 82: case 83: case 84: case 85: case 86: case 87: case 88: case 89: case 90: case 91: case 92: case 93: case 94: case 95: case 96: case 98: case 110: case 111: case 112: case 113: case 114: case 115: case 116: case 117: case 118: case 119: case 120:
+case 27: case 28: case 29: case 30: case 32: case 33: case 36: case 37: case 38: case 39: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 48: case 49: case 50: case 51: case 55: case 56: case 57: case 58: case 59: case 60: case 61: case 62: case 63: case 64: case 65: case 66: case 67: case 77: case 78: case 79: case 111: case 112: case 113: case 114: case 115: case 116: case 117: case 118: case 119: case 120:
 this.$="";
+break;
+case 31:
+this.$= new asignar_valor.default(this._$.first_line, this._$.first_column,$$[$0-2],$$[$0]);
+break;
+case 34:
+this.$= new crementar.default(this._$.first_line, this._$.first_column,$$[$0-1],$$[$0]);
+break;
+case 35:
+this.$=new crementar.default(this._$.first_line, this._$.first_column,$$[$0-1],$$[$0]);
+break;
+case 40:
+this.$ = new ternario.default(this._$.first_line, this._$.first_column,$$[$0-4],$$[$0-3],$$[$0-2],$$[$0-1],$$[$0]);
 break;
 case 69:
 this.$ = $$[$0-2]
 break;
-case 70:
+case 70: case 71: case 72: case 73: case 74: case 75:
 this.$= new aritmetica.default(this._$.first_line, this._$.first_column,$$[$0-2],$$[$0-1],$$[$0]);
 break;
-case 71: case 72: case 73: case 74: case 75:
-this.$=new aritmetica.default(this._$.first_line, this._$.first_column,$$[$0-2],$$[$0-1],$$[$0]);
-break;
 case 76:
-this.$=new aritmetica.default(this._$.first_line, this._$.first_column,$$[$0],$$[$0-1]);
+this.$= new aritmetica.default(this._$.first_line, this._$.first_column,$$[$0],$$[$0-1]);
 break;
 case 80:
 this.$ = $$[$0];
+break;
+case 81: case 82: case 83: case 84: case 85: case 86: case 87: case 88:
+this.$= new relacional.default(this._$.first_line, this._$.first_column,$$[$0-2],$$[$0-1],$$[$0]);
+break;
+case 89:
+this.$= new relacional.default(this._$.first_line, this._$.first_column,$$[$0-1],$$[$0],$$[$01]);
+break;
+case 90: case 91:
+this.$= $$[$0];
+break;
+case 92: case 93: case 94: case 95: case 96: case 98:
+this.$=$$[$0];
 break;
 case 97:
 this.$= new VARIABLE.default($$[$0],this._$.first_line, this._$.first_column);
@@ -166,6 +190,9 @@ this.$ = new PRIMITIVO.default(new TIPO.default(TIPO.tipos.CADENA),$$[$0],this._
 break;
 case 108: case 109:
 this.$ = new PRIMITIVO.default(new TIPO.default(TIPO.tipos.BOOLEANO),$$[$0],this._$.first_line, this._$.first_column);
+break;
+case 110:
+this.$= new casteo.default(this._$.first_line, this._$.first_column,$$[$0-2],$$[$0]);
 break;
 }
 },
@@ -426,8 +453,15 @@ _handle_error:
     const IMPRIMIR  = require('./instrucciones/IMPRIMIR');
     const DECLARAR_VAR  = require('./instrucciones/VARIABLE');
     const TIPO = require('./tablaSimbolo/TIPO');
-    const aritmetica = require('./expresiones/Aritmetica');
+    const aritmetica = require('./expresiones/ARITMETICA');
     const TIPO_INSTRUCCION = require('./tablaSimbolo/TIPO_INSTRUCCION');
+    const relacional = require('./expresiones/RELACIONALES');
+    const logico = require('./expresiones/LOGICOS');
+    const ternario = require('./expresiones/TERNARIO');
+    const casteo = require('./expresiones/CAST');
+    const crementar = require('./expresiones/IN_DECREMENTAR');
+    const asignar_valor = require('./instrucciones/ASIGNACION');
+    const indec = require('./instrucciones/IN_DECRE');
 
     let Texto="";
     let TRADUCTOR1 = new TRADUCTOR.default([]);

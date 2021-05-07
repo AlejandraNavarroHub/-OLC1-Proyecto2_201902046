@@ -20,26 +20,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
-const TIPO_1 = require("../tablaSimbolo/TIPO");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
-class Imprimir extends Instruccion_1.Instruccion {
+class INDEC extends Instruccion_1.Instruccion {
     constructor(expresion, linea, columna) {
         super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.OTROS));
         this.expresion = expresion;
-        this.linea = linea;
-        this.columna = columna;
     }
     ejecutar(tree, table) {
-        var value = this.expresion.getValor(tree, table);
-        if (value.Tipo.getTipos() === TIPO_1.tipos.ERROR) {
-            return;
-        }
-        tree.updateConsola(value.valor + "");
-        console.log(value.valor);
+        this.expresion.getValor(tree, table);
     }
     getNodo() {
         throw new Error("Method not implemented.");
     }
 }
-exports.default = Imprimir;
-//# sourceMappingURL=IMPRIMIR.js.map
+exports.default = INDEC;
+//# sourceMappingURL=IN_DECRE.js.map

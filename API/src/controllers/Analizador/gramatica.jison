@@ -9,9 +9,12 @@
     const aritmetica = require('./expresiones/ARITMETICA');
     const TIPO_INSTRUCCION = require('./tablaSimbolo/TIPO_INSTRUCCION');
     const relacional = require('./expresiones/RELACIONALES');
-    const logico = require('./exprersiones/LOGICOS');
+    const logico = require('./expresiones/LOGICOS');
     const ternario = require('./expresiones/TERNARIO');
     const casteo = require('./expresiones/CAST');
+    const crementar = require('./expresiones/IN_DECREMENTAR');
+    const asignar_valor = require('./instrucciones/ASIGNACION');
+    const indec = require('./instrucciones/IN_DECRE');
 
     let Texto="";
     let TRADUCTOR1 = new TRADUCTOR.default([]);
@@ -173,8 +176,8 @@ INSTRUCCION
     | DECLE PTCOMA                                      {$$ = $1}
     | ASIG PTCOMA                                       {$$ = $1}
     | NOMBRE PT ADD PIZQ EX PDER PTCOMA                 {$$ = $1}
-    | INCREMENTAR PTCOMA                                {$$ = $1}
-    | DECREMENTO PTCOMA                                 {$$ = $1}
+    | INCREMENTAR PTCOMA                                {$$ = new indec.default($1,this._$.first_line, this._$.first_column);}
+    | DECREMENTO PTCOMA                                 {$$ = new indec.default($1,this._$.first_line, this._$.first_column);}
     | INS_IF                                            {$$ = $1}
     | INS_INTERROGACION PTCOMA                          {$$ = $1}
     | INS_SWITCH                                        {$$ = $1}
@@ -203,18 +206,18 @@ DECLE
 
 
 ASIG
-    :NOMBRE IGUAL EX                                    {$$="";}
+    :NOMBRE IGUAL EX                                    {$$= new asignar_valor.default(this._$.first_line, this._$.first_column,$1,$3);}
     |NOMBRE CIZQ CIZQ EX CDER CDER IGUAL EX             {$$="";}
     |NOMBRE CIZQ EX CDER IGUAL EX                       {$$="";}
 ;
 
 
 INCREMENTAR
-    :EX INMAS               {$$="";}
+    :EX INMAS               {$$= new crementar.default(this._$.first_line, this._$.first_column,$1,$2);}
 ;
 
 DECREMENTO
-    :EX INMENOS             {$$="";}
+    :EX INMENOS             {$$=new crementar.default(this._$.first_line, this._$.first_column,$1,$2);}
 ;
 
 INS_IF
@@ -281,7 +284,6 @@ PARAMETROS
 ;
 
 
-
 LLAMADA
     :NOMBRE PIZQ LISTA_EX PDER              {$$="";}
     |NOMBRE PIZQ PDER                       {$$="";}
@@ -317,13 +319,13 @@ EX
     |NOT EX                                         {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |INS_CAST                                       {$$= $1;}
     |INS_TERNARIO                                   {$$= $1;}
-    |INCREMENTAR                                    {$$="";}
-    |DECREMENTO                                     {$$="";}
-    |NATIVAS                                        {$$="";}
-    |INS_TOLOWER                                    {$$="";}
-    |INS_TOUPPER                                    {$$="";}
+    |INCREMENTAR                                    {$$=$1;}
+    |DECREMENTO                                     {$$=$1;}
+    |NATIVAS                                        {$$=$1;}
+    |INS_TOLOWER                                    {$$=$1;}
+    |INS_TOUPPER                                    {$$=$1;}
     |NOMBRE                                         {$$= new VARIABLE.default($1,this._$.first_line, this._$.first_column);}
-    |LLAMADA                                        {$$="";}
+    |LLAMADA                                        {$$=$1;}
 ;
 
 INS_TIPO

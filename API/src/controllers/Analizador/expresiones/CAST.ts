@@ -8,9 +8,9 @@ import Primitivo from "./PRIMITIVO";
 
 export default class Casteo extends Expresion{
 
-    public tip:String;
+    public tip:Tipo;
     public exp:Expresion;
-    constructor(linea:number, columna:number, tip:String, exp:Expresion){
+    constructor(linea:number, columna:number, tip:Tipo, exp:Expresion){
         super(linea, columna, undefined, new Tipo(tipos.ENTERO));
         this.exp = exp;
         this.tip = tip;
@@ -21,7 +21,7 @@ export default class Casteo extends Expresion{
         let tipado = this.tip;
 
         if (valor1) {
-            switch(tipado){
+            switch(tipado.getTipos()){
                 case "ENTERO":
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:

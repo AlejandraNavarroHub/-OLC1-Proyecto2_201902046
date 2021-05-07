@@ -39,6 +39,15 @@ class Entorno {
         }
         return new SIMBOLO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), "", undefined);
     }
+    update(simbolo, valor) {
+        let value = this.get(simbolo);
+        if (value.tipo.getTipos() !== TIPO_1.tipos.ERROR) {
+            value.valor = valor.valor;
+            this.tabla.set(simbolo, value);
+            return true;
+        }
+        return false;
+    }
     get(variable) {
         variable = variable.toUpperCase();
         for (var temp = this; temp != null; temp = temp.anterior) {

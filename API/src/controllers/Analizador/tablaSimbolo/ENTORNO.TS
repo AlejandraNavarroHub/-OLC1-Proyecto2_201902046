@@ -1,3 +1,4 @@
+import { Expresion } from "../Abstract/EXPRESION";
 import Simbolo from "./SIMBOLO";
 import Tipo, { tipos } from "./TIPO";
 
@@ -21,6 +22,16 @@ export default class Entorno
             return nueva;
         }
         return new Simbolo(new Tipo(tipos.ERROR), "", undefined); 
+    }
+    
+    public update(simbolo:string, valor:Expresion){
+        let value = this.get(simbolo);
+        if(value.tipo.getTipos()!==tipos.ERROR){
+            value.valor = valor.valor;
+            this.tabla.set(simbolo, value);
+            return true;
+        }
+        return false;
     }
 
     public get(variable:String):Simbolo{
