@@ -9,6 +9,9 @@
     const aritmetica = require('./expresiones/ARITMETICA');
     const TIPO_INSTRUCCION = require('./tablaSimbolo/TIPO_INSTRUCCION');
     const relacional = require('./expresiones/RELACIONALES');
+    const logico = require('./exprersiones/LOGICOS');
+    const ternario = require('./expresiones/TERNARIO');
+    const casteo = require('./expresiones/CAST');
 
     let Texto="";
     let TRADUCTOR1 = new TRADUCTOR.default([]);
@@ -222,7 +225,7 @@ INS_IF
 ;
 
 INS_TERNARIO
-    :EX INTERROGACION EX DOSPT EX     {$$="";}
+    :EX INTERROGACION EX DOSPT EX     {$$ = new ternario.default(this._$.first_line, this._$.first_column,$1,$2,$3,$4,$5);}
 ;
 
 
@@ -293,12 +296,12 @@ INS_RETURN
 
 EX
     :EX MAS EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX MENOS EX                                    {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX POR EX                                      {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX DIV EX                                      {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX MODULO EX                                   {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX ELEVADO EX                                  {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |MENOS EX %prec UMENOS                          {$$=new aritmetica.default(this._$.first_line, this._$.first_column,$2,$1);}
+    |EX MENOS EX                                    {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX POR EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX DIV EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX MODULO EX                                   {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX ELEVADO EX                                  {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |MENOS EX %prec UMENOS                          {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$2,$1);}
     |PIZQ EX PDER                                   {$$="";}//jerarquia
     |NOMBRE CIZQ  EX CDER                           {$$="";}//vector
     |NOMBRE CIZQ CIZQ EX CDER CDER                  {$$="";}//lista
@@ -309,11 +312,11 @@ EX
     |EX IGUALDAD EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MAYORIGUAL EX                               {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MENORIGUAL EX                               {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX AND EX                                      {$$="";}
-    |EX OR EX                                       {$$="";}
-    |NOT EX                                         {$$="";}
-    |INS_CAST                                       {$$="";}
-    |INS_TERNARIO                                   {$$="";}
+    |EX AND EX                                      {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX OR EX                                       {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |NOT EX                                         {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |INS_CAST                                       {$$= $1;}
+    |INS_TERNARIO                                   {$$= $1;}
     |INCREMENTAR                                    {$$="";}
     |DECREMENTO                                     {$$="";}
     |NATIVAS                                        {$$="";}
@@ -341,7 +344,7 @@ VALORES
 ;
 
 INS_CAST
-    :PIZQ INS_TIPO PDER EX %prec FUNCAST     {$$="";}
+    :PIZQ INS_TIPO PDER EX %prec FUNCAST     {$$= new casteo.default(this._$.first_line, this._$.first_column,$2,$4);}
 ;
 
 LISTA_EXP
