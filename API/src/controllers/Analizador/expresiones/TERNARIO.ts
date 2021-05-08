@@ -43,6 +43,13 @@ export default class Ternario extends Expresion{
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("TERNARIO");
+        nodo.agregarHijo(this.exp1.getNodo());
+        nodo.agregarHijoS("?");
+        nodo.agregarHijo(this.exp2.getNodo());
+        nodo.agregarHijoS(":");
+        nodo.agregarHijo(this.exp3.getNodo());
+        nodo.agregarHijoS(";");
+        return nodo;
     }
 }

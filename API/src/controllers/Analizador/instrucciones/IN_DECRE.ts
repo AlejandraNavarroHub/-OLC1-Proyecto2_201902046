@@ -22,6 +22,8 @@ export default class INDEC extends Instruccion{
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("INCREMENTAR");
+        nodo.agregarHijo(this.expresion.getNodo());
+        return nodo;
     }
 }

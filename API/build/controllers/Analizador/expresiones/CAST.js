@@ -24,6 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_1 = __importStar(require("../tablaSimbolo/TIPO"));
+const nodoAST_1 = require("../Abstract/nodoAST");
 const PRIMITIVO_1 = __importDefault(require("./PRIMITIVO"));
 class Casteo extends EXPRESION_1.Expresion {
     constructor(linea, columna, tip, exp) {
@@ -36,7 +37,7 @@ class Casteo extends EXPRESION_1.Expresion {
         let tipado = this.tip;
         if (valor1) {
             switch (tipado.getTipos()) {
-                case "ENTERO":
+                case TIPO_1.tipos.ENTERO:
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor, this.linea, this.columna);
@@ -51,7 +52,7 @@ class Casteo extends EXPRESION_1.Expresion {
                             tree.newERROR("SEMANTICO", "NO EXISTE EL CASTEO DE STRING", this.linea, this.columna);
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                     }
-                case "DECIMAL":
+                case TIPO_1.tipos.DECIMAL:
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor, this.linea, this.columna);
@@ -67,7 +68,7 @@ class Casteo extends EXPRESION_1.Expresion {
                             tree.newERROR("SEMANTICO", "NO EXISTE EL CASTEO DE STRING", this.linea, this.columna);
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                     }
-                case "BOOLEANO":
+                case TIPO_1.tipos.BOOLEANO:
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
                             tree.newERROR("SEMANTICO", "NO EXISTE EL CASTEO A BOOLEAN", this.linea, this.columna);
@@ -85,7 +86,7 @@ class Casteo extends EXPRESION_1.Expresion {
                             tree.newERROR("SEMANTICO", "NO EXISTE EL CASTEO DE STRING", this.linea, this.columna);
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                     }
-                case "CARACTER":
+                case TIPO_1.tipos.CARACTER:
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), String.fromCharCode(valor1.valor), this.linea, this.columna);
@@ -100,7 +101,7 @@ class Casteo extends EXPRESION_1.Expresion {
                             tree.newERROR("SEMANTICO", "NO EXISTE EL CASTEO DE STRING", this.linea, this.columna);
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                     }
-                case "CADENA":
+                case TIPO_1.tipos.CADENA:
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor, this.linea, this.columna);
@@ -120,7 +121,10 @@ class Casteo extends EXPRESION_1.Expresion {
         return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
     }
     getNodo() {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST_1.nodoAST("CASTEO");
+        nodo.agregarHijoS(this.tip.getTipos());
+        nodo.agregarHijo(this.exp.getNodo());
+        return nodo;
     }
 }
 exports.default = Casteo;

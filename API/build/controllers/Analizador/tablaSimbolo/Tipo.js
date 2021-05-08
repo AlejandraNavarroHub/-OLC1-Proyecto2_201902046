@@ -18,11 +18,11 @@ class Tipo {
 exports.default = Tipo;
 var tipos;
 (function (tipos) {
-    tipos["ENTERO"] = "ENTERO";
-    tipos["DECIMAL"] = "DECIMAL";
-    tipos["CARACTER"] = "CARACTER";
-    tipos["BOOLEANO"] = "BOOLEANO";
-    tipos["CADENA"] = "CADENA";
+    tipos["ENTERO"] = "INT";
+    tipos["DECIMAL"] = "DOUBLE";
+    tipos["CARACTER"] = "CHAR";
+    tipos["BOOLEANO"] = "BOOLEAN";
+    tipos["CADENA"] = "STRING";
     tipos["ERROR"] = "ERROR";
 })(tipos = exports.tipos || (exports.tipos = {}));
 //# sourceMappingURL=TIPO.js.map

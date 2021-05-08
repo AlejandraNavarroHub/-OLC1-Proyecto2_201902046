@@ -33,6 +33,8 @@ export default class Primitivo extends Expresion{
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("PRIMITIVO");
+        nodo.agregarHijoS(String(this.valor));
+        return nodo;
     }
 }

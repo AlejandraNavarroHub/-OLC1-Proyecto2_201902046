@@ -24,6 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_1 = __importStar(require("../tablaSimbolo/TIPO"));
+const nodoAST_1 = require("../Abstract/nodoAST");
 const PRIMITIVO_1 = __importDefault(require("./PRIMITIVO"));
 class Relacionales extends EXPRESION_1.Expresion {
     constructor(linea, columna, exp1, simbolo, exp2) {
@@ -39,7 +40,6 @@ class Relacionales extends EXPRESION_1.Expresion {
         let valor2 = (_a = this.exp2) === null || _a === void 0 ? void 0 : _a.getValor(tree, table);
         switch (this.simbolo) {
             case "<":
-                console.log("hola");
                 if (valor2) {
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
@@ -128,7 +128,6 @@ class Relacionales extends EXPRESION_1.Expresion {
                     }
                 }
             case ">":
-                console.log("hola");
                 if (valor2) {
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
@@ -215,7 +214,6 @@ class Relacionales extends EXPRESION_1.Expresion {
                     }
                 }
             case "!=":
-                console.log("hola aaaaa");
                 if (valor2) {
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
@@ -302,7 +300,6 @@ class Relacionales extends EXPRESION_1.Expresion {
                     }
                 }
             case "==":
-                console.log("hola");
                 if (valor2) {
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
@@ -344,8 +341,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                                 case TIPO_1.tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
-                                    return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+                                    return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), valor1.valor == valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.CARACTER:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -388,7 +384,6 @@ class Relacionales extends EXPRESION_1.Expresion {
                     }
                 }
             case ">=":
-                console.log("hola");
                 if (valor2) {
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
@@ -475,7 +470,6 @@ class Relacionales extends EXPRESION_1.Expresion {
                     }
                 }
             case "<=":
-                console.log("hola ddd");
                 if (valor2) {
                     switch (valor1.Tipo.getTipos()) {
                         case TIPO_1.tipos.ENTERO:
@@ -565,7 +559,11 @@ class Relacionales extends EXPRESION_1.Expresion {
         return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
     }
     getNodo() {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST_1.nodoAST("OPERADOR RELACIONAL");
+        nodo.agregarHijo(this.exp1.getNodo());
+        nodo.agregarHijoS(this.simbolo);
+        nodo.agregarHijo(this.exp2.getNodo());
+        return nodo;
     }
 }
 exports.default = Relacionales;

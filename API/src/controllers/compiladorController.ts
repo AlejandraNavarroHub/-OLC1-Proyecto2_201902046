@@ -1,4 +1,5 @@
 import express , {query, Request, Response} from "express";
+import { nodoAST } from "./Analizador/Abstract/nodoAST";
 import Entorno from "./Analizador/tablaSimbolo/ENTORNO";
 import TRADUCTOR from "./Analizador/tablaSimbolo/TRADUCTOR";
 
@@ -26,13 +27,12 @@ class CompiladorController {
     }
 
     public graph(req: Request, res: Response){
-        // try{
-        //     const Contenido = req.body.Contenido;
-        //     let parse = require("./Analizador/analizador");
-        //     let ast = new ArbolAST([]);
-        //     ast = parse.parse(Contenido);
-        //     ast.openFile();
-        // }catch{}
+        const CONTENIDO = req.body.CONTENIDO;
+        let parse = require("./Analizador/gramatica");
+        let ast = new TRADUCTOR([]);
+        ast = parse.parse(CONTENIDO);
+        ast.graficar();
+
     }
 }
 

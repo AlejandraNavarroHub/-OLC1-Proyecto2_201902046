@@ -18,11 +18,11 @@ class Tipo_INS {
 exports.default = Tipo_INS;
 var T_INS;
 (function (T_INS) {
-    T_INS["DECLARACION"] = "ENTERO";
-    T_INS["ASIGNACION"] = "DECIMAL";
-    T_INS["LLAMADA"] = "CARACTER";
-    T_INS["NATIVA"] = "BOOLEANO";
-    T_INS["OTROS"] = "CADENA";
+    T_INS["DECLARACION"] = "DECLARACION";
+    T_INS["ASIGNACION"] = "ASIGNACION";
+    T_INS["LLAMADA"] = "LLAMADA";
+    T_INS["NATIVA"] = "NATIVA";
+    T_INS["OTROS"] = "OTROS";
     T_INS["ERROR"] = "ERROR";
 })(T_INS = exports.T_INS || (exports.T_INS = {}));
 //# sourceMappingURL=TIPO_INSTRUCCION.js.map

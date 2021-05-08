@@ -21,6 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
+const nodoAST_1 = require("../Abstract/nodoAST");
 class INDEC extends Instruccion_1.Instruccion {
     constructor(expresion, linea, columna) {
         super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.OTROS));
@@ -30,7 +31,9 @@ class INDEC extends Instruccion_1.Instruccion {
         this.expresion.getValor(tree, table);
     }
     getNodo() {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST_1.nodoAST("INCREMENTAR");
+        nodo.agregarHijo(this.expresion.getNodo());
+        return nodo;
     }
 }
 exports.default = INDEC;

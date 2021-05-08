@@ -22,6 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const TIPO_1 = require("../tablaSimbolo/TIPO");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
+const nodoAST_1 = require("../Abstract/nodoAST");
 class Asignar_valor extends Instruccion_1.Instruccion {
     constructor(linea, columna, nombre, exp) {
         super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.ASIGNACION));
@@ -51,7 +52,12 @@ class Asignar_valor extends Instruccion_1.Instruccion {
         }
     }
     getNodo() {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST_1.nodoAST("ASIGNCACIÓN");
+        nodo.agregarHijoS(this.ID);
+        nodo.agregarHijoS("=");
+        nodo.agregarHijo(this.exp.getNodo());
+        nodo.agregarHijoS(";");
+        return nodo;
     }
 }
 exports.default = Asignar_valor;

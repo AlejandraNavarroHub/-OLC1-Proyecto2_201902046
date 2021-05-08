@@ -24,6 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_1 = __importStar(require("../tablaSimbolo/TIPO"));
+const nodoAST_1 = require("../Abstract/nodoAST");
 const PRIMITIVO_1 = __importDefault(require("./PRIMITIVO"));
 class Incrementar extends EXPRESION_1.Expresion {
     constructor(linea, columna, exp1, simbolo) {
@@ -104,7 +105,18 @@ class Incrementar extends EXPRESION_1.Expresion {
         return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
     }
     getNodo() {
-        throw new Error("Method not implemented.");
+        let nodo;
+        if (this.simbolo == "++") {
+            nodo = new nodoAST_1.nodoAST("INCREMENTAR");
+            nodo.agregarHijo(this.exp1.getNodo());
+            nodo.agregarHijoS(this.simbolo);
+        }
+        else {
+            nodo = new nodoAST_1.nodoAST("DECREMENTAR");
+            nodo.agregarHijo(this.exp1.getNodo());
+            nodo.agregarHijoS(this.simbolo);
+        }
+        return nodo;
     }
 }
 exports.default = Incrementar;

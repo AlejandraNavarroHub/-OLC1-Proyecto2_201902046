@@ -25,10 +25,13 @@ export default class Imprimir extends Instruccion{
             return;
         }
         tree.updateConsola(value.valor+"");
-        console.log(value.valor);
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("IMPRIMIR");
+        nodo.agregarHijoS("PRINT")
+        nodo.agregarHijo(this.expresion.getNodo());
+        nodo.agregarHijoS(";")
+        return nodo;
     }
 }

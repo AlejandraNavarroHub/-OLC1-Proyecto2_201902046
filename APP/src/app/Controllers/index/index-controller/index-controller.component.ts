@@ -211,6 +211,6 @@ export class IndexControllerComponent implements OnInit {
     const cont:COMPILADOR = {
       CONTENIDO: this.CONTENT
     };
-    this.compilar.GRAFICAR(cont);
+    this.compilar.GRAFICAR(cont).subscribe();
   }
 }

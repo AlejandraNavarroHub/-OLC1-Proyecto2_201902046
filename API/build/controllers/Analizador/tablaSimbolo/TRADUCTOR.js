@@ -7,9 +7,13 @@ const ENTORNO_1 = __importDefault(require("./ENTORNO"));
 const EXCEPTION_1 = __importDefault(require("../exceptions/EXCEPTION"));
 const Instruccion_1 = require("../Abstract/Instruccion");
 const list_simbol_1 = __importDefault(require("./list_simbol"));
+const nodoAST_1 = require("../Abstract/nodoAST");
 class TRADUCTOR {
     // public pila_exec: Array<E> = new Array<Expresion>();
     constructor(instrucciones) {
+        this.grafo = "";
+        this.c = 0;
+        this.raiz = new nodoAST_1.nodoAST("");
         this.CICLOS = [];
         this.FUNCIONES = [];
         this.instrucciones = instrucciones;
@@ -38,6 +42,52 @@ class TRADUCTOR {
     }
     newSimbol(nombre, grupo, tipo, ambito, fila, columna) {
         this.simbolos.push(new list_simbol_1.default(this.simbolos.length + 1, nombre, grupo, tipo, ambito, fila, columna));
+    }
+    graficar() {
+        let nodo = new nodoAST_1.nodoAST("RAIZ");
+        let cont = new nodoAST_1.nodoAST("INSTRUCCIONES");
+        for (let instrucion of this.instrucciones) {
+            if (instrucion instanceof Instruccion_1.Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
+        this.raiz = nodo;
+        this.Graph();
+    }
+    Graph() {
+        let r = "AST";
+        let ext = "pdf";
+        var fs = require('fs');
+        var stream = fs.createWriteStream(`./src/AST/${r}.dot`);
+        stream.once('open', () => {
+            stream.write(this.getDot(this.raiz));
+            stream.end();
+        });
+        const exec = require('child_process').exec;
+        exec(`dot -T ${ext} -o ./src/AST/${r}.${ext} ./src/AST/${r}.dot`, (err, stdout) => {
+            exec(`start ./src/AST/${r}.${ext}`);
+        });
+    }
+    getDot(raiz) {
+        this.grafo = "";
+        this.grafo += "digraph {\n"; //                         "     \"
+        var re = /\"/gi;
+        this.grafo += "n0[label=\"" + raiz.getValor().replace(re, "\\\"") + "\"];\n";
+        this.c = 1;
+        this.recorrerAST("n0", raiz);
+        this.grafo += "}";
+        return this.grafo;
+    }
+    recorrerAST(padre, nPadre) {
+        for (let hijo of nPadre.getHijos()) {
+            let nombreHijo = "n" + this.c;
+            var re = /\"/gi;
+            this.grafo += nombreHijo + "[label=\"" + hijo.getValor().replace(re, "\\\"") + "\"];\n";
+            this.grafo += padre + "->" + nombreHijo + ";\n";
+            this.c++;
+            this.recorrerAST(nombreHijo, hijo);
+        }
     }
 }
 exports.default = TRADUCTOR;

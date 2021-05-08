@@ -15,6 +15,7 @@
     const crementar = require('./expresiones/IN_DECREMENTAR');
     const asignar_valor = require('./instrucciones/ASIGNACION');
     const indec = require('./instrucciones/IN_DECRE');
+    const nativa = require('./expresiones/NATIVA');
 
     let Texto="";
     let TRADUCTOR1 = new TRADUCTOR.default([]);
@@ -117,7 +118,7 @@
 "Truncate"              return "TRUNCATE";
 "Round"                 return "ROUND";
 "Typeof"                return "TYPEOF";
-"toSTRING"              return "TOSTRING";
+"toString"              return "TOSTRING";
 "toCharArray"           return "TOCHARARRAY";
 "Exec"                  return "EXEC";
 
@@ -142,7 +143,7 @@
 <<EOF>>                 return 'EOF';
 
 . {
-    console.log("");
+    TRADUCTOR1.newError("LEXICO", "Símbolo "+yytext+" no reconocido.", yylloc.first_line, yylloc.first_column); 
 }
 /lex
                 
@@ -165,7 +166,7 @@
 
 INICIO
     : INSTRUCCIONES EOF         {TRADUCTOR1.instrucciones = $1; TRADUCTOR2 = TRADUCTOR1; TRADUCTOR1 = new TRADUCTOR.default([]); return TRADUCTOR2;}
-    | error EOF                 {console.log("error");}
+    | error EOF                 {TRADUCTOR1.newError("Sintactico", "Símbolo "+yytext+" no reconocido.", yylloc.first_line, yylloc.first_column);}
     | error                     {console.log("error");}
 ;
 
@@ -176,23 +177,23 @@ INSTRUCCIONES
 
 INSTRUCCION
     : PRINT PIZQ EX PDER PTCOMA                         {$$ = new IMPRIMIR.default($3,this._$.first_line, this._$.first_column);}
-    | DECLE PTCOMA                                      {$$ = $1}
-    | ASIG PTCOMA                                       {$$ = $1}
-    | NOMBRE PT ADD PIZQ EX PDER PTCOMA                 {$$ = $1}
+    | DECLE PTCOMA                                      {$$ = $1;}
+    | ASIG PTCOMA                                       {$$ = $1;}
+    | NOMBRE PT ADD PIZQ EX PDER PTCOMA                 {$$ = $1;}
     | INCREMENTAR PTCOMA                                {$$ = new indec.default($1,this._$.first_line, this._$.first_column);}
     | DECREMENTO PTCOMA                                 {$$ = new indec.default($1,this._$.first_line, this._$.first_column);}
-    | INS_IF                                            {$$ = $1}
-    | INS_TERNARIO PTCOMA                               {$$ = $1}
-    | INS_SWITCH                                        {$$ = $1}
-    | INS_WHILE                                         {$$ = $1}
-    | INS_FOR                                           {$$ = $1}
-    | INS_DOWHILE                                       {$$ = $1}
-    | FUNCION                                           {$$ = $1}
-    | LLAMADA PTCOMA                                    {$$ = $1}
-    | INS_RETURN                                        {$$ = $1}
-    | BREAK PTCOMA                                      {$$ = $1}
-    | CONTINUE PTCOMA                                   {$$ = $1}
-    | error PTCOMA                                      {$$ = ""}
+    | INS_IF                                            {$$ = $1;}
+    | INS_TERNARIO PTCOMA                               {$$ = $1;}
+    | INS_SWITCH                                        {$$ = $1;}
+    | INS_WHILE                                         {$$ = $1;}
+    | INS_FOR                                           {$$ = $1;}
+    | INS_DOWHILE                                       {$$ = $1;}
+    | FUNCION                                           {$$ = $1;}
+    | LLAMADA PTCOMA                                    {$$ = $1;}
+    | INS_RETURN                                        {$$ = $1;}
+    | BREAK PTCOMA                                      {$$ = $1;}
+    | CONTINUE PTCOMA                                   {$$ = $1;}
+    | error PTCOMA                                      {$$ = "";}
     | error LLDER                                    {console.log("error");}
 
 ;
@@ -258,9 +259,9 @@ INS_FOR
 
 
 ACTUALIZACION
-    :ASIGNACION PDER      {$$ = $1}
-    | INCREMENTAR PDER    {$$ = $1}
-    | DECREMENTO PDER     {$$ = $1}
+    :ASIGNACION PDER      {$$ = $1;}
+    | INCREMENTAR PDER    {$$ = $1;}
+    | DECREMENTO PDER     {$$ = $1;}
 ;
 
 
@@ -291,12 +292,12 @@ LLAMADA
 ;
 
 INS_RETURN
-    : RETURN PTCOMA                     {$$ = $1}
-    | RETURN EX PTCOMA                  {$$ = $1}
+    : RETURN PTCOMA                     {$$ = $1;}
+    | RETURN EX PTCOMA                  {$$ = $1;}
 ;
 
 EX
-    :INS_TERNARIO                                   {$$ = $1; console.log("Ternario ex");}
+    :INS_TERNARIO                                   {$$ = $1;}
     |EX MAS EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MENOS EX                                    {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX POR EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
@@ -310,7 +311,7 @@ EX
     |VALORES                                        {$$ = $1;}
     |EX MENORQUE EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MAYORQUE EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX DIFERENTE EX                                {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3); console.log("entre");}
+    |EX DIFERENTE EX                                {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX IGUALDAD EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MAYORIGUAL EX                               {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MENORIGUAL EX                               {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
@@ -320,7 +321,7 @@ EX
     |INS_CAST                                       {$$= $1;}
     |INCREMENTAR                                    {$$=$1;}
     |DECREMENTO                                     {$$=$1;}
-    |NATIVAS                                        {$$=$1;}
+    |INS_NATIVAS                                    {$$=$1;}
     |INS_TOLOWER                                    {$$=$1;}
     |INS_TOUPPER                                    {$$=$1;}
     |NOMBRE                                         {$$= new VARIABLE.default($1,this._$.first_line, this._$.first_column);}
@@ -328,7 +329,7 @@ EX
 ;
 
 INS_TERNARIO
-    :EX INTERROGACION EX DOSPT EX     {$$ = new ternario.default(this._$.first_line, this._$.first_column,$1,$3,$5); console.log("Ternario");}
+    :EX INTERROGACION EX DOSPT EX     {$$ = new ternario.default(this._$.first_line, this._$.first_column,$1,$3,$5);}
 ;
 
 
@@ -367,10 +368,10 @@ INS_TOUPPER
 ;   
 
 INS_NATIVAS
-    :LENGTH PIZQ EX PDER            {$$="";}
-    |TRUNCATE PIZQ EX PDER          {$$="";}
-    |ROUND PIZQ EX PDER             {$$="";}
-    |TYPEOF PIZQ EX PDER            {$$="";}
-    |TOSTRING PIZQ EX PDER          {$$="";}
-    |TOCHARARRAY PIZQ EX PDER       {$$="";}
+    :LENGTH PIZQ EX PDER            {$$= new nativa.default(this._$.first_line, this._$.first_column,$1,$3);}
+    |TRUNCATE PIZQ EX PDER          {$$= new nativa.default(this._$.first_line, this._$.first_column,$1,$3);}
+    |ROUND PIZQ EX PDER             {$$= new nativa.default(this._$.first_line, this._$.first_column,$1,$3);}
+    |TYPEOF PIZQ EX PDER            {$$= new nativa.default(this._$.first_line, this._$.first_column,$1,$3);}
+    |TOSTRING PIZQ EX PDER          {$$= new nativa.default(this._$.first_line, this._$.first_column,$1,$3);}
+    |TOCHARARRAY PIZQ EX PDER       {$$= new nativa.default(this._$.first_line, this._$.first_column,$1,$3);}
 ;

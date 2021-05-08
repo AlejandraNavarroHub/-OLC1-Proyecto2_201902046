@@ -9,18 +9,16 @@ class nodoAST {
     setHijos(hijos) {
         this.hijos = hijos;
     }
-    agregarHijo(cad, hijos, hijo) {
-        if (cad) {
-            this.hijos.push(new nodoAST(cad));
-        }
-        else if (hijos) {
-            for (let hijo of hijos) {
-                this.hijos.push(hijo);
-            }
-        }
-        else if (hijo) {
+    agregarHijoS(cad) {
+        this.hijos.push(new nodoAST(cad));
+    }
+    agregarHijoL(hijos) {
+        for (let hijo of hijos) {
             this.hijos.push(hijo);
         }
+    }
+    agregarHijo(hijo) {
+        this.hijos.push(hijo);
     }
     agregarPrimerHijo(cad, hijo) {
         if (cad) {

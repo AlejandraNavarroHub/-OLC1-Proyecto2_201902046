@@ -25,8 +25,6 @@ export default class Relacionales extends Expresion{
         switch(this.simbolo){
 
             case "<":
-                console.log("hola");
-
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
@@ -115,8 +113,6 @@ export default class Relacionales extends Expresion{
                     }
                 }
             case ">":
-            console.log("hola");
-
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
@@ -203,8 +199,6 @@ export default class Relacionales extends Expresion{
                     }
                 }
             case "!=":
-                console.log("hola aaaaa");
-
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
@@ -291,8 +285,6 @@ export default class Relacionales extends Expresion{
                     }
                 }
             case "==":
-                console.log("hola");
-
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
@@ -334,8 +326,7 @@ export default class Relacionales extends Expresion{
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor == valor2.valor, this.linea,this.columna);
                                 case tipos.CARACTER:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -379,8 +370,6 @@ export default class Relacionales extends Expresion{
                     }
                 }
             case ">=":
-                console.log("hola");
-
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
@@ -467,8 +456,6 @@ export default class Relacionales extends Expresion{
                     }
                 }
             case "<=":
-                console.log("hola ddd");
-
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
@@ -559,6 +546,10 @@ export default class Relacionales extends Expresion{
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("OPERADOR RELACIONAL");
+        nodo.agregarHijo(this.exp1.getNodo());
+        nodo.agregarHijoS(this.simbolo);
+        nodo.agregarHijo(this.exp2.getNodo());
+        return nodo;
     }
 }

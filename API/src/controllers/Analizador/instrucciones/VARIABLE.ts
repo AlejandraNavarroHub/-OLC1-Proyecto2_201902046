@@ -52,10 +52,25 @@ export default class VARIABLE extends Instruccion{
                 return;
             }
             
-            if (this.TipoV.getTipos()===tipos.ENTERO && valor.Tipo.getTipos()===tipos.DECIMAL) {
-                //valor.valor = Math.trunc(valor.valor);
-                tree.newERROR("SEMANTICO","TIPO INT SOLO PUEDE RECIBIR ENTEROS", this.linea, this.columna);
-                return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+            if (this.TipoV.getTipos()===tipos.DECIMAL && valor.Tipo.getTipos()!= tipos.DECIMAL) {
+                tree.newERROR("SEMANTICO","TIPO DECIMAL SOLO PUEDE RECIBIR DECIMAL", this.linea, this.columna);
+                 return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos()===tipos.CADENA && valor.Tipo.getTipos()!= tipos.CADENA) {
+                tree.newERROR("SEMANTICO","TIPO CADENA SOLO PUEDE RECIBIR CADENA", this.linea, this.columna);
+                 return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos()===tipos.CARACTER && valor.Tipo.getTipos()!= tipos.CARACTER) {
+                tree.newERROR("SEMANTICO","TIPO CARACTER SOLO PUEDE RECIBIR CARACTER", this.linea, this.columna);
+                 return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos()===tipos.ENTERO && valor.Tipo.getTipos()!= tipos.ENTERO) {
+                tree.newERROR("SEMANTICO","TIPO INT SOLO PUEDE RECIBIR INT", this.linea, this.columna);
+                 return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos()===tipos.BOOLEANO && valor.Tipo.getTipos()!= tipos.BOOLEANO) {
+                tree.newERROR("SEMANTICO","TIPO BOOLEAN SOLO PUEDE RECIBIR BOOLEAN", this.linea, this.columna);
+                 return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
             }
         }
         let respuesta = undefined;
@@ -72,6 +87,18 @@ export default class VARIABLE extends Instruccion{
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("DECLARACION");
+        if (this.expresion) {
+            nodo.agregarHijoS(this.TipoV.getTipos());
+            nodo.agregarHijoS(this.ID);
+            nodo.agregarHijoS("=");
+            nodo.agregarHijo(this.expresion.getNodo());
+            nodo.agregarHijoS(";");
+        }else{
+            nodo.agregarHijoS(this.TipoV.getTipos());
+            nodo.agregarHijoS(this.ID);
+            nodo.agregarHijoS(";");
+        }
+        return nodo;
     }
 }

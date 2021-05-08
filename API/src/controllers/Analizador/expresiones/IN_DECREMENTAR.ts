@@ -10,8 +10,8 @@ import Simbolo from "../tablaSimbolo/SIMBOLO";
 export default class Incrementar extends Expresion{
 
     public exp1:Expresion;
-    public simbolo:String;
-    constructor(linea:number, columna:number, exp1:Expresion, simbolo:String){
+    public simbolo:string;
+    constructor(linea:number, columna:number, exp1:Expresion, simbolo:string){
         super(linea, columna, undefined, new Tipo(tipos.ENTERO));
         this.exp1 = exp1;
         this.simbolo = simbolo;
@@ -83,6 +83,17 @@ export default class Incrementar extends Expresion{
 
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo;
+        if(this.simbolo == "++"){
+            nodo = new nodoAST("INCREMENTAR");
+            nodo.agregarHijo(this.exp1.getNodo());
+            nodo.agregarHijoS(this.simbolo);
+        }else{
+            nodo = new nodoAST("DECREMENTAR");
+            nodo.agregarHijo(this.exp1.getNodo());
+            nodo.agregarHijoS(this.simbolo);
+        }
+        return nodo;
+        
     }
 }

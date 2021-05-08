@@ -605,6 +605,15 @@ export default class Arit extends Expresion{
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("ARITMETICA");
+        if (this.exp2) {
+            nodo.agregarHijo(this.exp1.getNodo());
+            nodo.agregarHijoS(this.simbolo);
+            nodo.agregarHijo(this.exp2.getNodo());
+        }else{
+            nodo.agregarHijoS(this.simbolo);
+            nodo.agregarHijo(this.exp1.getNodo());
+        }
+        return nodo;
     }
 }

@@ -22,7 +22,7 @@ export default class Casteo extends Expresion{
 
         if (valor1) {
             switch(tipado.getTipos()){
-                case "ENTERO":
+                case tipos.ENTERO:
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor, this.linea,this.columna);
@@ -37,7 +37,7 @@ export default class Casteo extends Expresion{
                             tree.newERROR("SEMANTICO","NO EXISTE EL CASTEO DE STRING", this.linea, this.columna);
                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                     }
-                case "DECIMAL":
+                case tipos.DECIMAL:
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor, this.linea,this.columna);
@@ -53,7 +53,7 @@ export default class Casteo extends Expresion{
                             tree.newERROR("SEMANTICO","NO EXISTE EL CASTEO DE STRING", this.linea, this.columna);
                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                     }
-                case "BOOLEANO":
+                case tipos.BOOLEANO:
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             tree.newERROR("SEMANTICO","NO EXISTE EL CASTEO A BOOLEAN", this.linea, this.columna);
@@ -71,7 +71,7 @@ export default class Casteo extends Expresion{
                             tree.newERROR("SEMANTICO","NO EXISTE EL CASTEO DE STRING", this.linea, this.columna);
                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                     }
-                case "CARACTER":
+                case tipos.CARACTER:
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             return new Primitivo(new Tipo(tipos.ENTERO), String.fromCharCode(valor1.valor), this.linea,this.columna);
@@ -86,7 +86,7 @@ export default class Casteo extends Expresion{
                             tree.newERROR("SEMANTICO","NO EXISTE EL CASTEO DE STRING", this.linea, this.columna);
                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                     }
-                case "CADENA":
+                case tipos.CADENA:
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor, this.linea,this.columna);
@@ -107,6 +107,9 @@ export default class Casteo extends Expresion{
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("CASTEO");
+        nodo.agregarHijoS(this.tip.getTipos());
+        nodo.agregarHijo(this.exp.getNodo());
+        return nodo;
     }
 }

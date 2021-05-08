@@ -36,13 +36,11 @@ class CompiladorController {
         res.json({ CONSOLA: arbol.consola, ERRORES: arbol.errores, SIMBOLOS: arbol.simbolos });
     }
     graph(req, res) {
-        // try{
-        //     const Contenido = req.body.Contenido;
-        //     let parse = require("./Analizador/analizador");
-        //     let ast = new ArbolAST([]);
-        //     ast = parse.parse(Contenido);
-        //     ast.openFile();
-        // }catch{}
+        const CONTENIDO = req.body.CONTENIDO;
+        let parse = require("./Analizador/gramatica");
+        let ast = new TRADUCTOR_1.default([]);
+        ast = parse.parse(CONTENIDO);
+        ast.graficar();
     }
 }
 exports.compiladorController = new CompiladorController();

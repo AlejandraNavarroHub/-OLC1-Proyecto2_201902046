@@ -23,10 +23,10 @@ export default class Tipo
 
 export enum tipos
 {
-    ENTERO = "ENTERO", 
-    DECIMAL = "DECIMAL",
-    CARACTER = "CARACTER",
-    BOOLEANO = "BOOLEANO",
-    CADENA = "CADENA",
+    ENTERO = "INT", 
+    DECIMAL = "DOUBLE",
+    CARACTER = "CHAR",
+    BOOLEANO = "BOOLEAN",
+    CADENA = "STRING",
     ERROR = "ERROR"
 }

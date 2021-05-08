@@ -26,6 +26,7 @@ const Instruccion_1 = require("../Abstract/Instruccion");
 const TIPO_1 = __importStar(require("../tablaSimbolo/TIPO"));
 const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
+const nodoAST_1 = require("../Abstract/nodoAST");
 const PRIMITIVO_1 = __importDefault(require("../expresiones/PRIMITIVO"));
 class VARIABLE extends Instruccion_1.Instruccion {
     constructor(linea, columna, TipoV, nombre, expresion) {
@@ -66,9 +67,24 @@ class VARIABLE extends Instruccion_1.Instruccion {
             if (valor.Tipo.getTipos() === TIPO_1.tipos.ERROR) {
                 return;
             }
-            if (this.TipoV.getTipos() === TIPO_1.tipos.ENTERO && valor.Tipo.getTipos() === TIPO_1.tipos.DECIMAL) {
-                //valor.valor = Math.trunc(valor.valor);
-                tree.newERROR("SEMANTICO", "TIPO INT SOLO PUEDE RECIBIR ENTEROS", this.linea, this.columna);
+            if (this.TipoV.getTipos() === TIPO_1.tipos.DECIMAL && valor.Tipo.getTipos() != TIPO_1.tipos.DECIMAL) {
+                tree.newERROR("SEMANTICO", "TIPO DECIMAL SOLO PUEDE RECIBIR DECIMAL", this.linea, this.columna);
+                return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos() === TIPO_1.tipos.CADENA && valor.Tipo.getTipos() != TIPO_1.tipos.CADENA) {
+                tree.newERROR("SEMANTICO", "TIPO CADENA SOLO PUEDE RECIBIR CADENA", this.linea, this.columna);
+                return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos() === TIPO_1.tipos.CARACTER && valor.Tipo.getTipos() != TIPO_1.tipos.CARACTER) {
+                tree.newERROR("SEMANTICO", "TIPO CARACTER SOLO PUEDE RECIBIR CARACTER", this.linea, this.columna);
+                return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos() === TIPO_1.tipos.ENTERO && valor.Tipo.getTipos() != TIPO_1.tipos.ENTERO) {
+                tree.newERROR("SEMANTICO", "TIPO INT SOLO PUEDE RECIBIR INT", this.linea, this.columna);
+                return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos() === TIPO_1.tipos.BOOLEANO && valor.Tipo.getTipos() != TIPO_1.tipos.BOOLEANO) {
+                tree.newERROR("SEMANTICO", "TIPO BOOLEAN SOLO PUEDE RECIBIR BOOLEAN", this.linea, this.columna);
                 return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
             }
         }
@@ -87,7 +103,20 @@ class VARIABLE extends Instruccion_1.Instruccion {
         }
     }
     getNodo() {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST_1.nodoAST("DECLARACION");
+        if (this.expresion) {
+            nodo.agregarHijoS(this.TipoV.getTipos());
+            nodo.agregarHijoS(this.ID);
+            nodo.agregarHijoS("=");
+            nodo.agregarHijo(this.expresion.getNodo());
+            nodo.agregarHijoS(";");
+        }
+        else {
+            nodo.agregarHijoS(this.TipoV.getTipos());
+            nodo.agregarHijoS(this.ID);
+            nodo.agregarHijoS(";");
+        }
+        return nodo;
     }
 }
 exports.default = VARIABLE;

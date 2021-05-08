@@ -22,6 +22,8 @@ export default class VARIABLE extends Expresion{
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("VARIABLE");
+        nodo.agregarHijoS(this.ID);
+        return nodo;
     }
 }

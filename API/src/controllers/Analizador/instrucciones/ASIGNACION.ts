@@ -41,6 +41,11 @@ export default class Asignar_valor extends Instruccion{
         }
     }
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("ASIGNCACIÓN");
+        nodo.agregarHijoS(this.ID);
+        nodo.agregarHijoS("=")
+        nodo.agregarHijo(this.exp.getNodo());
+        nodo.agregarHijoS(";")
+        return nodo;
     }
 }

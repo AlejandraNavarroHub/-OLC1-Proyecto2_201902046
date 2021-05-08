@@ -11,19 +11,21 @@ export class nodoAST {
         this.hijos = hijos;
     }
 
-    public agregarHijo(cad?:string, hijos?:Array<nodoAST>, hijo?:nodoAST){
-        if (cad) {
-            this.hijos.push(new nodoAST(cad));
-        }
-        else if (hijos) {
-            for(let hijo of hijos)
-            {
-                this.hijos.push(hijo);
-            }
-        }else if(hijo){
+    public agregarHijoS(cad:string){
+        this.hijos.push(new nodoAST(cad));
+    }
+
+    public agregarHijoL(hijos:Array<nodoAST>){
+        for(let hijo of hijos)
+        {
             this.hijos.push(hijo);
         }
     }
+
+    public agregarHijo(hijo:nodoAST){
+        this.hijos.push(hijo);
+    }
+
     public agregarPrimerHijo(cad?:string, hijo?:nodoAST)
     {
         if (cad) {

@@ -22,6 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const TIPO_1 = require("../tablaSimbolo/TIPO");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
+const nodoAST_1 = require("../Abstract/nodoAST");
 class Imprimir extends Instruccion_1.Instruccion {
     constructor(expresion, linea, columna) {
         super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.OTROS));
@@ -35,10 +36,13 @@ class Imprimir extends Instruccion_1.Instruccion {
             return;
         }
         tree.updateConsola(value.valor + "");
-        console.log(value.valor);
     }
     getNodo() {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST_1.nodoAST("IMPRIMIR");
+        nodo.agregarHijoS("PRINT");
+        nodo.agregarHijo(this.expresion.getNodo());
+        nodo.agregarHijoS(";");
+        return nodo;
     }
 }
 exports.default = Imprimir;

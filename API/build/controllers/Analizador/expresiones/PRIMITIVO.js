@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_1 = require("../tablaSimbolo/TIPO");
+const nodoAST_1 = require("../Abstract/nodoAST");
 class Primitivo extends EXPRESION_1.Expresion {
     constructor(tipo, valor, linea, columna) {
         if (typeof (valor) === typeof ("")) {
@@ -28,7 +29,9 @@ class Primitivo extends EXPRESION_1.Expresion {
         return this;
     }
     getNodo() {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST_1.nodoAST("PRIMITIVO");
+        nodo.agregarHijoS(String(this.valor));
+        return nodo;
     }
 }
 exports.default = Primitivo;

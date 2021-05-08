@@ -23,10 +23,10 @@ export default class Tipo_INS
 
 export enum T_INS
 {
-    DECLARACION = "ENTERO", 
-    ASIGNACION = "DECIMAL",
-    LLAMADA = "CARACTER",
-    NATIVA = "BOOLEANO",
-    OTROS = "CADENA",
+    DECLARACION = "DECLARACION", 
+    ASIGNACION = "ASIGNACION",
+    LLAMADA = "LLAMADA",
+    NATIVA = "NATIVA",
+    OTROS = "OTROS",
     ERROR = "ERROR"
 }

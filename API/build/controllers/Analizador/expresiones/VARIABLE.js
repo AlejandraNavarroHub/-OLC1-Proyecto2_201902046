@@ -24,6 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_1 = __importStar(require("../tablaSimbolo/TIPO"));
+const nodoAST_1 = require("../Abstract/nodoAST");
 const PRIMITIVO_1 = __importDefault(require("./PRIMITIVO"));
 class VARIABLE extends EXPRESION_1.Expresion {
     constructor(ID, linea, columna) {
@@ -39,7 +40,9 @@ class VARIABLE extends EXPRESION_1.Expresion {
         return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
     }
     getNodo() {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST_1.nodoAST("VARIABLE");
+        nodo.agregarHijoS(this.ID);
+        return nodo;
     }
 }
 exports.default = VARIABLE;
