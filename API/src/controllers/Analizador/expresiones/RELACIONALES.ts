@@ -6,13 +6,14 @@ import { nodoAST } from "../Abstract/nodoAST";
 import Primitivo from "./PRIMITIVO";
 
 
-export default class Rela extends Expresion{
+export default class Relacionales extends Expresion{
 
     public exp1:Expresion;
     public exp2:Expresion;
     public simbolo:string;
     constructor(linea:number, columna:number, exp1:Expresion, simbolo:string, exp2:Expresion){
         super(linea, columna, undefined, new Tipo(tipos.BOOLEANO));
+        console.log("entre1");
         this.exp1 = exp1;
         this.exp2 = exp2;
         this.simbolo = simbolo;
@@ -21,22 +22,26 @@ export default class Rela extends Expresion{
     public getValor(tree:TRADUCTOR, table:tablaSimbolos):Expresion{
         let valor1 = this.exp1.getValor(tree, table);
         let valor2 = this.exp2?.getValor(tree, table);
-
         switch(this.simbolo){
+
             case "<":
+                console.log("hola");
+
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor < valor2.valor, this.linea, this.columna);
+                                    console.log(typeof valor2);
+                                    console.log(typeof valor1);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO),  Number(valor1.valor) < Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor < valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO),  Number(valor1.valor) < Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR QUE CON UN ENTERO Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor < valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) < valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR QUE CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -44,14 +49,14 @@ export default class Rela extends Expresion{
                         case tipos.DECIMAL:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor < valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO),  Number(valor1.valor) < Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor < valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO),  Number(valor1.valor) < Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR QUE CON UN DOUBLE Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor < valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) < valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR QUE CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -77,9 +82,9 @@ export default class Rela extends Expresion{
                         case tipos.CARACTER:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() < valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() < Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() < valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() < Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR QUE CON UN CARACTER Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -110,19 +115,21 @@ export default class Rela extends Expresion{
                     }
                 }
             case ">":
+            console.log("hola");
+
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor > valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO),  Number(valor1.valor) > Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor > valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) > Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR QUE CON UN ENTERO Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor > valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) > valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR QUE CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -130,14 +137,14 @@ export default class Rela extends Expresion{
                         case tipos.DECIMAL:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor > valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO),  Number(valor1.valor) > Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor > valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO),  Number(valor1.valor) > Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR QUE CON UN DOUBLE Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor > valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) > valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR QUE CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -163,9 +170,9 @@ export default class Rela extends Expresion{
                         case tipos.CARACTER:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() > valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() > Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() > valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() > Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR QUE CON UN CARACTER Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -196,19 +203,21 @@ export default class Rela extends Expresion{
                     }
                 }
             case "!=":
+                console.log("hola aaaaa");
+
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor != valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) != Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor != valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) != Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN DIFERENCIACIÓN CON UN ENTERO Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor != valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) != valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN DIFERENCIACIÓN CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -216,14 +225,14 @@ export default class Rela extends Expresion{
                         case tipos.DECIMAL:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor != valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) != Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor != valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) != Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN DIFERENCIACIÓN CON UN DOUBLE Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor != valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) != valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN DIFERENCIACIÓN CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -249,9 +258,9 @@ export default class Rela extends Expresion{
                         case tipos.CARACTER:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() != valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() != Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() != valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() != Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN DIFERENCIACIÓN CON UN CARACTER Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -282,19 +291,21 @@ export default class Rela extends Expresion{
                     }
                 }
             case "==":
+                console.log("hola");
+
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor == valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) == Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor == valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) == Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD CON UN ENTERO Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor == valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) == valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -302,14 +313,14 @@ export default class Rela extends Expresion{
                         case tipos.DECIMAL:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor == valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) == Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor == valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) == Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD CON UN DOUBLE Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor == valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) == valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -335,9 +346,9 @@ export default class Rela extends Expresion{
                         case tipos.CARACTER:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() == valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() == Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() == valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() == Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD CON UN CARACTER Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -362,25 +373,27 @@ export default class Rela extends Expresion{
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD CON VARIABLE TIPO STRING", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD CON VARIABLE TIPO STRING", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor == valor2.valor, this.linea,this.columna);
                             }
                     }
                 }
             case ">=":
+                console.log("hola");
+
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor >= valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) >= Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor >= valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) >= Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR IGUAL CON UN ENTERO Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor >= valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) >= valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR IGUAL CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -388,14 +401,14 @@ export default class Rela extends Expresion{
                         case tipos.DECIMAL:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor >= valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) >= Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor >= valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) >= Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR IGUAL CON UN DOUBLE Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor >= valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) >= valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR IGUAL CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -421,9 +434,9 @@ export default class Rela extends Expresion{
                         case tipos.CARACTER:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() >= valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() >= Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() >= valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() >= Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MAYOR IGUAL CON UN CARACTER Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -454,19 +467,21 @@ export default class Rela extends Expresion{
                     }
                 }
             case "<=":
+                console.log("hola ddd");
+
                 if (valor2) {
                     switch(valor1.Tipo.getTipos()){
                         case tipos.ENTERO:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor <= valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) <= Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor <= valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) <= Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR IGUAL CON UN ENTERO Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor <= valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) <= valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR IGUAL CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -474,14 +489,14 @@ export default class Rela extends Expresion{
                         case tipos.DECIMAL:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor <= valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO),  Number(valor1.valor) <= Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor <= valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO),  Number(valor1.valor) <= Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR IGUAL CON UN DOUBLE Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor <= valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), Number(valor1.valor) <= valor2.valor.charCodeAt(), this.linea,this.columna);
                                 case tipos.CADENA:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR IGUAL CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -507,9 +522,9 @@ export default class Rela extends Expresion{
                         case tipos.CARACTER:
                             switch(valor2.Tipo.getTipos()){
                                 case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() <= valor2.valor, this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() <= Number(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() <= valor2.valor, this.linea,this.columna);
+                                    return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor.charCodeAt() <= Number(valor2.valor), this.linea,this.columna);
                                 case tipos.BOOLEANO:
                                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MENOR IGUAL CON UN CARACTER Y UN BOOLEAN", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);

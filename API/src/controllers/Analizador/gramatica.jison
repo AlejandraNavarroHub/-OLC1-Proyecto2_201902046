@@ -60,6 +60,17 @@
 "++"                    return "INMAS";
 "--"                    return "INMENOS";
 
+"?"                     return "INTERROGACION";
+
+//comparadores
+"!="                    return "DIFERENTE";
+"=="                    return "IGUALDAD";
+">="                    return "MAYORIGUAL";
+"<="                    return "MENORIGUAL"; 
+"<"                     return "MENORQUE";
+">"                     return "MAYORQUE";
+"="                     return "IGUAL";
+
 //aritmetica
 "+"                     return "MAS";
 "-"                     return "MENOS";
@@ -72,14 +83,7 @@
 "||"                    return "OR";
 "!"                     return "NOT";
 
-//comparadores
-"!="                    return "DIFERENTE";
-"=="                    return "IGUALDAD";
-">="                    return "MAYORQUEIGUAL";
-"<="                    return "MENORQUEIGUAL"; 
-"<"                     return "MENORQUEQUE";
-">"                     return "MAYORQUEQUE";
-"="                     return "IGUAL";
+
 
 
 "INT"                   return "INT";
@@ -89,7 +93,6 @@
 "STRING"                return "STRING";
 "TRUE"                  return "TRUE";
 "FALSE"                 return "FALSE";
-"?"                     return "INTERROGACION";
 
 //funciones
 "PRINT"                 return "PRINT";
@@ -145,10 +148,10 @@
                 
 /* Asociación de operadores y precedencia */
 %left 'INTERROGACION'
+%left 'IGUALDAD' 'DIFERENTE','MENORQUE','MENORIGUAL','MAYORQUE'.'MAYORIGUAL'
 %left 'OR'
 %left 'AND'
 %right 'NOT'
-%left 'IGUALDAD' 'DIFERENTE','MENORQUE','MENORIGUAL','MAYORQUE'.'MAYORIGUAL'
 %left 'MAS' 'MENOS'
 %left 'POR' 'DIV' 'MODULO'
 %left 'ELEVADO'
@@ -179,7 +182,7 @@ INSTRUCCION
     | INCREMENTAR PTCOMA                                {$$ = new indec.default($1,this._$.first_line, this._$.first_column);}
     | DECREMENTO PTCOMA                                 {$$ = new indec.default($1,this._$.first_line, this._$.first_column);}
     | INS_IF                                            {$$ = $1}
-    | INS_INTERROGACION PTCOMA                          {$$ = $1}
+    | INS_TERNARIO PTCOMA                               {$$ = $1}
     | INS_SWITCH                                        {$$ = $1}
     | INS_WHILE                                         {$$ = $1}
     | INS_FOR                                           {$$ = $1}
@@ -225,10 +228,6 @@ INS_IF
     |IF PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER ELSE INS_IF                          {$$="";}
     |IF PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER ELSE LLIZQ INSTRUCCIONES LLDER       {$$="";}
     |IF error LLDER                                                                 {$$="";}    
-;
-
-INS_TERNARIO
-    :EX INTERROGACION EX DOSPT EX     {$$ = new ternario.default(this._$.first_line, this._$.first_column,$1,$2,$3,$4,$5);}
 ;
 
 
@@ -297,28 +296,28 @@ INS_RETURN
 ;
 
 EX
-    :EX MAS EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    :INS_TERNARIO                                   {$$ = $1; console.log("Ternario ex");}
+    |EX MAS EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MENOS EX                                    {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX POR EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX DIV EX                                      {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MODULO EX                                   {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX ELEVADO EX                                  {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |MENOS EX %prec UMENOS                          {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$2,$1);}
-    |PIZQ EX PDER                                   {$$="";}//jerarquia
+    |PIZQ EX PDER                                   {$$=$2;}
     |NOMBRE CIZQ  EX CDER                           {$$="";}//vector
     |NOMBRE CIZQ CIZQ EX CDER CDER                  {$$="";}//lista
     |VALORES                                        {$$ = $1;}
     |EX MENORQUE EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MAYORQUE EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX DIFERENTE EX                                {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX DIFERENTE EX                                {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3); console.log("entre");}
     |EX IGUALDAD EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MAYORIGUAL EX                               {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MENORIGUAL EX                               {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX AND EX                                      {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |EX OR EX                                       {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
-    |NOT EX                                         {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX AND EX                                      {$$= new logico.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |EX OR EX                                       {$$= new logico.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
+    |NOT EX                                         {$$= new logico.default(this._$.first_line, this._$.first_column,$2,$1);}
     |INS_CAST                                       {$$= $1;}
-    |INS_TERNARIO                                   {$$= $1;}
     |INCREMENTAR                                    {$$=$1;}
     |DECREMENTO                                     {$$=$1;}
     |NATIVAS                                        {$$=$1;}
@@ -327,6 +326,11 @@ EX
     |NOMBRE                                         {$$= new VARIABLE.default($1,this._$.first_line, this._$.first_column);}
     |LLAMADA                                        {$$=$1;}
 ;
+
+INS_TERNARIO
+    :EX INTERROGACION EX DOSPT EX     {$$ = new ternario.default(this._$.first_line, this._$.first_column,$1,$3,$5); console.log("Ternario");}
+;
+
 
 INS_TIPO
     :INT                    {$$ = new TIPO.default(TIPO.tipos.ENTERO);}

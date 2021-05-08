@@ -8,19 +8,21 @@ import { nodoAST } from "../Abstract/nodoAST";
 export default class Primitivo extends Expresion{
     
     constructor(tipo:Tipo, valor:any, linea:number, columna:number){
-        switch(tipo.getTipos()){
-            case tipos.ENTERO:
-                valor = Number(valor);
-                break
-            case tipos.BOOLEANO:
-                if (valor.valor.toUpperCase() == "TRUE"){
-                    valor.valor = true;
-                }else{
-                    valor.valor = false;
-                }
-                break
-            case tipos.DECIMAL:
-                valor = Number(valor);
+        if(typeof(valor)== typeof("")){
+            switch(tipo.getTipos()){
+                case tipos.ENTERO:
+                    valor = Number(valor);
+                    break
+                case tipos.BOOLEANO:
+                    if (valor.toUpperCase() == "TRUE"){
+                        valor = true;
+                    }else{
+                        valor = false;
+                    }
+                    break
+                case tipos.DECIMAL:
+                    valor = Number(valor);
+            }
         }
         super(linea, columna, valor, tipo);
     }

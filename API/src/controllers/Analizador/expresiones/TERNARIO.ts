@@ -11,60 +11,34 @@ export default class Ternario extends Expresion{
     public exp1:Expresion;
     public exp2:Expresion;
     public exp3:Expresion;
-    public simbolo1:string;
-    public simbolo2:string;
-    constructor(linea:number, columna:number, exp1:Expresion, simbolo1:string, exp2:Expresion, simbolo2:string, exp3:Expresion){
+    constructor(linea:number, columna:number, exp1:Expresion, exp2:Expresion, exp3:Expresion){
         super(linea, columna, undefined, new Tipo(tipos.ENTERO));
         this.exp1 = exp1;
         this.exp2 = exp2;
         this.exp3 = exp3;
-        this.simbolo1 = simbolo1;
-        this.simbolo2 = simbolo2;
     }
 
     public getValor(tree:TRADUCTOR, table:tablaSimbolos):Expresion{
-        let valor1 = this.exp1.getValor(tree, table);
-        let valor2 = this.exp2.getValor(tree,table);
-        let valor3 = this.exp3.getValor(tree,table);
-
-        if(valor1 && valor2 && valor3){
-            if (valor1.Tipo.getTipos() == tipos.BOOLEANO){
-                if(valor1.valor == true){
-                    switch(valor2.Tipo.getTipos()){
-                        case tipos.ENTERO:
-                            return new Primitivo(new Tipo(tipos.ENTERO), valor2.valor, this.linea, this.columna);
-                        case tipos.DECIMAL:
-                            return new Primitivo(new Tipo(tipos.DECIMAL), valor2.valor, this.linea,this.columna);
-                        case tipos.BOOLEANO:
-                            return new Primitivo(new Tipo(tipos.ENTERO), valor2.valor, this.linea,this.columna);
-                        case tipos.CARACTER:
-                            return new Primitivo(new Tipo(tipos.ENTERO), valor2.valor, this.linea,this.columna);
-                        case tipos.CADENA:
-                            return new Primitivo(new Tipo(tipos.CADENA), valor2.valor, this.linea,this.columna);
+        let comprobar = this.exp1.getValor(tree, table);
+        if (comprobar.Tipo.getTipos()!==tipos.ERROR) {
+            if (comprobar.Tipo.getTipos() === tipos.BOOLEANO) {
+               if (comprobar.valor) {
+                   let valor = this.exp2.getValor(tree, table);
+                   if (valor.Tipo.getTipos()!== tipos.ERROR) {
+                        return valor;
+                   }
+               }else{
+                    let valor = this.exp3.getValor(tree, table);
+                    if (valor.Tipo.getTipos()!== tipos.ERROR) {
+                        return valor;
                     }
-                }else{
-                    switch(valor3.Tipo.getTipos()){
-                        case tipos.ENTERO:
-                            return new Primitivo(new Tipo(tipos.ENTERO), valor3.valor, this.linea, this.columna);
-                        case tipos.DECIMAL:
-                            return new Primitivo(new Tipo(tipos.DECIMAL), valor3.valor, this.linea,this.columna);
-                        case tipos.BOOLEANO:
-                            return new Primitivo(new Tipo(tipos.ENTERO), valor3.valor, this.linea,this.columna);
-                        case tipos.CARACTER:
-                            return new Primitivo(new Tipo(tipos.ENTERO), valor3.valor, this.linea,this.columna);
-                        case tipos.CADENA:
-                            return new Primitivo(new Tipo(tipos.CADENA), valor3.valor, this.linea,this.columna);
-                    }
-                }
-            }else{
-                tree.newERROR("SEMANTICO","LA CONDICIÓN DEBE SER TIPO BOOLEAN", this.linea, this.columna);
-                return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+               }
+               return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna );
             }
-        }else{
-            tree.newERROR("SEMANTICO","NO CUMPLE CON LA SINTAXIS (CONDICION) ? EXPRESION : EXPRESION", this.linea, this.columna);
-            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+            tree.newERROR("SEMANTICO","EL PRIMER VALOR DE UN TERNARIO DEBE SER UN BOOLEANO", this.linea, this.columna);
+            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna );
         }
-        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna );
 
     }
 

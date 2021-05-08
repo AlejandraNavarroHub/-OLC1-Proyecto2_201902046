@@ -66,43 +66,56 @@ class VARIABLE extends Instruccion_1.Instruccion {
             if (valor.Tipo.getTipos() === TIPO_1.tipos.ERROR) {
                 return;
             }
-            switch (this.TipoV.getTipos()) {
-                case TIPO_1.tipos.ENTERO:
-                    valor.valor = Number(valor.valor);
-                    break;
-                case TIPO_1.tipos.DECIMAL:
-                    valor.valor = Number(valor.valor);
-                    break;
-                case TIPO_1.tipos.BOOLEANO:
-                    if (valor.valor.toUpperCase() == "TRUE") {
-                        valor.valor = true;
-                    }
-                    else {
-                        valor.valor = false;
-                    }
-                    break;
-                case TIPO_1.tipos.CADENA:
-                    valor.valor = String(valor.valor);
-                    break;
+            if (typeof (valor) == typeof ("")) {
+                switch (valor.Tipo.getTipos()) {
+                    case TIPO_1.tipos.ENTERO:
+                        valor = Number(valor);
+                        break;
+                    case TIPO_1.tipos.BOOLEANO:
+                        if (valor.toUpperCase() == "TRUE") {
+                            valor = true;
+                        }
+                        else if (valor.toUpperCase() == "FALSE") {
+                            valor = false;
+                        }
+                        break;
+                    case TIPO_1.tipos.DECIMAL:
+                        valor = Number(valor);
+                }
             }
-            if (this.TipoV.getTipos() === TIPO_1.tipos.ENTERO && valor.Tipo.getTipos() === TIPO_1.tipos.DECIMAL) {
-                //valor.valor = Math.trunc(valor.valor);
-                tree.newERROR("SEMANTICO", "TIPO INT SOLO PUEDE RECIBIR ENTEROS", this.linea, this.columna);
+            if (this.TipoV.getTipos() === TIPO_1.tipos.DECIMAL && valor.Tipo.getTipos() != TIPO_1.tipos.DECIMAL) {
+                tree.newERROR("SEMANTICO", "TIPO DECIMAL SOLO PUEDE RECIBIR DECIMAL", this.linea, this.columna);
                 return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
             }
-        }
-        let respuesta = undefined;
-        if (valor instanceof PRIMITIVO_1.default) {
-            respuesta = table.set(this.ID, valor.valor, this.TipoV);
-        }
-        else {
-            respuesta = table.set(this.ID, valor, this.TipoV);
-        }
-        if (respuesta.tipo.getTipos() === TIPO_1.tipos.ERROR) {
-            tree.newERROR("SEMANTICO", "LA VARIABLE YA ESTA DECLARADA", this.linea, this.columna);
-        }
-        else {
-            tree.newSimbol(this.ID, "VARIABLE", this.TipoV.getTipos(), table.nombre, this.linea, this.columna);
+            if (this.TipoV.getTipos() === TIPO_1.tipos.CADENA && valor.Tipo.getTipos() != TIPO_1.tipos.CADENA) {
+                tree.newERROR("SEMANTICO", "TIPO CADENA SOLO PUEDE RECIBIR CADENA", this.linea, this.columna);
+                return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos() === TIPO_1.tipos.CARACTER && valor.Tipo.getTipos() != TIPO_1.tipos.CARACTER) {
+                tree.newERROR("SEMANTICO", "TIPO CARACTER SOLO PUEDE RECIBIR CARACTER", this.linea, this.columna);
+                return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos() === TIPO_1.tipos.ENTERO && valor.Tipo.getTipos() != TIPO_1.tipos.ENTERO) {
+                tree.newERROR("SEMANTICO", "TIPO INT SOLO PUEDE RECIBIR INT", this.linea, this.columna);
+                return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            if (this.TipoV.getTipos() === TIPO_1.tipos.BOOLEANO && valor.Tipo.getTipos() != TIPO_1.tipos.BOOLEANO) {
+                tree.newERROR("SEMANTICO", "TIPO BOOLEAN SOLO PUEDE RECIBIR BOOLEAN", this.linea, this.columna);
+                return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+            }
+            let respuesta = undefined;
+            if (valor instanceof PRIMITIVO_1.default) {
+                respuesta = table.set(this.ID, valor.valor, this.TipoV);
+            }
+            else {
+                respuesta = table.set(this.ID, valor, this.TipoV);
+            }
+            if (respuesta.tipo.getTipos() === TIPO_1.tipos.ERROR) {
+                tree.newERROR("SEMANTICO", "LA VARIABLE YA ESTA DECLARADA", this.linea, this.columna);
+            }
+            else {
+                tree.newSimbol(this.ID, "VARIABLE", this.TipoV.getTipos(), table.nombre, this.linea, this.columna);
+            }
         }
     }
     getNodo() {
