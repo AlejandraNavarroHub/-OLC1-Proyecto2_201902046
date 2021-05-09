@@ -12,7 +12,9 @@ export default class Simbolo
     {
         this.tipo = tipo;
         this.identificador = identificador;
-        this.valor = valor;
+        this.valor = valor;        
+        this.DIMENSION = DIMENSION;
+        this.TAMAÑO = CANTIDAD;
     }
 
     public getIdentificador() {

@@ -21,8 +21,8 @@ export default class Incrementar extends Expresion{
         let valor1 = this.exp1.getValor(tree, table);
         if(this.simbolo == "++"){
             if(this.exp1.ID){
-                if(valor1.Tipo.getTipos() == tipos.ENTERO || valor1.Tipo.getTipos() == tipos.DECIMAL){
-                    if(valor1.Tipo.getTipos() == tipos.ENTERO){
+                if(valor1.Tipo.tipos == tipos.ENTERO || valor1.Tipo.tipos == tipos.DECIMAL){
+                    if(valor1.Tipo.tipos == tipos.ENTERO){
                         let nueva = new Primitivo(new Tipo(tipos.ENTERO), valor1.valor+1, this.linea, this.columna)
                         table.update(this.exp1.ID, nueva);
                         return nueva;
@@ -37,8 +37,8 @@ export default class Incrementar extends Expresion{
                 }
             }
             else{
-                if(valor1.Tipo.getTipos() == tipos.ENTERO || valor1.Tipo.getTipos() == tipos.DECIMAL){
-                    if(valor1.Tipo.getTipos() == tipos.ENTERO){
+                if(valor1.Tipo.tipos == tipos.ENTERO || valor1.Tipo.tipos == tipos.DECIMAL){
+                    if(valor1.Tipo.tipos == tipos.ENTERO){
                         return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor+1, this.linea, this.columna);
                     }else{
                         return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor+1, this.linea, this.columna);
@@ -50,8 +50,8 @@ export default class Incrementar extends Expresion{
             }
         }else if(this.simbolo == "--"){
             if(this.exp1.ID){
-                if(valor1.Tipo.getTipos() == tipos.ENTERO || valor1.Tipo.getTipos() == tipos.DECIMAL){
-                    if(valor1.Tipo.getTipos() == tipos.ENTERO){
+                if(valor1.Tipo.tipos == tipos.ENTERO || valor1.Tipo.tipos == tipos.DECIMAL){
+                    if(valor1.Tipo.tipos == tipos.ENTERO){
                         let nueva = new Primitivo(new Tipo(tipos.ENTERO), valor1.valor-1, this.linea, this.columna)
                         table.update(this.exp1.ID, nueva);
                         return nueva;
@@ -66,8 +66,8 @@ export default class Incrementar extends Expresion{
                 }
             }
             else{
-                if(valor1.Tipo.getTipos() == tipos.ENTERO || valor1.Tipo.getTipos() == tipos.DECIMAL){
-                    if(valor1.Tipo.getTipos() == tipos.ENTERO){
+                if(valor1.Tipo.tipos == tipos.ENTERO || valor1.Tipo.tipos == tipos.DECIMAL){
+                    if(valor1.Tipo.tipos == tipos.ENTERO){
                         return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor-1, this.linea, this.columna);
                     }else{
                         return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor-1, this.linea, this.columna);
@@ -80,6 +80,7 @@ export default class Incrementar extends Expresion{
         }
         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
     }
+
 
 
     public getNodo(): nodoAST {

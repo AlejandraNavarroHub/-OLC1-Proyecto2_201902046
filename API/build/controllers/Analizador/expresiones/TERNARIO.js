@@ -35,17 +35,17 @@ class Ternario extends EXPRESION_1.Expresion {
     }
     getValor(tree, table) {
         let comprobar = this.exp1.getValor(tree, table);
-        if (comprobar.Tipo.getTipos() !== TIPO_1.tipos.ERROR) {
-            if (comprobar.Tipo.getTipos() === TIPO_1.tipos.BOOLEANO) {
+        if (comprobar.Tipo.tipos !== TIPO_1.tipos.ERROR) {
+            if (comprobar.Tipo.tipos === TIPO_1.tipos.BOOLEANO) {
                 if (comprobar.valor) {
                     let valor = this.exp2.getValor(tree, table);
-                    if (valor.Tipo.getTipos() !== TIPO_1.tipos.ERROR) {
+                    if (valor.Tipo.tipos !== TIPO_1.tipos.ERROR) {
                         return valor;
                     }
                 }
                 else {
                     let valor = this.exp3.getValor(tree, table);
-                    if (valor.Tipo.getTipos() !== TIPO_1.tipos.ERROR) {
+                    if (valor.Tipo.tipos !== TIPO_1.tipos.ERROR) {
                         return valor;
                     }
                 }

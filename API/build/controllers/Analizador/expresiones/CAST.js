@@ -36,9 +36,9 @@ class Casteo extends EXPRESION_1.Expresion {
         let valor1 = this.exp.getValor(tree, table);
         let tipado = this.tip;
         if (valor1) {
-            switch (tipado.getTipos()) {
+            switch (tipado.tipos) {
                 case TIPO_1.tipos.ENTERO:
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor, this.linea, this.columna);
                         case TIPO_1.tipos.DECIMAL:
@@ -53,7 +53,7 @@ class Casteo extends EXPRESION_1.Expresion {
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                     }
                 case TIPO_1.tipos.DECIMAL:
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor, this.linea, this.columna);
                         case TIPO_1.tipos.DECIMAL:
@@ -69,7 +69,7 @@ class Casteo extends EXPRESION_1.Expresion {
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                     }
                 case TIPO_1.tipos.BOOLEANO:
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
                             tree.newERROR("SEMANTICO", "NO EXISTE EL CASTEO A BOOLEAN", this.linea, this.columna);
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -87,7 +87,7 @@ class Casteo extends EXPRESION_1.Expresion {
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                     }
                 case TIPO_1.tipos.CARACTER:
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), String.fromCharCode(valor1.valor), this.linea, this.columna);
                         case TIPO_1.tipos.DECIMAL:
@@ -102,7 +102,7 @@ class Casteo extends EXPRESION_1.Expresion {
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                     }
                 case TIPO_1.tipos.CADENA:
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor, this.linea, this.columna);
                         case TIPO_1.tipos.DECIMAL:

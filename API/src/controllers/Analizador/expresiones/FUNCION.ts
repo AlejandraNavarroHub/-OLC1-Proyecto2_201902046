@@ -6,7 +6,6 @@ import { nodoAST } from "../Abstract/nodoAST";
 import Primitivo from "./PRIMITIVO";
 import { Instruccion } from "../Abstract/Instruccion";
 import Simbolo from "../tablaSimbolo/SIMBOLO";
-import IF from "../instrucciones/IF";
 
 
 
@@ -20,8 +19,9 @@ export default class FUNCION_E extends Expresion{
 
     public getValor(tree:TRADUCTOR, table:tablaSimbolos): Expresion{
         let comprobar = table.get(this.ID);
-        if (comprobar.tipo.getTipos() !== tipos.ERROR) {
+        if (comprobar.tipo.tipos !== tipos.ERROR) {
             let FUNC = comprobar.valor;
+            let value :any[] = [];
             let nuevo_entorno = new tablaSimbolos(this.ID, table);
             if (this.PARAMETROS instanceof Array) {
                 if (this.PARAMETROS.length>FUNC.PARAMETROS.length) {
@@ -30,38 +30,48 @@ export default class FUNCION_E extends Expresion{
                 }
                 let x = 0;
                 for(let parametro of this.PARAMETROS){
-                    if (parametro instanceof Expresion) {
-                        let valor = parametro.getValor(tree, table);
-                        if (valor.Tipo.getTipos()===tipos.ERROR) {
-                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                        }
-                        if (valor.Tipo.getTipos() !== FUNC.PARAMETROS[x].TipoV.getTipos()) {
-                            tree.newERROR("SEMANTICO", "EL TIPO DE LAS VARIABLES DE LA FUNCIÓN NO COINCIDEN", this.linea, this.columna);
-                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                        }
-                        FUNC.PARAMETROS[x].expresion = valor;
-                        FUNC.PARAMETROS[x].ejecutar(tree, nuevo_entorno);
+                    let valor = parametro.getValor(tree, table);
+                    if (valor.Tipo.tipos===tipos.ERROR) {
+                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                    }
+                    if (valor.Tipo.tipos !== FUNC.PARAMETROS[x].TipoV.tipos) {
+                        tree.newERROR("SEMANTICO", "EL TIPO DE LAS VARIABLES DE LA FUNCIÓN NO COINCIDEN", this.linea, this.columna);
+                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                     }
                     x++;
+                    value.push(valor);
                 }
 
             }
-            tree.FUNCIONES.push("");
-            if (FUNC.BLOQUE instanceof Array) {
+            let x = 0;
+            if (FUNC.BLOQUE) {
+                if (FUNC.PARAMETROS) {
+                    let x = 0;
+                    for(let declaracion of FUNC.PARAMETROS){
+                        let exp = value[x];
+                        exp.linea = declaracion.linea;
+                        exp.columna =declaracion.columna;
+                        declaracion.expresion = exp;
+                        declaracion.ejecutar(tree, nuevo_entorno);
+                        x++; 
+                    }
+                }
+                tree.FUNCIONES.push("funcion");
                 for(let instrucciones of FUNC.BLOQUE){
                     if (instrucciones instanceof Instruccion) {
                         let res = instrucciones.ejecutar(tree, nuevo_entorno);
-                        try{
+                        if (typeof(res)===typeof({}) && !(res instanceof Expresion)) {
                             if (res.nombre=="RETURN") {
-                                let v = res.valor.getValor(tree, nuevo_entorno);
+                                let v = res.valor;
                                 if (v instanceof Primitivo) {
-                                    if (v.Tipo.getTipos()!==FUNC.TIPOV.getTipos() ||
-                                        v.Tipo.getTipos()!==tipos.ENTERO && FUNC.TIPOV.getTipos()!==tipos.DECIMAL||
-                                        v.Tipo.getTipos()!==tipos.DECIMAL && FUNC.TIPOV.getTipos() !== tipos.ENTERO) {
+                                    if (v.Tipo.tipos!==FUNC.TIPOV.tipos ||
+                                        v.Tipo.tipos!==tipos.ENTERO && FUNC.TIPOV.tipos!==tipos.DECIMAL||
+                                        v.Tipo.tipos!==tipos.DECIMAL && FUNC.TIPOV.tipos !== tipos.ENTERO) {
                                             tree.FUNCIONES.pop();
                                             tree.newERROR("SEMANTICO","TIPO DE RETORNO INCORRECTO", this.linea, this.columna);
                                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                     }
+                                    tree.FUNCIONES.pop();
                                     return v;
                                 }
                             }
@@ -77,11 +87,11 @@ export default class FUNCION_E extends Expresion{
                                 tree.newERROR("SEMANTICO","FUNCIÓN CONTINUE NO SE PUEDE USAR DENTRO DE UNA FUNCIÓN", this.linea, this.columna);
                                 return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna); 
                             }
-                        }catch{}
+                        }
                     }
                 }
 
-                if (FUNC.TIPOV.getTipos() === tipos.ERROR) {
+                if (FUNC.TIPOV.tipos === tipos.ERROR) {
                     return new Primitivo(new Tipo(tipos.CADENA), undefined, this.linea, this.columna);    
                 }
                 tree.newERROR("SEMANTICO","SE ESPERABA UN VALOR DE RETORNO", this.linea, this.columna);

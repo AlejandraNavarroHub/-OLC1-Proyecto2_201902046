@@ -1,6 +1,6 @@
 export default class Tipo
 {
-    private tipos: tipos;
+    public tipos: tipos;
     
     constructor(tipos: tipos){
         this.tipos = tipos;

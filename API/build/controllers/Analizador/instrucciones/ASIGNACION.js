@@ -32,13 +32,13 @@ class Asignar_valor extends Instruccion_1.Instruccion {
     ejecutar(tree, table) {
         let vari = table.get(this.ID);
         let valor = undefined;
-        if (vari.tipo.getTipos() !== TIPO_1.tipos.ERROR) {
+        if (vari.tipo.tipos !== TIPO_1.tipos.ERROR) {
             if (this.exp) {
                 valor = this.exp.getValor(tree, table);
-                if (valor.Tipo.getTipos() !== TIPO_1.tipos.ERROR) {
-                    if (vari.tipo.getTipos() !== valor.Tipo.getTipos() && vari.tipo.getTipos() !== TIPO_1.tipos.ENTERO
-                        && valor.Tipo.getTipos() !== TIPO_1.tipos.DECIMAL && vari.tipo.getTipos() !== TIPO_1.tipos.DECIMAL
-                        && valor.Tipo.getTipos() !== TIPO_1.tipos.ENTERO) {
+                if (valor.Tipo.tipos !== TIPO_1.tipos.ERROR) {
+                    if (vari.tipo.tipos !== valor.Tipo.tipos && vari.tipo.tipos !== TIPO_1.tipos.ENTERO
+                        && valor.Tipo.tipos !== TIPO_1.tipos.DECIMAL && vari.tipo.tipos !== TIPO_1.tipos.DECIMAL
+                        && valor.Tipo.tipos !== TIPO_1.tipos.ENTERO) {
                         tree.newERROR("SEMANTICO", "EL TIPO DE LA EXPRESIÓN NO COINCIDE CON EL DE LA VARIABLE", this.linea, this.columna);
                         return;
                     }

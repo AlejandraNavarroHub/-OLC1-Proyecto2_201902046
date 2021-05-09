@@ -38,7 +38,7 @@ class VARIABLE extends Instruccion_1.Instruccion {
     ejecutar(tree, table) {
         let valor = undefined;
         if (!(this.expresion instanceof EXPRESION_1.Expresion)) {
-            switch (this.TipoV.getTipos()) {
+            switch (this.TipoV.tipos) {
                 case TIPO_1.tipos.ENTERO:
                     valor = 0;
                     break;
@@ -57,33 +57,33 @@ class VARIABLE extends Instruccion_1.Instruccion {
             }
         }
         else if (this.expresion) {
-            if (this.TipoV.getTipos() !== this.expresion.Tipo.getTipos() &&
-                this.TipoV.getTipos() !== TIPO_1.tipos.ENTERO && this.expresion.Tipo.getTipos() !== TIPO_1.tipos.DECIMAL
-                && this.TipoV.getTipos() !== TIPO_1.tipos.DECIMAL && this.expresion.Tipo.getTipos() !== TIPO_1.tipos.ENTERO) {
+            if (this.TipoV.tipos !== this.expresion.Tipo.tipos &&
+                this.TipoV.tipos !== TIPO_1.tipos.ENTERO && this.expresion.Tipo.tipos !== TIPO_1.tipos.DECIMAL
+                && this.TipoV.tipos !== TIPO_1.tipos.DECIMAL && this.expresion.Tipo.tipos !== TIPO_1.tipos.ENTERO) {
                 tree.newERROR("SEMANTICO", "EL TIPO DE LA EXPRESIÓN NO COINCIDE CON EL DE LA VARIABLE", this.linea, this.columna);
                 return;
             }
             valor = this.expresion.getValor(tree, table);
-            if (valor.Tipo.getTipos() === TIPO_1.tipos.ERROR) {
+            if (valor.Tipo.tipos === TIPO_1.tipos.ERROR) {
                 return;
             }
-            if (this.TipoV.getTipos() === TIPO_1.tipos.DECIMAL && valor.Tipo.getTipos() != TIPO_1.tipos.DECIMAL) {
+            if (this.TipoV.tipos === TIPO_1.tipos.DECIMAL && valor.Tipo.tipos != TIPO_1.tipos.DECIMAL) {
                 tree.newERROR("SEMANTICO", "TIPO DECIMAL SOLO PUEDE RECIBIR DECIMAL", this.linea, this.columna);
                 return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
             }
-            if (this.TipoV.getTipos() === TIPO_1.tipos.CADENA && valor.Tipo.getTipos() != TIPO_1.tipos.CADENA) {
+            if (this.TipoV.tipos === TIPO_1.tipos.CADENA && valor.Tipo.tipos != TIPO_1.tipos.CADENA) {
                 tree.newERROR("SEMANTICO", "TIPO CADENA SOLO PUEDE RECIBIR CADENA", this.linea, this.columna);
                 return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
             }
-            if (this.TipoV.getTipos() === TIPO_1.tipos.CARACTER && valor.Tipo.getTipos() != TIPO_1.tipos.CARACTER) {
+            if (this.TipoV.tipos === TIPO_1.tipos.CARACTER && valor.Tipo.tipos != TIPO_1.tipos.CARACTER) {
                 tree.newERROR("SEMANTICO", "TIPO CARACTER SOLO PUEDE RECIBIR CARACTER", this.linea, this.columna);
                 return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
             }
-            if (this.TipoV.getTipos() === TIPO_1.tipos.ENTERO && valor.Tipo.getTipos() != TIPO_1.tipos.ENTERO) {
+            if (this.TipoV.tipos === TIPO_1.tipos.ENTERO && valor.Tipo.tipos != TIPO_1.tipos.ENTERO) {
                 tree.newERROR("SEMANTICO", "TIPO INT SOLO PUEDE RECIBIR INT", this.linea, this.columna);
                 return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
             }
-            if (this.TipoV.getTipos() === TIPO_1.tipos.BOOLEANO && valor.Tipo.getTipos() != TIPO_1.tipos.BOOLEANO) {
+            if (this.TipoV.tipos === TIPO_1.tipos.BOOLEANO && valor.Tipo.tipos != TIPO_1.tipos.BOOLEANO) {
                 tree.newERROR("SEMANTICO", "TIPO BOOLEAN SOLO PUEDE RECIBIR BOOLEAN", this.linea, this.columna);
                 return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
             }
@@ -95,24 +95,24 @@ class VARIABLE extends Instruccion_1.Instruccion {
         else {
             respuesta = table.set(this.ID, valor, this.TipoV);
         }
-        if (respuesta.tipo.getTipos() === TIPO_1.tipos.ERROR) {
+        if (respuesta.tipo.tipos === TIPO_1.tipos.ERROR) {
             tree.newERROR("SEMANTICO", "LA VARIABLE YA ESTA DECLARADA", this.linea, this.columna);
         }
         else if (table.nombre === "GLOBAL") {
-            tree.newSimbol(this.ID, "VARIABLE", this.TipoV.getTipos(), table.nombre, this.linea, this.columna);
+            tree.newSimbol(this.ID, "VARIABLE", this.TipoV.tipos, table.nombre, this.linea, this.columna);
         }
     }
     getNodo() {
         let nodo = new nodoAST_1.nodoAST("DECLARACION");
         if (this.expresion) {
-            nodo.agregarHijoS(this.TipoV.getTipos());
+            nodo.agregarHijoS(this.TipoV.tipos);
             nodo.agregarHijoS(this.ID);
             nodo.agregarHijoS("=");
             nodo.agregarHijo(this.expresion.getNodo());
             nodo.agregarHijoS(";");
         }
         else {
-            nodo.agregarHijoS(this.TipoV.getTipos());
+            nodo.agregarHijoS(this.TipoV.tipos);
             nodo.agregarHijoS(this.ID);
             nodo.agregarHijoS(";");
         }

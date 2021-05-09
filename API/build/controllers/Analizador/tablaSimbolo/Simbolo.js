@@ -5,6 +5,8 @@ class Simbolo {
         this.tipo = tipo;
         this.identificador = identificador;
         this.valor = valor;
+        this.DIMENSION = DIMENSION;
+        this.TAMAÑO = CANTIDAD;
     }
     getIdentificador() {
         return this.identificador;

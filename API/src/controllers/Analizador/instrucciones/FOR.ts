@@ -26,22 +26,22 @@ export default class FOR extends Instruccion{
         let nuevo_entorno = new tablaSimbolos("", table);
         let entorno_For = new tablaSimbolos("", nuevo_entorno);
         let comprobar:any = undefined;
-        if (this.DECLARACION.TIPO.getTipos() === T_INS.DECLARACION) {
+        if (this.DECLARACION.TIPO.tipos === T_INS.DECLARACION) {
             this.DECLARACION.ejecutar(tree, nuevo_entorno);        
             comprobar = this.CONDICION.getValor(tree, nuevo_entorno);
         }else{
             this.DECLARACION.ejecutar(tree, table);
             comprobar = this.CONDICION.getValor(tree, table);
         }
-        if (comprobar.Tipo.getTipos()!==tipos.ERROR) {
-            if (comprobar.Tipo.getTipos()===tipos.BOOLEANO) {
+        if (comprobar.Tipo.tipos!==tipos.ERROR) {
+            if (comprobar.Tipo.tipos===tipos.BOOLEANO) {
                 tree.CICLOS.push("CICLO");
                 while(comprobar.valor){
                     entorno_For = new tablaSimbolos("", nuevo_entorno);
                     for(let instruccion of this.BLOQUE){
                         if (instruccion instanceof Instruccion) {
                             let res = instruccion.ejecutar(tree, entorno_For);
-                            try{
+                            if (typeof(res)===typeof({}) && !(res instanceof Expresion)) {
                                 if (res.nombre==="BREAK") {
                                     tree.CICLOS.pop();
                                     return;
@@ -53,10 +53,10 @@ export default class FOR extends Instruccion{
                                     tree.CICLOS.pop();
                                     return res;
                                 }
-                            }catch(e){}
+                            }
                         }
                     }
-                    if (this.DECLARACION.TIPO.getTipos() === T_INS.DECLARACION) {
+                    if (this.DECLARACION.TIPO.tipos === T_INS.DECLARACION) {
                         comprobar = this.ACTUALIZACION.getValor(tree, nuevo_entorno);
                         comprobar = this.CONDICION.getValor(tree, nuevo_entorno);
                     }else{

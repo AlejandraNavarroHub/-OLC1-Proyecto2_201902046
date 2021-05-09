@@ -9,7 +9,7 @@ export default class Primitivo extends Expresion{
     
     constructor(tipo:Tipo, valor:any, linea:number, columna:number){
         if(typeof(valor)=== typeof("")){
-            switch(tipo.getTipos()){
+            switch(tipo.tipos){
                 case tipos.ENTERO:
                     valor = Number(valor);
                     break;

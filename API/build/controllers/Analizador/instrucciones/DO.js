@@ -25,6 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const ENTORNO_1 = __importDefault(require("../tablaSimbolo/ENTORNO"));
 const TIPO_1 = require("../tablaSimbolo/TIPO");
+const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
 const nodoAST_1 = require("../Abstract/nodoAST");
 class DO extends Instruccion_1.Instruccion {
@@ -35,15 +36,15 @@ class DO extends Instruccion_1.Instruccion {
     }
     ejecutar(tree, table) {
         let comprobar = this.condicion.getValor(tree, table);
-        if (comprobar.Tipo.getTipos() !== TIPO_1.tipos.ERROR) {
-            if (comprobar.Tipo.getTipos() === TIPO_1.tipos.BOOLEANO) {
+        if (comprobar.Tipo.tipos !== TIPO_1.tipos.ERROR) {
+            if (comprobar.Tipo.tipos === TIPO_1.tipos.BOOLEANO) {
                 tree.CICLOS.push("CICLO");
                 let nuevo_entorno = new ENTORNO_1.default("", table);
                 //DO
                 for (let instruccion of this.bloque) {
                     if (instruccion instanceof Instruccion_1.Instruccion) {
                         let res = instruccion.ejecutar(tree, nuevo_entorno);
-                        try {
+                        if (typeof (res) === typeof ({}) && !(res instanceof EXPRESION_1.Expresion)) {
                             if (res.nombre === "BREAK") {
                                 tree.CICLOS.pop();
                                 return;
@@ -56,7 +57,6 @@ class DO extends Instruccion_1.Instruccion {
                                 return res;
                             }
                         }
-                        catch (e) { }
                     }
                 }
                 comprobar = this.condicion.getValor(tree, table);
@@ -66,7 +66,7 @@ class DO extends Instruccion_1.Instruccion {
                     for (let instruccion of this.bloque) {
                         if (instruccion instanceof Instruccion_1.Instruccion) {
                             let res = instruccion.ejecutar(tree, nuevo_entorno);
-                            try {
+                            if (typeof (res) === typeof ({}) && !(res instanceof EXPRESION_1.Expresion)) {
                                 if (res.nombre === "BREAK") {
                                     tree.CICLOS.pop();
                                     return;
@@ -79,7 +79,6 @@ class DO extends Instruccion_1.Instruccion {
                                     return res;
                                 }
                             }
-                            catch (e) { }
                         }
                     }
                     comprobar = this.condicion.getValor(tree, table);

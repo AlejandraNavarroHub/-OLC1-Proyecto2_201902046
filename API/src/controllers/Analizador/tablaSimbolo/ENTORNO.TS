@@ -24,10 +24,11 @@ export default class Entorno
         return new Simbolo(new Tipo(tipos.ERROR), "", undefined); 
     }
     
-    public update(simbolo:string, valor:Expresion){
+    public update(simbolo:string, valor:Expresion, T:number=0){
         let value = this.get(simbolo);
-        if(value.tipo.getTipos()!==tipos.ERROR){
+        if(value.tipo.tipos!==tipos.ERROR){
             value.valor = valor.valor;
+            value.TAMAÑO = T;
             this.tabla.set(simbolo, value);
             return true;
         }

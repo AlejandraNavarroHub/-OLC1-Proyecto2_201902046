@@ -32,7 +32,7 @@ class VARIABLE extends EXPRESION_1.Expresion {
     }
     getValor(tree, table) {
         let comprobar = table.get(this.ID);
-        if (comprobar.tipo.getTipos() !== TIPO_1.tipos.ERROR) {
+        if (comprobar.tipo.tipos !== TIPO_1.tipos.ERROR) {
             let valor = comprobar;
             return new PRIMITIVO_1.default(valor.tipo, valor.valor, this.linea, this.columna);
         }

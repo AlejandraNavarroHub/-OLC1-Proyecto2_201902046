@@ -21,9 +21,9 @@ export default class Casteo extends Expresion{
         let tipado = this.tip;
 
         if (valor1) {
-            switch(tipado.getTipos()){
+            switch(tipado.tipos){
                 case tipos.ENTERO:
-                    switch(valor1.Tipo.getTipos()){
+                    switch(valor1.Tipo.tipos){
                         case tipos.ENTERO:
                             return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor, this.linea,this.columna);
                         case tipos.DECIMAL:
@@ -38,7 +38,7 @@ export default class Casteo extends Expresion{
                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                     }
                 case tipos.DECIMAL:
-                    switch(valor1.Tipo.getTipos()){
+                    switch(valor1.Tipo.tipos){
                         case tipos.ENTERO:
                             return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor, this.linea,this.columna);
                         case tipos.DECIMAL:
@@ -54,7 +54,7 @@ export default class Casteo extends Expresion{
                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                     }
                 case tipos.BOOLEANO:
-                    switch(valor1.Tipo.getTipos()){
+                    switch(valor1.Tipo.tipos){
                         case tipos.ENTERO:
                             tree.newERROR("SEMANTICO","NO EXISTE EL CASTEO A BOOLEAN", this.linea, this.columna);
                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -72,7 +72,7 @@ export default class Casteo extends Expresion{
                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                     }
                 case tipos.CARACTER:
-                    switch(valor1.Tipo.getTipos()){
+                    switch(valor1.Tipo.tipos){
                         case tipos.ENTERO:
                             return new Primitivo(new Tipo(tipos.ENTERO), String.fromCharCode(valor1.valor), this.linea,this.columna);
                         case tipos.DECIMAL:
@@ -87,7 +87,7 @@ export default class Casteo extends Expresion{
                             return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                     }
                 case tipos.CADENA:
-                    switch(valor1.Tipo.getTipos()){
+                    switch(valor1.Tipo.tipos){
                         case tipos.ENTERO:
                             return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor, this.linea,this.columna);
                         case tipos.DECIMAL:

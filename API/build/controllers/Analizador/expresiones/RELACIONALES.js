@@ -34,18 +34,19 @@ class Relacionales extends EXPRESION_1.Expresion {
         this.simbolo = simbolo;
     }
     getValor(tree, table) {
-        var _a;
-        let valor1 = this.exp1.getValor(tree, table);
-        let valor2 = (_a = this.exp2) === null || _a === void 0 ? void 0 : _a.getValor(tree, table);
+        var valor1;
+        var valor2;
+        valor1 = this.exp1.getValor(tree, table);
+        if (this.exp2) {
+            valor2 = this.exp2.getValor(tree, table);
+        }
         switch (this.simbolo) {
             case "<":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
-                                    console.log(typeof valor2);
-                                    console.log(typeof valor1);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) < Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) < Number(valor2.valor), this.linea, this.columna);
@@ -59,7 +60,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) < Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -74,7 +75,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MENOR QUE ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -92,7 +93,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), valor1.valor.charCodeAt() < Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -107,7 +108,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MENOR CON VARIABLE TIPO STRING", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -128,9 +129,9 @@ class Relacionales extends EXPRESION_1.Expresion {
                 }
             case ">":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) > Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -145,7 +146,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) > Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -160,7 +161,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MAYOR QUE ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -178,7 +179,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), valor1.valor.charCodeAt() > Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -193,7 +194,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MAYOR CON VARIABLE TIPO STRING", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -214,9 +215,9 @@ class Relacionales extends EXPRESION_1.Expresion {
                 }
             case "!=":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) != Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -231,7 +232,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) != Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -246,7 +247,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN DIFERENCIACIÓN ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -264,7 +265,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), valor1.valor.charCodeAt() != Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -279,7 +280,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN DIFERENCIACIÓN CON VARIABLE TIPO STRING", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -300,9 +301,9 @@ class Relacionales extends EXPRESION_1.Expresion {
                 }
             case "==":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) == Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -317,7 +318,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) == Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -332,7 +333,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -340,7 +341,8 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                                 case TIPO_1.tipos.BOOLEANO:
-                                    return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), valor1.valor == valor2.valor, this.linea, this.columna);
+                                    tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
+                                    return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                                 case TIPO_1.tipos.CARACTER:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -349,7 +351,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), valor1.valor.charCodeAt() == Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -364,7 +366,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN IGUALDAD CON VARIABLE TIPO STRING", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -384,9 +386,9 @@ class Relacionales extends EXPRESION_1.Expresion {
                 }
             case ">=":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) >= Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -401,7 +403,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) >= Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -416,7 +418,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MAYOR IGUAL ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -434,7 +436,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), valor1.valor.charCodeAt() >= Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -449,7 +451,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MAYOR IGUAL CON VARIABLE TIPO STRING", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -470,9 +472,9 @@ class Relacionales extends EXPRESION_1.Expresion {
                 }
             case "<=":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) <= Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -487,7 +489,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), Number(valor1.valor) <= Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -502,7 +504,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MENOR IGUAL ENTRE VARIABLES TIPO BOOLEAN", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -520,7 +522,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.BOOLEANO), valor1.valor.charCodeAt() <= Number(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -535,7 +537,7 @@ class Relacionales extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MENOR IGUAL CON VARIABLE TIPO STRING", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);

@@ -55,8 +55,7 @@ export default class TRADUCTOR {
 
         for(let instrucion of this.instrucciones){
             if (instrucion instanceof Instruccion) {
-                console.log(instrucion);
-                if (instrucion.TIPO.getTipos() === T_INS.DECLARACION) {
+                if (instrucion.TIPO.tipos === T_INS.DECLARACION) {
                     instrucion.ejecutar(this, this.global);
                 }else{
                     this.newERROR("SEMANTICO","SOLO SE PUEDE REALIZAR DECLARACIONES EN EL AMBITO GLOBAL", instrucion.linea, instrucion.columna);

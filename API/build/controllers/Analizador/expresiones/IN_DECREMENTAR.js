@@ -36,8 +36,8 @@ class Incrementar extends EXPRESION_1.Expresion {
         let valor1 = this.exp1.getValor(tree, table);
         if (this.simbolo == "++") {
             if (this.exp1.ID) {
-                if (valor1.Tipo.getTipos() == TIPO_1.tipos.ENTERO || valor1.Tipo.getTipos() == TIPO_1.tipos.DECIMAL) {
-                    if (valor1.Tipo.getTipos() == TIPO_1.tipos.ENTERO) {
+                if (valor1.Tipo.tipos == TIPO_1.tipos.ENTERO || valor1.Tipo.tipos == TIPO_1.tipos.DECIMAL) {
+                    if (valor1.Tipo.tipos == TIPO_1.tipos.ENTERO) {
                         let nueva = new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor + 1, this.linea, this.columna);
                         table.update(this.exp1.ID, nueva);
                         return nueva;
@@ -54,8 +54,8 @@ class Incrementar extends EXPRESION_1.Expresion {
                 }
             }
             else {
-                if (valor1.Tipo.getTipos() == TIPO_1.tipos.ENTERO || valor1.Tipo.getTipos() == TIPO_1.tipos.DECIMAL) {
-                    if (valor1.Tipo.getTipos() == TIPO_1.tipos.ENTERO) {
+                if (valor1.Tipo.tipos == TIPO_1.tipos.ENTERO || valor1.Tipo.tipos == TIPO_1.tipos.DECIMAL) {
+                    if (valor1.Tipo.tipos == TIPO_1.tipos.ENTERO) {
                         return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor + 1, this.linea, this.columna);
                     }
                     else {
@@ -70,8 +70,8 @@ class Incrementar extends EXPRESION_1.Expresion {
         }
         else if (this.simbolo == "--") {
             if (this.exp1.ID) {
-                if (valor1.Tipo.getTipos() == TIPO_1.tipos.ENTERO || valor1.Tipo.getTipos() == TIPO_1.tipos.DECIMAL) {
-                    if (valor1.Tipo.getTipos() == TIPO_1.tipos.ENTERO) {
+                if (valor1.Tipo.tipos == TIPO_1.tipos.ENTERO || valor1.Tipo.tipos == TIPO_1.tipos.DECIMAL) {
+                    if (valor1.Tipo.tipos == TIPO_1.tipos.ENTERO) {
                         let nueva = new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor - 1, this.linea, this.columna);
                         table.update(this.exp1.ID, nueva);
                         return nueva;
@@ -88,8 +88,8 @@ class Incrementar extends EXPRESION_1.Expresion {
                 }
             }
             else {
-                if (valor1.Tipo.getTipos() == TIPO_1.tipos.ENTERO || valor1.Tipo.getTipos() == TIPO_1.tipos.DECIMAL) {
-                    if (valor1.Tipo.getTipos() == TIPO_1.tipos.ENTERO) {
+                if (valor1.Tipo.tipos == TIPO_1.tipos.ENTERO || valor1.Tipo.tipos == TIPO_1.tipos.DECIMAL) {
+                    if (valor1.Tipo.tipos == TIPO_1.tipos.ENTERO) {
                         return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor - 1, this.linea, this.columna);
                     }
                     else {

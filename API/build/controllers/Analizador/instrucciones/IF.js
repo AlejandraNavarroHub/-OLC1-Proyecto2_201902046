@@ -21,6 +21,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const TIPO_1 = require("../tablaSimbolo/TIPO");
+const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
 const nodoAST_1 = require("../Abstract/nodoAST");
 class IF extends Instruccion_1.Instruccion {
@@ -33,21 +34,19 @@ class IF extends Instruccion_1.Instruccion {
     }
     ejecutar(tree, table) {
         let comprobar = this.condicion1.getValor(tree, table);
-        if (comprobar.Tipo.getTipos() !== TIPO_1.tipos.ERROR) {
-            if (comprobar.Tipo.getTipos() === TIPO_1.tipos.BOOLEANO) {
+        if (comprobar.Tipo.tipos !== TIPO_1.tipos.ERROR) {
+            if (comprobar.Tipo.tipos === TIPO_1.tipos.BOOLEANO) {
                 if (comprobar.valor) {
                     for (let instruccion of this.bloque1) {
                         if (instruccion instanceof Instruccion_1.Instruccion) {
                             let res = instruccion.ejecutar(tree, table);
-                            try {
+                            if (typeof (res) === typeof ({}) && !(res instanceof EXPRESION_1.Expresion)) {
                                 if (res.nombre === "RETURN" && tree.FUNCIONES.length > 0) {
                                     return res;
                                 }
                                 else if ((res.nombre === "BREAK" || res.nombre === "BREAK") && tree.CICLOS.length > 0) {
                                     return res;
                                 }
-                            }
-                            catch (e) {
                             }
                         }
                     }
@@ -59,15 +58,13 @@ class IF extends Instruccion_1.Instruccion {
                     for (let instruccion of this.bloque2) {
                         if (instruccion instanceof Instruccion_1.Instruccion) {
                             let res = instruccion.ejecutar(tree, table);
-                            try {
+                            if (typeof (res) === typeof ({}) && !(res instanceof EXPRESION_1.Expresion)) {
                                 if (res.nombre === "RETURN" && tree.FUNCIONES.length > 0) {
                                     return res;
                                 }
                                 else if ((res.nombre === "BREAK" || res.nombre === "BREAK") && tree.CICLOS.length > 0) {
                                     return res;
                                 }
-                            }
-                            catch (e) {
                             }
                         }
                     }

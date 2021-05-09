@@ -1,6 +1,6 @@
 export default class Tipo_INS
 {
-    private tipos: T_INS;
+    public tipos: T_INS;
     
     constructor(tipos: T_INS){
         this.tipos = tipos;

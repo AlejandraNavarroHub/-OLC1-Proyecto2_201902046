@@ -20,16 +20,16 @@ export default class Ternario extends Expresion{
 
     public getValor(tree:TRADUCTOR, table:tablaSimbolos):Expresion{
         let comprobar = this.exp1.getValor(tree, table);
-        if (comprobar.Tipo.getTipos()!==tipos.ERROR) {
-            if (comprobar.Tipo.getTipos() === tipos.BOOLEANO) {
+        if (comprobar.Tipo.tipos!==tipos.ERROR) {
+            if (comprobar.Tipo.tipos === tipos.BOOLEANO) {
                if (comprobar.valor) {
                    let valor = this.exp2.getValor(tree, table);
-                   if (valor.Tipo.getTipos()!== tipos.ERROR) {
+                   if (valor.Tipo.tipos!== tipos.ERROR) {
                         return valor;
                    }
                }else{
                     let valor = this.exp3.getValor(tree, table);
-                    if (valor.Tipo.getTipos()!== tipos.ERROR) {
+                    if (valor.Tipo.tipos!== tipos.ERROR) {
                         return valor;
                     }
                }

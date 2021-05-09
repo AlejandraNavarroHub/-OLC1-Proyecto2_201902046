@@ -21,7 +21,7 @@ export default class Imprimir extends Instruccion{
 
     public ejecutar(tree:TRADUCTOR, table:tablaSimbolos){
         var value = this.expresion.getValor(tree, table);
-        if(value.Tipo.getTipos()===tipos.ERROR){
+        if(value.Tipo.tipos===tipos.ERROR){
             return;
         }
         tree.updateConsola(value.valor+"");

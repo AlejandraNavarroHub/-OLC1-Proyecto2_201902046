@@ -32,7 +32,7 @@ class Imprimir extends Instruccion_1.Instruccion {
     }
     ejecutar(tree, table) {
         var value = this.expresion.getValor(tree, table);
-        if (value.Tipo.getTipos() === TIPO_1.tipos.ERROR) {
+        if (value.Tipo.tipos === TIPO_1.tipos.ERROR) {
             return;
         }
         tree.updateConsola(value.valor + "");

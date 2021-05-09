@@ -20,13 +20,13 @@ export default class Asignar_valor extends Instruccion{
     public ejecutar(tree:TRADUCTOR, table:tablaSimbolos){
         let vari = table.get(this.ID);
         let valor:any = undefined;
-        if (vari.tipo.getTipos()!== tipos.ERROR) {
+        if (vari.tipo.tipos!== tipos.ERROR) {
             if(this.exp){
                 valor = this.exp.getValor(tree, table);
-                if(valor.Tipo.getTipos()!== tipos.ERROR){
-                    if (vari.tipo.getTipos()!==valor.Tipo.getTipos() && vari.tipo.getTipos()!==tipos.ENTERO
-                    && valor.Tipo.getTipos()!==tipos.DECIMAL && vari.tipo.getTipos()!==tipos.DECIMAL
-                    && valor.Tipo.getTipos()!==tipos.ENTERO) {
+                if(valor.Tipo.tipos!== tipos.ERROR){
+                    if (vari.tipo.tipos!==valor.Tipo.tipos && vari.tipo.tipos!==tipos.ENTERO
+                    && valor.Tipo.tipos!==tipos.DECIMAL && vari.tipo.tipos!==tipos.DECIMAL
+                    && valor.Tipo.tipos!==tipos.ENTERO) {
                         tree.newERROR("SEMANTICO","EL TIPO DE LA EXPRESIÓN NO COINCIDE CON EL DE LA VARIABLE", this.linea, this.columna);
                         return;
                     }

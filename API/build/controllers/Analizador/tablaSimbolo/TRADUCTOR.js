@@ -49,8 +49,7 @@ class TRADUCTOR {
         }
         for (let instrucion of this.instrucciones) {
             if (instrucion instanceof Instruccion_1.Instruccion) {
-                console.log(instrucion);
-                if (instrucion.TIPO.getTipos() === TIPO_INSTRUCCION_1.T_INS.DECLARACION) {
+                if (instrucion.TIPO.tipos === TIPO_INSTRUCCION_1.T_INS.DECLARACION) {
                     instrucion.ejecutar(this, this.global);
                 }
                 else {

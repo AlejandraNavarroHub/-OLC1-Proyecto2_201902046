@@ -22,12 +22,12 @@ export default class FUNCION extends Instruccion{
 
     public ejecutar(tree:TRADUCTOR, table:tablaSimbolos){
         let comprobar:any = undefined;
-        if (this.TIPOV.getTipos()!==tipos.ERROR) {
+        if (this.TIPOV.tipos!==tipos.ERROR) {
             comprobar = table.set(this.ID, this, this.TIPOV);
         }else{
             comprobar = table.set(this.ID, this, new Tipo(tipos.CADENA));
         }
-        if (comprobar.tipo.getTipos()===tipos.ERROR) {
+        if (comprobar.tipo.tipos===tipos.ERROR) {
             tree.newERROR("SEMANTICO","FUNCIÓN O VARIABLE YA DECLARADA",this.linea, this.columna);
         }
     }

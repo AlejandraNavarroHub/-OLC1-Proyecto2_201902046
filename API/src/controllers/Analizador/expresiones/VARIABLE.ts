@@ -13,7 +13,7 @@ export default class VARIABLE extends Expresion{
 
     public getValor(tree:TRADUCTOR, table:tablaSimbolos){
         let comprobar = table.get(this.ID);
-        if (comprobar.tipo.getTipos() !== tipos.ERROR) {
+        if (comprobar.tipo.tipos !== tipos.ERROR) {
             let valor = comprobar;
             return new Primitivo(valor.tipo, valor.valor, this.linea, this.columna);
         }

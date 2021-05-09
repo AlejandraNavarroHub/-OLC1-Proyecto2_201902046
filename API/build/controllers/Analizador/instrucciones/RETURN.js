@@ -21,7 +21,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const TIPO_1 = require("../tablaSimbolo/TIPO");
-const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
 const nodoAST_1 = require("../Abstract/nodoAST");
 class RETURN extends Instruccion_1.Instruccion {
@@ -31,9 +30,9 @@ class RETURN extends Instruccion_1.Instruccion {
     }
     ejecutar(tree, table) {
         if (tree.FUNCIONES.length > 0) {
-            if (this.exp instanceof EXPRESION_1.Expresion) {
+            if (this.exp) {
                 let value = this.exp.getValor(tree, table);
-                if (value.Tipo.getTipos() !== TIPO_1.tipos.ERROR) {
+                if (value.Tipo.tipos !== TIPO_1.tipos.ERROR) {
                     return { nombre: "RETURN", valor: value };
                 }
             }

@@ -32,13 +32,13 @@ class FUNCION extends Instruccion_1.Instruccion {
     }
     ejecutar(tree, table) {
         let comprobar = undefined;
-        if (this.TIPOV.getTipos() !== TIPO_1.tipos.ERROR) {
+        if (this.TIPOV.tipos !== TIPO_1.tipos.ERROR) {
             comprobar = table.set(this.ID, this, this.TIPOV);
         }
         else {
             comprobar = table.set(this.ID, this, new TIPO_1.default(TIPO_1.tipos.CADENA));
         }
-        if (comprobar.tipo.getTipos() === TIPO_1.tipos.ERROR) {
+        if (comprobar.tipo.tipos === TIPO_1.tipos.ERROR) {
             tree.newERROR("SEMANTICO", "FUNCIÓN O VARIABLE YA DECLARADA", this.linea, this.columna);
         }
     }

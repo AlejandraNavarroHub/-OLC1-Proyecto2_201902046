@@ -18,9 +18,9 @@ export default class RETURN extends Instruccion{
 
     public ejecutar(tree:TRADUCTOR, table:tablaSimbolos){
         if (tree.FUNCIONES.length>0) {
-            if (this.exp instanceof Expresion) {
+            if (this.exp) {
                 let value = this.exp.getValor(tree, table);
-                if (value.Tipo.getTipos()!== tipos.ERROR) {
+                if (value.Tipo.tipos!== tipos.ERROR) {
                     return {nombre:"RETURN", valor:value};
                 }
             }else{

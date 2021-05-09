@@ -25,12 +25,12 @@ export default class Logicos extends Expresion{
         switch(this.simbolo){
             case "&&":
                 if (valor2) {
-                    if (valor1.Tipo.getTipos() == tipos.BOOLEANO && valor2.Tipo.getTipos() == tipos.BOOLEANO){
+                    if (valor1.Tipo.tipos == tipos.BOOLEANO && valor2.Tipo.tipos == tipos.BOOLEANO){
                         return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor && valor2.valor, this.linea,this.columna);
                     }else{
-                        switch(valor1.Tipo.getTipos()){
+                        switch(valor1.Tipo.tipos){
                             case tipos.ENTERO:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN AND CON VARIABLES TIPO ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -48,7 +48,7 @@ export default class Logicos extends Expresion{
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 }
                             case tipos.DECIMAL:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN AND CON DOUBLE Y ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -66,7 +66,7 @@ export default class Logicos extends Expresion{
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 }
                             case tipos.BOOLEANO:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN AND CON BOOLEANO Y ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -81,7 +81,7 @@ export default class Logicos extends Expresion{
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 }
                             case tipos.CARACTER:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN AND CON CARACTER Y ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -99,7 +99,7 @@ export default class Logicos extends Expresion{
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 }
                             case tipos.CADENA:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN AND CON UN STRING Y ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -122,12 +122,12 @@ export default class Logicos extends Expresion{
                 }
             case "||":
                 if (valor2) {
-                    if (valor1.Tipo.getTipos() == tipos.BOOLEANO && valor2.Tipo.getTipos() == tipos.BOOLEANO){
+                    if (valor1.Tipo.tipos == tipos.BOOLEANO && valor2.Tipo.tipos == tipos.BOOLEANO){
                         return new Primitivo(new Tipo(tipos.BOOLEANO), valor1.valor || valor2.valor, this.linea,this.columna);
                     }else{
-                        switch(valor1.Tipo.getTipos()){
+                        switch(valor1.Tipo.tipos){
                             case tipos.ENTERO:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN OR CON VARIABLES TIPO ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -145,7 +145,7 @@ export default class Logicos extends Expresion{
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 }
                             case tipos.DECIMAL:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN OR CON DOUBLE Y ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -163,7 +163,7 @@ export default class Logicos extends Expresion{
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 }
                             case tipos.BOOLEANO:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN OR CON BOOLEANO Y ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -178,7 +178,7 @@ export default class Logicos extends Expresion{
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 }
                             case tipos.CARACTER:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN OR CON CARACTER Y ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -196,7 +196,7 @@ export default class Logicos extends Expresion{
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                                 }
                             case tipos.CADENA:
-                                switch(valor2.Tipo.getTipos()){
+                                switch(valor2.Tipo.tipos){
                                     case tipos.ENTERO:
                                         tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN OR CON UN STRING Y ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -222,10 +222,10 @@ export default class Logicos extends Expresion{
                     tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN NOT CON DOS VARIABLES", this.linea, this.columna);
                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);                       
                 }else{
-                    if (valor1.Tipo.getTipos() == tipos.BOOLEANO){
+                    if (valor1.Tipo.tipos == tipos.BOOLEANO){
                         return new Primitivo(new Tipo(tipos.BOOLEANO), !valor1.valor, this.linea,this.columna);
                     }else{
-                        switch(valor1.Tipo.getTipos()){
+                        switch(valor1.Tipo.tipos){
                             case tipos.ENTERO:
                                 tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN NOT CON UN ENTERO", this.linea, this.columna);
                                 return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);

@@ -25,6 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Instruccion_1 = require("../Abstract/Instruccion");
 const ENTORNO_1 = __importDefault(require("../tablaSimbolo/ENTORNO"));
 const TIPO_1 = require("../tablaSimbolo/TIPO");
+const EXPRESION_1 = require("../Abstract/EXPRESION");
 const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCION"));
 const nodoAST_1 = require("../Abstract/nodoAST");
 class FOR extends Instruccion_1.Instruccion {
@@ -39,7 +40,7 @@ class FOR extends Instruccion_1.Instruccion {
         let nuevo_entorno = new ENTORNO_1.default("", table);
         let entorno_For = new ENTORNO_1.default("", nuevo_entorno);
         let comprobar = undefined;
-        if (this.DECLARACION.TIPO.getTipos() === TIPO_INSTRUCCION_1.T_INS.DECLARACION) {
+        if (this.DECLARACION.TIPO.tipos === TIPO_INSTRUCCION_1.T_INS.DECLARACION) {
             this.DECLARACION.ejecutar(tree, nuevo_entorno);
             comprobar = this.CONDICION.getValor(tree, nuevo_entorno);
         }
@@ -47,15 +48,15 @@ class FOR extends Instruccion_1.Instruccion {
             this.DECLARACION.ejecutar(tree, table);
             comprobar = this.CONDICION.getValor(tree, table);
         }
-        if (comprobar.Tipo.getTipos() !== TIPO_1.tipos.ERROR) {
-            if (comprobar.Tipo.getTipos() === TIPO_1.tipos.BOOLEANO) {
+        if (comprobar.Tipo.tipos !== TIPO_1.tipos.ERROR) {
+            if (comprobar.Tipo.tipos === TIPO_1.tipos.BOOLEANO) {
                 tree.CICLOS.push("CICLO");
                 while (comprobar.valor) {
                     entorno_For = new ENTORNO_1.default("", nuevo_entorno);
                     for (let instruccion of this.BLOQUE) {
                         if (instruccion instanceof Instruccion_1.Instruccion) {
                             let res = instruccion.ejecutar(tree, entorno_For);
-                            try {
+                            if (typeof (res) === typeof ({}) && !(res instanceof EXPRESION_1.Expresion)) {
                                 if (res.nombre === "BREAK") {
                                     tree.CICLOS.pop();
                                     return;
@@ -68,10 +69,9 @@ class FOR extends Instruccion_1.Instruccion {
                                     return res;
                                 }
                             }
-                            catch (e) { }
                         }
                     }
-                    if (this.DECLARACION.TIPO.getTipos() === TIPO_INSTRUCCION_1.T_INS.DECLARACION) {
+                    if (this.DECLARACION.TIPO.tipos === TIPO_INSTRUCCION_1.T_INS.DECLARACION) {
                         comprobar = this.ACTUALIZACION.getValor(tree, nuevo_entorno);
                         comprobar = this.CONDICION.getValor(tree, nuevo_entorno);
                     }

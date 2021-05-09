@@ -23,19 +23,18 @@ export default class IF extends Instruccion{
 
     public ejecutar(tree:TRADUCTOR, table:tablaSimbolos){
         let comprobar = this.condicion1.getValor(tree, table);
-        if (comprobar.Tipo.getTipos()!== tipos.ERROR) {
-            if (comprobar.Tipo.getTipos()=== tipos.BOOLEANO) {
+        if (comprobar.Tipo.tipos!== tipos.ERROR) {
+            if (comprobar.Tipo.tipos=== tipos.BOOLEANO) {
                 if (comprobar.valor) {
                     for(let instruccion of this.bloque1){
                         if (instruccion instanceof Instruccion) {
                             let res = instruccion.ejecutar(tree, table);
-                            try{
+                            if (typeof(res)===typeof({}) && !(res instanceof Expresion)) {
                                 if (res.nombre === "RETURN" && tree.FUNCIONES.length>0) {
                                     return res;
                                 }else if ((res.nombre==="BREAK" || res.nombre==="BREAK") && tree.CICLOS.length>0) {
                                     return res;
                                 }
-                            }catch(e){
                             }
                         }
                     }
@@ -45,13 +44,12 @@ export default class IF extends Instruccion{
                     for(let instruccion of this.bloque2){
                         if (instruccion instanceof Instruccion) {
                             let res = instruccion.ejecutar(tree, table);
-                            try{
+                            if (typeof(res)===typeof({}) && !(res instanceof Expresion)) {
                                 if (res.nombre === "RETURN" && tree.FUNCIONES.length>0) {
                                     return res;
                                 }else if ((res.nombre==="BREAK" || res.nombre==="BREAK") && tree.CICLOS.length>0) {
                                     return res;
                                 }
-                            }catch(e){
                             }
                         }
                     }

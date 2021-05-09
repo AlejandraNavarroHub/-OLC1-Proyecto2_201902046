@@ -40,9 +40,9 @@ class Arit extends EXPRESION_1.Expresion {
         switch (this.simbolo) {
             case "+":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor + valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -55,7 +55,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.CADENA), String(valor1.valor) + valor2.valor, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.DECIMAL), valor1.valor + valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -68,7 +68,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.CADENA), String(valor1.valor) + valor2.valor, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor + valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -83,7 +83,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.CADENA), String(valor1.valor) + valor2.valor, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor.charCodeAt() + valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -97,7 +97,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.CADENA), String(valor1.valor) + String(valor2.valor), this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.CADENA), String(valor1.valor) + String(valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -113,9 +113,9 @@ class Arit extends EXPRESION_1.Expresion {
                 }
             case "-":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor - valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -129,7 +129,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.DECIMAL), valor1.valor - valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -143,7 +143,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor - valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -159,7 +159,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor.charCodeAt() - valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -175,7 +175,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE RESTAR UNA CADENA CON UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -195,7 +195,7 @@ class Arit extends EXPRESION_1.Expresion {
                     }
                 }
                 else {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
                             return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), -valor1.valor, this.linea, this.columna);
                         case TIPO_1.tipos.DECIMAL:
@@ -213,9 +213,9 @@ class Arit extends EXPRESION_1.Expresion {
                 }
             case "*":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor * valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -230,7 +230,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.DECIMAL), valor1.valor * valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -245,7 +245,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE MULTIPLICAR UN BOOLEANO CON UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -263,7 +263,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), valor1.valor.charCodeAt() * valor2.valor, this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -279,7 +279,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE MULTIPLICAR UNA CADENA CON UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -300,9 +300,9 @@ class Arit extends EXPRESION_1.Expresion {
                 }
             case "/":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     if (valor2.valor == 0) {
                                         tree.newERROR("SEMANTICO", "NO PUEDE DIVIDIR UN ENTERO CON UN CERO", this.linea, this.columna);
@@ -329,7 +329,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     if (valor2.valor == 0) {
                                         tree.newERROR("SEMANTICO", "NO PUEDE DIVIDIR UN DOUBLE CON UN CERO", this.linea, this.columna);
@@ -356,7 +356,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE DIVIDIR UN BOOLEANO CON UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -374,7 +374,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     if (valor2.valor == 0) {
                                         tree.newERROR("SEMANTICO", "NO PUEDE DIVIDIR UN CARACTER CON UN CERO", this.linea, this.columna);
@@ -402,7 +402,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE DIVIDIR UNA CADENA CON UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -423,9 +423,9 @@ class Arit extends EXPRESION_1.Expresion {
                 }
             case "^":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ENTERO), Math.pow(valor1.valor, valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -441,7 +441,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.DECIMAL), Math.pow(valor1.valor, valor2.valor), this.linea, this.columna);
                                 case TIPO_1.tipos.DECIMAL:
@@ -457,7 +457,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE ELEVAR CON UN BOOLEANO Y UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -475,7 +475,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE ELEVAR CON UN CARACTER Y UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -493,7 +493,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE ELEVAR CON UNA CADENA Y UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -514,9 +514,9 @@ class Arit extends EXPRESION_1.Expresion {
                 }
             case "%":
                 if (valor2) {
-                    switch (valor1.Tipo.getTipos()) {
+                    switch (valor1.Tipo.tipos) {
                         case TIPO_1.tipos.ENTERO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     if (valor2.valor == 0) {
                                         tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
@@ -544,7 +544,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.DECIMAL:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     if (valor2.valor == 0) {
                                         tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
@@ -572,7 +572,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.BOOLEANO:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -590,7 +590,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CARACTER:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
@@ -608,7 +608,7 @@ class Arit extends EXPRESION_1.Expresion {
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case TIPO_1.tipos.CADENA:
-                            switch (valor2.Tipo.getTipos()) {
+                            switch (valor2.Tipo.tipos) {
                                 case TIPO_1.tipos.ENTERO:
                                     tree.newERROR("SEMANTICO", "NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UN ENTERO", this.linea, this.columna);
                                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);

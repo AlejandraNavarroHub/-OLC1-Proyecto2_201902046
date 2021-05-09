@@ -6,7 +6,7 @@ const nodoAST_1 = require("../Abstract/nodoAST");
 class Primitivo extends EXPRESION_1.Expresion {
     constructor(tipo, valor, linea, columna) {
         if (typeof (valor) === typeof ("")) {
-            switch (tipo.getTipos()) {
+            switch (tipo.tipos) {
                 case TIPO_1.tipos.ENTERO:
                     valor = Number(valor);
                     break;

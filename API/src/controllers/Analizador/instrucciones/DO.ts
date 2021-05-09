@@ -20,15 +20,15 @@ export default class DO extends Instruccion{
 
     public ejecutar(tree:TRADUCTOR, table:tablaSimbolos){
         let comprobar = this.condicion.getValor(tree, table);
-        if (comprobar.Tipo.getTipos()!==tipos.ERROR) {
-            if (comprobar.Tipo.getTipos()===tipos.BOOLEANO) {
+        if (comprobar.Tipo.tipos!==tipos.ERROR) {
+            if (comprobar.Tipo.tipos===tipos.BOOLEANO) {
                 tree.CICLOS.push("CICLO");
                 let nuevo_entorno = new tablaSimbolos("", table);
                 //DO
                 for(let instruccion of this.bloque){
                     if (instruccion instanceof Instruccion) {
                         let res = instruccion.ejecutar(tree, nuevo_entorno);
-                        try{
+                        if (typeof(res)===typeof({}) && !(res instanceof Expresion)) {
                             if (res.nombre==="BREAK") {
                                 tree.CICLOS.pop();
                                 return;
@@ -40,7 +40,7 @@ export default class DO extends Instruccion{
                                 tree.CICLOS.pop();
                                 return res;
                             }
-                        }catch(e){}
+                        }
                     }
                 }
                 comprobar = this.condicion.getValor(tree, table);
@@ -50,7 +50,7 @@ export default class DO extends Instruccion{
                     for(let instruccion of this.bloque){
                         if (instruccion instanceof Instruccion) {
                             let res = instruccion.ejecutar(tree, nuevo_entorno);
-                            try{
+                            if (typeof(res)===typeof({}) && !(res instanceof Expresion)) {
                                 if (res.nombre==="BREAK") {
                                     tree.CICLOS.pop();
                                     return;
@@ -62,7 +62,7 @@ export default class DO extends Instruccion{
                                     tree.CICLOS.pop();
                                     return res;
                                 }
-                            }catch(e){}
+                            }
                         }
                     }
                     comprobar = this.condicion.getValor(tree, table);

@@ -24,9 +24,9 @@ export default class Arit extends Expresion{
         switch(this.simbolo){
             case "+":
                 if (valor2) {
-                    switch(valor1.Tipo.getTipos()){
+                    switch(valor1.Tipo.tipos){
                         case tipos.ENTERO:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor + valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -39,7 +39,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.CADENA), String(valor1.valor) + valor2.valor, this.linea,this.columna);
                             }
                         case tipos.DECIMAL:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor + valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -52,7 +52,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.CADENA), String(valor1.valor) + valor2.valor, this.linea,this.columna);
                             }
                         case tipos.BOOLEANO:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor + valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -67,7 +67,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.CADENA), String(valor1.valor) + valor2.valor, this.linea,this.columna);
                             }
                         case tipos.CARACTER:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor.charCodeAt() + valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -81,7 +81,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.CADENA), String(valor1.valor) + String(valor2.valor), this.linea,this.columna);
                             }
                         case tipos.CADENA:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.CADENA), String(valor1.valor) + String(valor2.valor), this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -97,9 +97,9 @@ export default class Arit extends Expresion{
                 }
             case "-":
                 if (valor2) {
-                    switch(valor1.Tipo.getTipos()){
+                    switch(valor1.Tipo.tipos){
                         case tipos.ENTERO:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor - valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -113,7 +113,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case tipos.DECIMAL:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor - valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -127,7 +127,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case tipos.BOOLEANO:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor - valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -143,7 +143,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case tipos.CARACTER:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor.charCodeAt() - valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -159,7 +159,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case tipos.CADENA:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     tree.newERROR("SEMANTICO","NO PUEDE RESTAR UNA CADENA CON UN ENTERO", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -178,7 +178,7 @@ export default class Arit extends Expresion{
                             }
                     }
                 }else{
-                    switch(valor1.Tipo.getTipos()){
+                    switch(valor1.Tipo.tipos){
                         case tipos.ENTERO:
                             return new Primitivo(new Tipo(tipos.ENTERO), -valor1.valor, this.linea, this.columna);
                         case tipos.DECIMAL:
@@ -196,9 +196,9 @@ export default class Arit extends Expresion{
                 }
             case "*":
                 if (valor2) {
-                    switch(valor1.Tipo.getTipos()){
+                    switch(valor1.Tipo.tipos){
                         case tipos.ENTERO:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor * valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -213,7 +213,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case tipos.DECIMAL:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor * valor2.valor, this.linea, this.columna);
                                 case tipos.DECIMAL:
@@ -228,7 +228,7 @@ export default class Arit extends Expresion{
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         case tipos.BOOLEANO:
-                            switch(valor2.Tipo.getTipos()){
+                            switch(valor2.Tipo.tipos){
                                 case tipos.ENTERO:
                                     tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UN BOOLEANO CON UN ENTERO", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
@@ -245,362 +245,362 @@ export default class Arit extends Expresion{
                                     tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UN BOOLEANO CON UNA CADENA", this.linea, this.columna);
                                     return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                             }
-                        case tipos.CARACTER:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor.charCodeAt() * valor2.valor, this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor.charCodeAt() * valor2.valor, this.linea,this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UN CARACTER CON UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UN CARACTER CON UN CARACTER", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UN CARACTER CON UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.CADENA:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UN ENTERO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            case tipos.DECIMAL:
-                                tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UN DOUBLE", this.linea, this.columna);
-                                return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            case tipos.BOOLEANO:
-                                tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UN BOOLEANO", this.linea, this.columna);
-                                return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
                             case tipos.CARACTER:
-                                tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UN CARACTER", this.linea, this.columna);
-                                return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        return new Primitivo(new Tipo(tipos.ENTERO), valor1.valor.charCodeAt() * valor2.valor, this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor.charCodeAt() * valor2.valor, this.linea,this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UN CARACTER CON UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UN CARACTER CON UN CARACTER", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UN CARACTER CON UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
                             case tipos.CADENA:
-                                tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UNA CADENA", this.linea, this.columna);
-                                return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UN ENTERO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                case tipos.DECIMAL:
+                                    tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UN DOUBLE", this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                case tipos.BOOLEANO:
+                                    tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UN BOOLEANO", this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                case tipos.CARACTER:
+                                    tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UN CARACTER", this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                case tipos.CADENA:
+                                    tree.newERROR("SEMANTICO","NO PUEDE MULTIPLICAR UNA CADENA CON UNA CADENA", this.linea, this.columna);
+                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                        }
                     }
-                }
-            case "/":
-                if (valor2) {
-                    switch(valor1.Tipo.getTipos()){
-                        case tipos.ENTERO:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN ENTERO CON UN CERO", this.linea, this.columna);
+                case "/":
+                    if (valor2) {
+                        switch(valor1.Tipo.tipos){
+                            case tipos.ENTERO:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN ENTERO CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.DECIMAL:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN ENTERO CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN ENTERO CON UN BOOLEANO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.DECIMAL:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN ENTERO CON UN CERO", this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN ENTERO CON UNA CADENA", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN ENTERO CON UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor.charCodeAt(), this.linea,this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN ENTERO CON UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.DECIMAL:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN DOUBLE CON UN CERO", this.linea, this.columna);
+                                }
+                            case tipos.DECIMAL:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN DOUBLE CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.DECIMAL:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN DOUBLE CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN DOUBLE CON UN BOOLEANO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.DECIMAL:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN DOUBLE CON UN CERO", this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor.charCodeAt(), this.linea,this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN DOUBLE CON UNA CADENA", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN DOUBLE CON UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor / valor2.valor.charCodeAt(), this.linea,this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN DOUBLE CON UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.BOOLEANO:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UN ENTERO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UN DECIMAL", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UN CARACTER", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.CARACTER:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UN CERO", this.linea, this.columna);
+                                }
+                            case tipos.BOOLEANO:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UN ENTERO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor.charCodeAt() / valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.DECIMAL:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UN CERO", this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UN DECIMAL", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor.charCodeAt() / valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UN CARACTER", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.CADENA:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UN ENTERO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UN DECIMAL", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UN CARACTER", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UN CARACTER", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN BOOLEANO CON UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                            case tipos.CARACTER:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor.charCodeAt() / valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.DECIMAL:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor.charCodeAt() / valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UN CARACTER", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UN CARACTER CON UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                            case tipos.CADENA:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UN ENTERO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UN DECIMAL", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UN CARACTER", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE DIVIDIR UNA CADENA CON UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                        }
                     }
-                }
-            case "^":
-                if (valor2) {
-                    switch(valor1.Tipo.getTipos()){
-                        case tipos.ENTERO:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.ENTERO), Math.pow(valor1.valor,valor2.valor), this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.DECIMAL), Math.pow(valor1.valor,valor2.valor), this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN ENTERO Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN ENTERO Y UN CARACTER", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.DECIMAL:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    return new Primitivo(new Tipo(tipos.DECIMAL), Math.pow(valor1.valor,valor2.valor), this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    return new Primitivo(new Tipo(tipos.DECIMAL), Math.pow(valor1.valor,valor2.valor), this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN DECIMAL Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN DECIMAL Y UN CARACTER", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN DECIMAL Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.BOOLEANO:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UN ENTERO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UN DECIMAL", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UN CARACTER", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.CARACTER:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UN ENTERO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UN DECIMAL", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UN CARACTER", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.CADENA:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UN ENTERO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UN DECIMAL", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UN CARACTER", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
+                case "^":
+                    if (valor2) {
+                        switch(valor1.Tipo.tipos){
+                            case tipos.ENTERO:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        return new Primitivo(new Tipo(tipos.ENTERO), Math.pow(valor1.valor,valor2.valor), this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        return new Primitivo(new Tipo(tipos.DECIMAL), Math.pow(valor1.valor,valor2.valor), this.linea, this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN ENTERO Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN ENTERO Y UN CARACTER", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                            case tipos.DECIMAL:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        return new Primitivo(new Tipo(tipos.DECIMAL), Math.pow(valor1.valor,valor2.valor), this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        return new Primitivo(new Tipo(tipos.DECIMAL), Math.pow(valor1.valor,valor2.valor), this.linea, this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN DECIMAL Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN DECIMAL Y UN CARACTER", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN DECIMAL Y UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                            case tipos.BOOLEANO:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UN ENTERO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UN DECIMAL", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UN CARACTER", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN BOOLEANO Y UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                            case tipos.CARACTER:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UN ENTERO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UN DECIMAL", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UN CARACTER", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UN CARACTER Y UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                            case tipos.CADENA:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UN ENTERO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UN DECIMAL", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UN CARACTER", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE ELEVAR CON UNA CADENA Y UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                        }
                     }
-                }
-            case "%":
-                if (valor2) {
-                    switch(valor1.Tipo.getTipos()){
-                        case tipos.ENTERO:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
+                case "%":
+                    if (valor2) {
+                        switch(valor1.Tipo.tipos){
+                            case tipos.ENTERO:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor % valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.DECIMAL:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor % valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN ENTERO Y UN BOOLEANO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor % valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.DECIMAL:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN ENTERO Y UN BOOLEANO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor % valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN ENTERO Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN ENTERO Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.DECIMAL:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN ENTERO Y UNA CADENA", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor % valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.DECIMAL:
-                                    if(valor2.valor == 0){
-                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
+                                }
+                            case tipos.DECIMAL:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor % valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.DECIMAL:
+                                        if(valor2.valor == 0){
+                                            tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CERO", this.linea, this.columna);
+                                            return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                        }else{
+                                            return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor % valor2.valor, this.linea, this.columna);
+                                        }
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN DOUBLE Y UN BOOLEANO", this.linea, this.columna);
                                         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                    }else{
-                                        return new Primitivo(new Tipo(tipos.DECIMAL), valor1.valor % valor2.valor, this.linea, this.columna);
-                                    }
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN DOUBLE Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN DOUBLE Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN DOUBLE Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.BOOLEANO:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UN ENTERO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UN DOUBLE", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.CARACTER:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UN ENTERO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UN DOUBLE", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
-                        case tipos.CADENA:
-                            switch(valor2.Tipo.getTipos()){
-                                case tipos.ENTERO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UN ENTERO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.DECIMAL:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UN DOUBLE", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.BOOLEANO:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CARACTER:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UN BOOLEANO", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                                case tipos.CADENA:
-                                    tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UNA CADENA", this.linea, this.columna);
-                                    return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
-                            }
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN DOUBLE Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN DOUBLE Y UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                            case tipos.BOOLEANO:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UN ENTERO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UN DOUBLE", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN BOOLEANO Y UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                            case tipos.CARACTER:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UN ENTERO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UN DOUBLE", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UN CARACTER Y UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                            case tipos.CADENA:
+                                switch(valor2.Tipo.tipos){
+                                    case tipos.ENTERO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UN ENTERO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.DECIMAL:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UN DOUBLE", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.BOOLEANO:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CARACTER:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UN BOOLEANO", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                    case tipos.CADENA:
+                                        tree.newERROR("SEMANTICO","NO PUEDE REALIZAR LA OPERACIÓN MODULO CON UNA CADENA Y UNA CADENA", this.linea, this.columna);
+                                        return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
+                                }
+                        }
                     }
-                }
-        }
+            }
         return new Primitivo(new Tipo(tipos.ERROR), undefined, this.linea, this.columna);
     }
 

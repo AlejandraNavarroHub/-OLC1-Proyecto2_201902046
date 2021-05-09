@@ -35,8 +35,9 @@ class FUNCION_E extends EXPRESION_1.Expresion {
     }
     getValor(tree, table) {
         let comprobar = table.get(this.ID);
-        if (comprobar.tipo.getTipos() !== TIPO_1.tipos.ERROR) {
+        if (comprobar.tipo.tipos !== TIPO_1.tipos.ERROR) {
             let FUNC = comprobar.valor;
+            let value = [];
             let nuevo_entorno = new ENTORNO_1.default(this.ID, table);
             if (this.PARAMETROS instanceof Array) {
                 if (this.PARAMETROS.length > FUNC.PARAMETROS.length) {
@@ -45,37 +46,47 @@ class FUNCION_E extends EXPRESION_1.Expresion {
                 }
                 let x = 0;
                 for (let parametro of this.PARAMETROS) {
-                    if (parametro instanceof EXPRESION_1.Expresion) {
-                        let valor = parametro.getValor(tree, table);
-                        if (valor.Tipo.getTipos() === TIPO_1.tipos.ERROR) {
-                            return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
-                        }
-                        if (valor.Tipo.getTipos() !== FUNC.PARAMETROS[x].TipoV.getTipos()) {
-                            tree.newERROR("SEMANTICO", "EL TIPO DE LAS VARIABLES DE LA FUNCIÓN NO COINCIDEN", this.linea, this.columna);
-                            return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
-                        }
-                        FUNC.PARAMETROS[x].expresion = valor;
-                        FUNC.PARAMETROS[x].ejecutar(tree, nuevo_entorno);
+                    let valor = parametro.getValor(tree, table);
+                    if (valor.Tipo.tipos === TIPO_1.tipos.ERROR) {
+                        return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
+                    }
+                    if (valor.Tipo.tipos !== FUNC.PARAMETROS[x].TipoV.tipos) {
+                        tree.newERROR("SEMANTICO", "EL TIPO DE LAS VARIABLES DE LA FUNCIÓN NO COINCIDEN", this.linea, this.columna);
+                        return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                     }
                     x++;
+                    value.push(valor);
                 }
             }
-            tree.FUNCIONES.push("");
-            if (FUNC.BLOQUE instanceof Array) {
+            let x = 0;
+            if (FUNC.BLOQUE) {
+                if (FUNC.PARAMETROS) {
+                    let x = 0;
+                    for (let declaracion of FUNC.PARAMETROS) {
+                        let exp = value[x];
+                        exp.linea = declaracion.linea;
+                        exp.columna = declaracion.columna;
+                        declaracion.expresion = exp;
+                        declaracion.ejecutar(tree, nuevo_entorno);
+                        x++;
+                    }
+                }
+                tree.FUNCIONES.push("funcion");
                 for (let instrucciones of FUNC.BLOQUE) {
                     if (instrucciones instanceof Instruccion_1.Instruccion) {
                         let res = instrucciones.ejecutar(tree, nuevo_entorno);
-                        try {
+                        if (typeof (res) === typeof ({}) && !(res instanceof EXPRESION_1.Expresion)) {
                             if (res.nombre == "RETURN") {
-                                let v = res.valor.getValor(tree, nuevo_entorno);
+                                let v = res.valor;
                                 if (v instanceof PRIMITIVO_1.default) {
-                                    if (v.Tipo.getTipos() !== FUNC.TIPOV.getTipos() ||
-                                        v.Tipo.getTipos() !== TIPO_1.tipos.ENTERO && FUNC.TIPOV.getTipos() !== TIPO_1.tipos.DECIMAL ||
-                                        v.Tipo.getTipos() !== TIPO_1.tipos.DECIMAL && FUNC.TIPOV.getTipos() !== TIPO_1.tipos.ENTERO) {
+                                    if (v.Tipo.tipos !== FUNC.TIPOV.tipos ||
+                                        v.Tipo.tipos !== TIPO_1.tipos.ENTERO && FUNC.TIPOV.tipos !== TIPO_1.tipos.DECIMAL ||
+                                        v.Tipo.tipos !== TIPO_1.tipos.DECIMAL && FUNC.TIPOV.tipos !== TIPO_1.tipos.ENTERO) {
                                         tree.FUNCIONES.pop();
                                         tree.newERROR("SEMANTICO", "TIPO DE RETORNO INCORRECTO", this.linea, this.columna);
                                         return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                                     }
+                                    tree.FUNCIONES.pop();
                                     return v;
                                 }
                             }
@@ -90,10 +101,9 @@ class FUNCION_E extends EXPRESION_1.Expresion {
                                 return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
                             }
                         }
-                        catch (_a) { }
                     }
                 }
-                if (FUNC.TIPOV.getTipos() === TIPO_1.tipos.ERROR) {
+                if (FUNC.TIPOV.tipos === TIPO_1.tipos.ERROR) {
                     return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.CADENA), undefined, this.linea, this.columna);
                 }
                 tree.newERROR("SEMANTICO", "SE ESPERABA UN VALOR DE RETORNO", this.linea, this.columna);

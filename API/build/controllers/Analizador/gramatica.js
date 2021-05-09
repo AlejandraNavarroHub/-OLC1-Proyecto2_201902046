@@ -102,16 +102,16 @@ case 6:
 this.$ = new IMPRIMIR.default($$[$0-2],this._$.first_line, this._$.first_column);
 break;
 case 7: case 8: case 13: case 51: case 52: case 53:
-this.$ = $$[$0-1];
+this.$ = $$[$0-1]
 break;
 case 9:
-this.$ = $$[$0-6];
+this.$ = new ADD.default(this._$.first_line, this._$.first_column, $$[$0-6], $$[$0-2]);
 break;
 case 10: case 11:
 this.$ = new indec.default($$[$0-1],this._$.first_line, this._$.first_column);
 break;
-case 12: case 14: case 15: case 16: case 17: case 18: case 20: case 69: case 78:
-this.$ = $$[$0];
+case 12: case 14: case 15: case 16: case 17: case 18: case 20:
+this.$ = $$[$0]
 break;
 case 19:
 this.$ = ''; if($$[$0-1]!==''){this.$ = new LLAMADA.default(this._$.first_line, this._$.first_column, $$[$0-1]);}
@@ -131,11 +131,23 @@ break;
 case 26:
 this.$= new DECLARAR_VAR.default(this._$.first_line, this._$.first_column, $$[$0-3], $$[$0-2], $$[$0]);
 break;
-case 27: case 28: case 29: case 30: case 32: case 33: case 39: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 50: case 55: case 60: case 96: case 97: case 113: case 114:
-this.$="";
+case 27:
+this.$= new DECLARAR_VECTOR.default(this._$.first_line, this._$.first_column, $$[$0-9],$$[$0-6], undefined, $$[$0-1], $$[$0-3]);
+break;
+case 28:
+this.$= new DECLARAR_VECTOR.default(this._$.first_line, this._$.first_column, $$[$0-7],$$[$0-4], $$[$0-1], undefined, undefined);
+break;
+case 29:
+this.$=new DECLARAR_LISTA.default(this._$.first_line, this._$.first_column, $$[$0-8],$$[$0-6], undefined, $$[$0-1]);
+break;
+case 30:
+this.$=new DECLARAR_LISTA.default(this._$.first_line, this._$.first_column, $$[$0-4],$$[$0-2], $$[$0], undefined);
 break;
 case 31:
 this.$= new asignar_valor.default(this._$.first_line, this._$.first_column,$$[$0-2],$$[$0]);
+break;
+case 32: case 33: case 41: case 42: case 43: case 44: case 45: case 46: case 47: case 50: case 55: case 60:
+this.$="";
 break;
 case 34:
 this.$= new crementar.default(this._$.first_line, this._$.first_column,$$[$0-1],$$[$0]);
@@ -144,7 +156,7 @@ case 35:
 this.$=new crementar.default(this._$.first_line, this._$.first_column,$$[$0-1],$$[$0]);
 break;
 case 36:
-this.$= new IF.default(this._$.first_line, this._$.first_column,$$[$0-4], $$[$0-1]);;
+this.$= new IF.default(this._$.first_line, this._$.first_column,$$[$0-4], $$[$0-1]);
 break;
 case 37:
 this.$= new IF.default(this._$.first_line, this._$.first_column,$$[$0-6], $$[$0-3], undefined, $$[$0]);
@@ -159,7 +171,7 @@ case 48: case 49:
 this.$= new FOR.default(this._$.first_line, this._$.first_column, $$[$0-7], $$[$0-5], $$[$0-3], $$[$0-1]);
 break;
 case 54:
-new DO.default(this._$.first_line, this._$.first_column, $$[$0-2], $$[$0-6]);
+this.$= new DO.default(this._$.first_line, this._$.first_column, $$[$0-2], $$[$0-6]);
 break;
 case 56:
 this.$="";TRADUCTOR1.FUNCTIONS.push(new FUNCION.default(this._$.first_line, this._$.first_column, $$[$0-6], $$[$0-5], $$[$0-1], undefined));
@@ -168,7 +180,7 @@ case 57:
 this.$="";TRADUCTOR1.FUNCTIONS.push(new FUNCION.default(this._$.first_line, this._$.first_column, $$[$0-7], $$[$0-6], $$[$0-1], $$[$0-4]));
 break;
 case 58:
-this.$="";TRADUCTOR1.FUNCTIONS.push(new FUNCION.default(this._$.first_line, this._$.first_column, new TIPO.default(TIPO.tipos.ERROR), $$[$0-6], $$[$0-2], undefined));
+this.$="";TRADUCTOR1.FUNCTIONS.push(new FUNCION.default(this._$.first_line, this._$.first_column, new TIPO.default(TIPO.tipos.ERROR), $$[$0-6], $$[$0-1], $$[$0-4]));
 break;
 case 59:
 this.$="";TRADUCTOR1.FUNCTIONS.push(new FUNCION.default(this._$.first_line, this._$.first_column, new TIPO.default(TIPO.tipos.ERROR), $$[$0-5], $$[$0-1], undefined));
@@ -197,6 +209,9 @@ break;
 case 68:
 this.$ = new RETURN.default(this._$.first_line, this._$.first_column, $$[$0-1]);
 break;
+case 69: case 78:
+this.$ = $$[$0];
+break;
 case 70: case 71: case 72: case 73: case 74: case 75:
 this.$= new aritmetica.default(this._$.first_line, this._$.first_column,$$[$0-2],$$[$0-1],$$[$0]);
 break;
@@ -223,6 +238,12 @@ this.$=$$[$0];
 break;
 case 94:
 this.$= new VARIABLE.default($$[$0],this._$.first_line, this._$.first_column);
+break;
+case 96:
+this.$=new VECTOR.default(this._$.first_line, this._$.first_column, $$[$0-3], $$[$0-1]);
+break;
+case 97:
+this.$=new LISTA.default($$[$0-5],this._$.first_line, this._$.first_column, $$[$0-2]);
 break;
 case 98:
 this.$ = new ternario.default(this._$.first_line, this._$.first_column,$$[$0-4],$$[$0-2],$$[$0]);
@@ -265,6 +286,12 @@ this.$=$$[$0-2]; this.$.push($$[$0]);
 break;
 case 112:
 this.$=[]; this.$.push($$[$0]);
+break;
+case 113:
+this.$= new lower.default(this._$.first_line, this._$.first_column,$$[$0-3],$$[$0-1]);
+break;
+case 114:
+this.$=new upper.default(this._$.first_line, this._$.first_column,$$[$0-3],$$[$0-1]);
 break;
 case 115: case 116: case 117: case 118: case 119: case 120:
 this.$= new nativa.default(this._$.first_line, this._$.first_column,$$[$0-3],$$[$0-1]);
@@ -525,8 +552,11 @@ _handle_error:
     const Excepcion = require('./exceptions/EXCEPTION');
     const PRIMITIVO = require('./expresiones/PRIMITIVO');
     const VARIABLE = require('./expresiones/VARIABLE');
+    const LISTA = require('./expresiones/LISTA');
+    const VECTOR = require('./expresiones/VECTOR');
     const FUNCION_E = require('./expresiones/FUNCION');
     const IMPRIMIR  = require('./instrucciones/IMPRIMIR');
+    const ADD  = require('./instrucciones/ADD');
     const IF  = require('./instrucciones/IF');
     const FOR  = require('./instrucciones/FOR');
     const WHILE  = require('./instrucciones/WHILE');
@@ -537,6 +567,9 @@ _handle_error:
     const BREAK  = require('./instrucciones/BREAK');
     const RETURN  = require('./instrucciones/RETURN');
     const DECLARAR_VAR  = require('./instrucciones/VARIABLE');
+    const DECLARAR_LISTA  = require('./instrucciones/LISTA');
+    const DECLARAR_VECTOR  = require('./instrucciones/VECTOR');
+
     const TIPO = require('./tablaSimbolo/TIPO');
     const aritmetica = require('./expresiones/ARITMETICA');
     const TIPO_INSTRUCCION = require('./tablaSimbolo/TIPO_INSTRUCCION');
@@ -548,6 +581,8 @@ _handle_error:
     const asignar_valor = require('./instrucciones/ASIGNACION');
     const indec = require('./instrucciones/IN_DECRE');
     const nativa = require('./expresiones/NATIVA');
+    const upper = require('./expresiones/TOUPPER');
+    const lower = require('./expresiones/TOLOWER');
 
     let Texto="";
     let TRADUCTOR1 = new TRADUCTOR.default([]);
@@ -1062,7 +1097,7 @@ case 88:
 break;
 }
 },
-rules: [/^(?:\/\/.*)/i,/^(?:[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/])/i,/^(?:[ \r\t]+)/i,/^(?:\n)/i,/^(?:\s+)/i,/^(?:['])/i,/^(?:[^'\\]')/i,/^(?:\\n')/i,/^(?:\\t')/i,/^(?:\\r')/i,/^(?:\\"')/i,/^(?:\\'')/i,/^(?:\\\\')/i,/^(?:[^'\\]*')/i,/^(?:["])/i,/^(?:[^"\\]+)/i,/^(?:\\n)/i,/^(?:\\t)/i,/^(?:\\r)/i,/^(?:\\")/i,/^(?:\\')/i,/^(?:\\\\)/i,/^(?:["])/i,/^(?:\+\+)/i,/^(?:--)/i,/^(?:\?)/i,/^(?:!=)/i,/^(?:==)/i,/^(?:>=)/i,/^(?:<=)/i,/^(?:<)/i,/^(?:>)/i,/^(?:=)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:%)/i,/^(?:\^)/i,/^(?:&&)/i,/^(?:\|\|)/i,/^(?:!)/i,/^(?:INT\b)/i,/^(?:DOUBLE\b)/i,/^(?:BOOLEAN\b)/i,/^(?:CHAR\b)/i,/^(?:STRING\b)/i,/^(?:TRUE\b)/i,/^(?:FALSE\b)/i,/^(?:PRINT\b)/i,/^(?:IF\b)/i,/^(?:ELSE\b)/i,/^(?:FOR\b)/i,/^(?:WHILE\b)/i,/^(?:DO\b)/i,/^(?:SWITCH\b)/i,/^(?:NEW\b)/i,/^(?:RETURN\b)/i,/^(?:CONTINUE\b)/i,/^(?:BREAK\b)/i,/^(?:LIST\b)/i,/^(?:ADD\b)/i,/^(?:CASE\b)/i,/^(?:DEFAULT\b)/i,/^(?:VOID\b)/i,/^(?:toLOWER\b)/i,/^(?:toUPPER\b)/i,/^(?:Length\b)/i,/^(?:Truncate\b)/i,/^(?:Round\b)/i,/^(?:Typeof\b)/i,/^(?:toString\b)/i,/^(?:toCharArray\b)/i,/^(?:Exec\b)/i,/^(?:;)/i,/^(?::)/i,/^(?:\.)/i,/^(?:,)/i,/^(?:\()/i,/^(?:\))/i,/^(?:\[)/i,/^(?:\])/i,/^(?:\{)/i,/^(?:\})/i,/^(?:[A-Za-z]([A-Za-z]|[0-9]|[_])*)/i,/^(?:[0-9]+\.[0-9]+\b)/i,/^(?:[0-9]+\b)/i,/^(?:$)/i,/^(?:.)/i],
+rules: [/^(?:\/\/.*)/i,/^(?:[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/])/i,/^(?:[ \r\t]+)/i,/^(?:\n)/i,/^(?:\s+)/i,/^(?:['])/i,/^(?:[^'\\]')/i,/^(?:\\n')/i,/^(?:\\t')/i,/^(?:\\r')/i,/^(?:\\"')/i,/^(?:\\'')/i,/^(?:\\\\')/i,/^(?:[^'\\]*')/i,/^(?:["])/i,/^(?:[^"\\]+)/i,/^(?:\\n)/i,/^(?:\\t)/i,/^(?:\\r)/i,/^(?:\\")/i,/^(?:\\')/i,/^(?:\\\\)/i,/^(?:["])/i,/^(?:\+\+)/i,/^(?:--)/i,/^(?:\?)/i,/^(?:!=)/i,/^(?:==)/i,/^(?:>=)/i,/^(?:<=)/i,/^(?:<)/i,/^(?:>)/i,/^(?:=)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:%)/i,/^(?:\^)/i,/^(?:&&)/i,/^(?:\|\|)/i,/^(?:!)/i,/^(?:INT\b)/i,/^(?:DOUBLE\b)/i,/^(?:BOOLEAN\b)/i,/^(?:CHAR\b)/i,/^(?:STRING\b)/i,/^(?:TRUE\b)/i,/^(?:FALSE\b)/i,/^(?:PRINT\b)/i,/^(?:IF\b)/i,/^(?:ELSE\b)/i,/^(?:FOR\b)/i,/^(?:WHILE\b)/i,/^(?:DO\b)/i,/^(?:SWITCH\b)/i,/^(?:NEW\b)/i,/^(?:RETURN\b)/i,/^(?:CONTINUE\b)/i,/^(?:BREAK\b)/i,/^(?:LIST\b)/i,/^(?:ADD\b)/i,/^(?:CASE\b)/i,/^(?:DEFAULT\b)/i,/^(?:VOID\b)/i,/^(?:toLower\b)/i,/^(?:toUpper\b)/i,/^(?:Length\b)/i,/^(?:Truncate\b)/i,/^(?:Round\b)/i,/^(?:Typeof\b)/i,/^(?:toString\b)/i,/^(?:toCharArray\b)/i,/^(?:Exec\b)/i,/^(?:;)/i,/^(?::)/i,/^(?:\.)/i,/^(?:,)/i,/^(?:\()/i,/^(?:\))/i,/^(?:\[)/i,/^(?:\])/i,/^(?:\{)/i,/^(?:\})/i,/^(?:[A-Za-z]([A-Za-z]|[0-9]|[_])*)/i,/^(?:[0-9]+\.[0-9]+\b)/i,/^(?:[0-9]+\b)/i,/^(?:$)/i,/^(?:.)/i],
 conditions: {"CARACTER":{"rules":[6,7,8,9,10,11,12,13],"inclusive":false},"CADENA":{"rules":[15,16,17,18,19,20,21,22],"inclusive":false},"INITIAL":{"rules":[0,1,2,3,4,5,14,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88],"inclusive":true}}
 });
 return lexer;
