@@ -23,8 +23,7 @@ export default class CONTINUE extends Instruccion{
     }
 
     public getNodo(): nodoAST {
-        let nodo = new nodoAST("IMPRIMIR");
-       
+        let nodo = new nodoAST("CONTINUE");
         return nodo;
     }
 }

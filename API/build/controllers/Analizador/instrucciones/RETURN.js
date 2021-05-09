@@ -44,7 +44,7 @@ class RETURN extends Instruccion_1.Instruccion {
         tree.newERROR("SEMANTICO", "NO SE PUEDE UTILIZAR RETURN FUERA DE UNA FUNCION", this.linea, this.columna);
     }
     getNodo() {
-        let nodo = new nodoAST_1.nodoAST("IMPRIMIR");
+        let nodo = new nodoAST_1.nodoAST("RETURN");
         return nodo;
     }
 }

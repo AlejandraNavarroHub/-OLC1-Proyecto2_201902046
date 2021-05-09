@@ -6,6 +6,7 @@ import { nodoAST } from "../Abstract/nodoAST";
 import Primitivo from "./PRIMITIVO";
 import { Instruccion } from "../Abstract/Instruccion";
 import Simbolo from "../tablaSimbolo/SIMBOLO";
+import IF from "../instrucciones/IF";
 
 
 
@@ -92,8 +93,17 @@ export default class FUNCION_E extends Expresion{
     }
 
     public getNodo(): nodoAST {
-        let nodo = new nodoAST("VARIABLE");
+        let nodo = new nodoAST("LLAMADA");
         nodo.agregarHijoS(this.ID);
+        if(this.PARAMETROS){
+            let cont = new nodoAST("INSTRUCCIONES");
+            for(let expre of this.PARAMETROS){
+                if (expre instanceof Expresion) {
+                    cont.agregarHijo(expre.getNodo());
+                }
+            }
+            nodo.agregarHijo(cont);
+        }
         return nodo;
     }
 }

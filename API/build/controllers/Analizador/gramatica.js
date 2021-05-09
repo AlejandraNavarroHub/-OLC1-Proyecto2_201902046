@@ -87,7 +87,7 @@ case 1:
 TRADUCTOR1.instrucciones = $$[$0-1]; TRADUCTOR2 = TRADUCTOR1; TRADUCTOR1 = new TRADUCTOR.default([]); return TRADUCTOR2;
 break;
 case 2:
-TRADUCTOR1.newError("Sintactico", "Símbolo "+yytext+" no reconocido.", yylloc.first_line, yylloc.first_column);
+TRADUCTOR1.newError("Sintactico", "Símbolo "+yytext+" no reconocido.", this._$.first_line, this._$.first_column);
 break;
 case 3: case 24:
 console.log("error");

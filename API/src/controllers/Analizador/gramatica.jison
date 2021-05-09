@@ -26,6 +26,8 @@
     const asignar_valor = require('./instrucciones/ASIGNACION');
     const indec = require('./instrucciones/IN_DECRE');
     const nativa = require('./expresiones/NATIVA');
+    const upper = require('./expresiones/TOUPPER');
+    const lower = require('./expresiones/TOLOWER');
 
     let Texto="";
     let TRADUCTOR1 = new TRADUCTOR.default([]);
@@ -122,8 +124,8 @@
 "CASE"                  return "CASE";
 "DEFAULT"               return "DEFAULT";
 "VOID"                  return "VOID";
-"toLOWER"               return "TOLOWER";
-"toUPPER"               return "TOUPPER";
+"toLower"               return "TOLOWER";
+"toUpper"               return "TOUPPER";
 "Length"                return "LENGTH";
 "Truncate"              return "TRUNCATE";
 "Round"                 return "ROUND";
@@ -176,7 +178,7 @@
 
 INICIO
     : INSTRUCCIONES EOF         {TRADUCTOR1.instrucciones = $1; TRADUCTOR2 = TRADUCTOR1; TRADUCTOR1 = new TRADUCTOR.default([]); return TRADUCTOR2;}
-    | error EOF                 {TRADUCTOR1.newError("Sintactico", "Símbolo "+yytext+" no reconocido.", yylloc.first_line, yylloc.first_column);}
+    | error EOF                 {TRADUCTOR1.newError("Sintactico", "Símbolo "+yytext+" no reconocido.", this._$.first_line, this._$.first_column);}
     | error                     {console.log("error");}
 ;
 
@@ -371,10 +373,10 @@ LISTA_EX
 
                                      
 INS_TOLOWER
-    :TOLOWER PIZQ EX PDER       {$$="";}
+    :TOLOWER PIZQ EX PDER       {$$= new lower.default(this._$.first_line, this._$.first_column,$1,$3);}
 ;                        
 INS_TOUPPER
-    :TOUPPER PIZQ EX PDER       {$$="";}
+    :TOUPPER PIZQ EX PDER       {$$=new upper.default(this._$.first_line, this._$.first_column,$1,$3);}
 ;   
 
 INS_NATIVAS

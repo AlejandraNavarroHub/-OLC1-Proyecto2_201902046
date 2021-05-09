@@ -33,7 +33,7 @@ class BREAK extends Instruccion_1.Instruccion {
         tree.newERROR("SEMANTICO", "NO SE PUEDE UTILIZAR BREAK FUERA DE UN CICLO", this.linea, this.columna);
     }
     getNodo() {
-        let nodo = new nodoAST_1.nodoAST("IMPRIMIR");
+        let nodo = new nodoAST_1.nodoAST("BREAK");
         return nodo;
     }
 }

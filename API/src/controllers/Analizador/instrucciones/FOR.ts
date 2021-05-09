@@ -72,8 +72,20 @@ export default class FOR extends Instruccion{
     }
 
     public getNodo(): nodoAST {
-        let nodo = new nodoAST("IMPRIMIR");
- 
+        let nodo = new nodoAST("SENTENCIA CICLICA");
+        nodo.agregarHijoS("FOR");
+        nodo.agregarHijo(this.DECLARACION.getNodo());
+        nodo.agregarHijoS(";");
+        nodo.agregarHijo(this.CONDICION.getNodo());
+        nodo.agregarHijoS(";");
+        nodo.agregarHijo(this.ACTUALIZACION.getNodo());
+        let cont = new nodoAST("INSTRUCCIONES");
+        for(let instrucion of this.BLOQUE){
+            if (instrucion instanceof Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
         return nodo;
     }
 }

@@ -69,7 +69,16 @@ class WHILE extends Instruccion_1.Instruccion {
         }
     }
     getNodo() {
-        let nodo = new nodoAST_1.nodoAST("IMPRIMIR");
+        let nodo = new nodoAST_1.nodoAST("SENTENCIAS CICLICAS");
+        nodo.agregarHijoS("WHILE");
+        nodo.agregarHijo(this.condicion.getNodo());
+        let cont = new nodoAST_1.nodoAST("INSTRUCCIONES");
+        for (let instrucion of this.bloque) {
+            if (instrucion instanceof Instruccion_1.Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
         return nodo;
     }
 }

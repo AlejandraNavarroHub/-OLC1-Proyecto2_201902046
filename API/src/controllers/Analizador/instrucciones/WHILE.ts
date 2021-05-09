@@ -54,8 +54,16 @@ export default class WHILE extends Instruccion{
     }
 
     public getNodo(): nodoAST {
-        let nodo = new nodoAST("IMPRIMIR");
- 
+        let nodo = new nodoAST("SENTENCIAS CICLICAS");
+        nodo.agregarHijoS("WHILE");
+        nodo.agregarHijo(this.condicion.getNodo());
+        let cont = new nodoAST("INSTRUCCIONES");
+        for(let instrucion of this.bloque){
+            if (instrucion instanceof Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
         return nodo;
     }
 }

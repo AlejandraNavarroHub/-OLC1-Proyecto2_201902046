@@ -43,7 +43,28 @@ class FUNCION extends Instruccion_1.Instruccion {
         }
     }
     getNodo() {
-        let nodo = new nodoAST_1.nodoAST("IMPRIMIR");
+        let nodo = new nodoAST_1.nodoAST("FUNCION");
+        if (this.TIPOV.getTipos() !== TIPO_1.tipos.ERROR) {
+            nodo.agregarHijoS(this.TIPOV.getTipos());
+            nodo.agregarHijoS(this.ID);
+            if (this.PARAMETROS) {
+                nodo.agregarHijo(this.PARAMETROS.getnode());
+            }
+        }
+        else {
+            nodo.agregarHijoS("VOID");
+            nodo.agregarHijoS(this.ID);
+            if (this.PARAMETROS) {
+                nodo.agregarHijo(this.PARAMETROS.getnode());
+            }
+        }
+        let cont = new nodoAST_1.nodoAST("INSTRUCCIONES");
+        for (let instrucion of this.BLOQUE) {
+            if (instrucion instanceof Instruccion_1.Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
         return nodo;
     }
 }

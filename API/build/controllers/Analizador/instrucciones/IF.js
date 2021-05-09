@@ -78,7 +78,26 @@ class IF extends Instruccion_1.Instruccion {
         }
     }
     getNodo() {
-        let nodo = new nodoAST_1.nodoAST("IMPRIMIR");
+        let nodo = new nodoAST_1.nodoAST("SENTENCIAS DE CONTROL");
+        nodo.agregarHijoS("IF");
+        nodo.agregarHijo(this.condicion1.getNodo());
+        let cont = new nodoAST_1.nodoAST("INSTRUCCIONES");
+        for (let instrucion of this.bloque1) {
+            if (instrucion instanceof Instruccion_1.Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
+        if (this.bloque2) {
+            nodo.agregarHijoS("ELSE");
+            let cont2 = new nodoAST_1.nodoAST("INSTRUCCIONES");
+            for (let instruc of this.bloque2) {
+                if (instruc instanceof Instruccion_1.Instruccion) {
+                    cont.agregarHijo(instruc.getNodo());
+                }
+            }
+            nodo.agregarHijo(cont2);
+        }
         return nodo;
     }
 }

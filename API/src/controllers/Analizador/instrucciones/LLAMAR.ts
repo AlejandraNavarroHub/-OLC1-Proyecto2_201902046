@@ -6,6 +6,7 @@ import Tipo, { tipos } from "../tablaSimbolo/TIPO";
 import { Expresion } from "../Abstract/EXPRESION";
 import Tipo_INS, { T_INS } from "../tablaSimbolo/TIPO_INSTRUCCION";
 import { nodoAST } from "../Abstract/nodoAST";
+import RETURN from "./RETURN";
 
 
 export default class LLAMADA extends Instruccion{
@@ -22,6 +23,8 @@ export default class LLAMADA extends Instruccion{
     }
 
     public getNodo(): nodoAST {
-        throw new Error("Method not implemented.");
+        let nodo = new nodoAST("LLAMADA");
+        nodo.agregarHijo(this.expresion.getNodo());
+        return nodo;
     }
 }

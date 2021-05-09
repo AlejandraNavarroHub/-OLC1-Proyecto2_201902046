@@ -75,8 +75,17 @@ export default class DO extends Instruccion{
     }
 
     public getNodo(): nodoAST {
-        let nodo = new nodoAST("IMPRIMIR");
- 
+        let nodo = new nodoAST("SENTENIA CICLICA");
+        nodo.agregarHijoS("DO");
+        let cont = new nodoAST("INSTRUCCIONES");
+        for(let instrucion of this.bloque){
+            if (instrucion instanceof Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
+        nodo.agregarHijoS("while");
+        nodo.agregarHijo(this.condicion.getNodo());
         return nodo;
     }
 }

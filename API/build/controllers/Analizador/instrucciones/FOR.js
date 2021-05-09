@@ -87,7 +87,20 @@ class FOR extends Instruccion_1.Instruccion {
         }
     }
     getNodo() {
-        let nodo = new nodoAST_1.nodoAST("IMPRIMIR");
+        let nodo = new nodoAST_1.nodoAST("SENTENCIA CICLICA");
+        nodo.agregarHijoS("FOR");
+        nodo.agregarHijo(this.DECLARACION.getNodo());
+        nodo.agregarHijoS(";");
+        nodo.agregarHijo(this.CONDICION.getNodo());
+        nodo.agregarHijoS(";");
+        nodo.agregarHijo(this.ACTUALIZACION.getNodo());
+        let cont = new nodoAST_1.nodoAST("INSTRUCCIONES");
+        for (let instrucion of this.BLOQUE) {
+            if (instrucion instanceof Instruccion_1.Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
         return nodo;
     }
 }

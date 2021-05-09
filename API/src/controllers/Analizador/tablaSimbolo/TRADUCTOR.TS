@@ -34,6 +34,7 @@ export default class TRADUCTOR {
         let x = 0;
         if (this.EXEC.length===0) {
             this.newERROR("SEMANTICO","No se encontro función exec", -1, -1);
+            return;
         }
         for(let ex of this.EXEC) {
             if (ex instanceof Instruccion) {

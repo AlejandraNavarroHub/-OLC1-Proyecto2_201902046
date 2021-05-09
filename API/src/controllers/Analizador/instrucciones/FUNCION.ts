@@ -33,8 +33,27 @@ export default class FUNCION extends Instruccion{
     }
 
     public getNodo(): nodoAST {
-        let nodo = new nodoAST("IMPRIMIR");
-       
+        let nodo = new nodoAST("FUNCION");
+        if (this.TIPOV.getTipos()!==tipos.ERROR){
+            nodo.agregarHijoS(this.TIPOV.getTipos());
+            nodo.agregarHijoS(this.ID);
+            if(this.PARAMETROS){
+                nodo.agregarHijo(this.PARAMETROS.getnode());
+            }
+        }else{
+            nodo.agregarHijoS("VOID");
+            nodo.agregarHijoS(this.ID);
+            if(this.PARAMETROS){
+                nodo.agregarHijo(this.PARAMETROS.getnode());
+            }
+        }
+        let cont = new nodoAST("INSTRUCCIONES");
+        for(let instrucion of this.BLOQUE){
+            if (instrucion instanceof Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
         return nodo;
     }
 }

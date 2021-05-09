@@ -104,8 +104,17 @@ class FUNCION_E extends EXPRESION_1.Expresion {
         return new PRIMITIVO_1.default(new TIPO_1.default(TIPO_1.tipos.ERROR), undefined, this.linea, this.columna);
     }
     getNodo() {
-        let nodo = new nodoAST_1.nodoAST("VARIABLE");
+        let nodo = new nodoAST_1.nodoAST("LLAMADA");
         nodo.agregarHijoS(this.ID);
+        if (this.PARAMETROS) {
+            let cont = new nodoAST_1.nodoAST("INSTRUCCIONES");
+            for (let expre of this.PARAMETROS) {
+                if (expre instanceof EXPRESION_1.Expresion) {
+                    cont.agregarHijo(expre.getNodo());
+                }
+            }
+            nodo.agregarHijo(cont);
+        }
         return nodo;
     }
 }

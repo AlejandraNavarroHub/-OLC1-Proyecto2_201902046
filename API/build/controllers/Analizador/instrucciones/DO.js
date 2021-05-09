@@ -91,7 +91,17 @@ class DO extends Instruccion_1.Instruccion {
         }
     }
     getNodo() {
-        let nodo = new nodoAST_1.nodoAST("IMPRIMIR");
+        let nodo = new nodoAST_1.nodoAST("SENTENIA CICLICA");
+        nodo.agregarHijoS("DO");
+        let cont = new nodoAST_1.nodoAST("INSTRUCCIONES");
+        for (let instrucion of this.bloque) {
+            if (instrucion instanceof Instruccion_1.Instruccion) {
+                cont.agregarHijo(instrucion.getNodo());
+            }
+        }
+        nodo.agregarHijo(cont);
+        nodo.agregarHijoS("while");
+        nodo.agregarHijo(this.condicion.getNodo());
         return nodo;
     }
 }

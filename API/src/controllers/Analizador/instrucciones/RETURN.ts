@@ -31,8 +31,7 @@ export default class RETURN extends Instruccion{
     }
 
     public getNodo(): nodoAST {
-        let nodo = new nodoAST("IMPRIMIR");
-       
+        let nodo = new nodoAST("RETURN");
         return nodo;
     }
 }
