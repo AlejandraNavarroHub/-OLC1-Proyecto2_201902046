@@ -13,7 +13,6 @@ export default class Relacionales extends Expresion{
     public simbolo:string;
     constructor(linea:number, columna:number, exp1:Expresion, simbolo:string, exp2:Expresion){
         super(linea, columna, undefined, new Tipo(tipos.BOOLEANO));
-        console.log("entre1");
         this.exp1 = exp1;
         this.exp2 = exp2;
         this.simbolo = simbolo;

@@ -3,9 +3,13 @@ import Excepcion from "../exceptions/EXCEPTION";
 import {Instruccion} from "../Abstract/Instruccion";
 import SIMB from "./list_simbol";
 import { nodoAST } from "../Abstract/nodoAST";
+import FUNCION from "../instrucciones/FUNCION";
+import { T_INS } from "./TIPO_INSTRUCCION";
 
 export default class TRADUCTOR {
     public instrucciones: Array<Instruccion>;
+    public FUNCTIONS: Array<FUNCION> = new Array<FUNCION>();
+    public EXEC: Array<Instruccion> = new Array<Instruccion>();
     public errores: Array<Excepcion>;
     public consola: String;
     public global: tablaSimbolos;
@@ -26,11 +30,40 @@ export default class TRADUCTOR {
     }
 
     public traducir(){
-        for(let instrucion of this.instrucciones){
-            if (instrucion instanceof Instruccion) {
-                instrucion.ejecutar(this, this.global);
+
+        let x = 0;
+        if (this.EXEC.length===0) {
+            this.newERROR("SEMANTICO","No se encontro función exec", -1, -1);
+        }
+        for(let ex of this.EXEC) {
+            if (ex instanceof Instruccion) {
+                if (x>0) {
+                    this.newERROR("SEMANTICO","SOLO SE PUEDE TENER UNA FUNCIÓN EXEC", ex.linea, ex.columna);
+                    return;
+                }
+                this.EXEC[0] = ex;
+                x++;
             }
         }
+        
+        for(let funciones of this.FUNCTIONS){
+            if (funciones instanceof FUNCION) {
+                funciones.ejecutar(this, this.global);
+            }
+        }
+
+        for(let instrucion of this.instrucciones){
+            if (instrucion instanceof Instruccion) {
+                console.log(instrucion);
+                if (instrucion.TIPO.getTipos() === T_INS.DECLARACION) {
+                    instrucion.ejecutar(this, this.global);
+                }else{
+                    this.newERROR("SEMANTICO","SOLO SE PUEDE REALIZAR DECLARACIONES EN EL AMBITO GLOBAL", instrucion.linea, instrucion.columna);
+                }
+            }
+        }
+
+        this.EXEC[0].ejecutar(this, this.global);
     }
 
     public imprimirErrores(){

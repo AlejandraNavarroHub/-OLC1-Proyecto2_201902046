@@ -11,9 +11,8 @@ import Primitivo from "../expresiones/PRIMITIVO";
 
 export default class Asignar_valor extends Instruccion{
     private exp: Expresion;
-    private ID: string;
     constructor(linea:number, columna:number, nombre:string, exp:Expresion){
-        super(linea, columna, new Tipo_INS(T_INS.ASIGNACION));
+        super(linea, columna, new Tipo_INS(T_INS.ASIGNACION), nombre);
         this.exp = exp;
         this.ID = nombre;
     }

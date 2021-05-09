@@ -30,7 +30,7 @@ const nodoAST_1 = require("../Abstract/nodoAST");
 const PRIMITIVO_1 = __importDefault(require("../expresiones/PRIMITIVO"));
 class VARIABLE extends Instruccion_1.Instruccion {
     constructor(linea, columna, TipoV, nombre, expresion) {
-        super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.DECLARACION));
+        super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.DECLARACION), nombre);
         this.expresion = expresion;
         this.ID = nombre;
         this.TipoV = TipoV;
@@ -98,7 +98,7 @@ class VARIABLE extends Instruccion_1.Instruccion {
         if (respuesta.tipo.getTipos() === TIPO_1.tipos.ERROR) {
             tree.newERROR("SEMANTICO", "LA VARIABLE YA ESTA DECLARADA", this.linea, this.columna);
         }
-        else {
+        else if (table.nombre === "GLOBAL") {
             tree.newSimbol(this.ID, "VARIABLE", this.TipoV.getTipos(), table.nombre, this.linea, this.columna);
         }
     }

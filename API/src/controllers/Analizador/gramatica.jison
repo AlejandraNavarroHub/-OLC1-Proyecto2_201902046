@@ -3,7 +3,17 @@
     const Excepcion = require('./exceptions/EXCEPTION');
     const PRIMITIVO = require('./expresiones/PRIMITIVO');
     const VARIABLE = require('./expresiones/VARIABLE');
+    const FUNCION_E = require('./expresiones/FUNCION');
     const IMPRIMIR  = require('./instrucciones/IMPRIMIR');
+    const IF  = require('./instrucciones/IF');
+    const FOR  = require('./instrucciones/FOR');
+    const WHILE  = require('./instrucciones/WHILE');
+    const DO  = require('./instrucciones/DO');
+    const FUNCION  = require('./instrucciones/FUNCION');
+    const LLAMADA  = require('./instrucciones/LLAMAR');
+    const CONTINUE  = require('./instrucciones/CONTINUE');
+    const BREAK  = require('./instrucciones/BREAK');
+    const RETURN  = require('./instrucciones/RETURN');
     const DECLARAR_VAR  = require('./instrucciones/VARIABLE');
     const TIPO = require('./tablaSimbolo/TIPO');
     const aritmetica = require('./expresiones/ARITMETICA');
@@ -189,12 +199,12 @@ INSTRUCCION
     | INS_FOR                                           {$$ = $1;}
     | INS_DOWHILE                                       {$$ = $1;}
     | FUNCION                                           {$$ = $1;}
-    | LLAMADA PTCOMA                                    {$$ = $1;}
+    | LLAMADA PTCOMA                                    {$$ = ''; if($1!==''){$$ = new LLAMADA.default(this._$.first_line, this._$.first_column, $1);}}
     | INS_RETURN                                        {$$ = $1;}
-    | BREAK PTCOMA                                      {$$ = $1;}
-    | CONTINUE PTCOMA                                   {$$ = $1;}
-    | error PTCOMA                                      {$$ = "";}
-    | error LLDER                                    {console.log("error");}
+    | BREAK PTCOMA                                      {$$ = new BREAK.default(this._$.first_line, this._$.first_column);}
+    | CONTINUE PTCOMA                                   {$$ = new CONTINUE.default(this._$.first_line, this._$.first_column);}
+    | error PTCOMA                                      {$$ = "fda"}
+    | error LLDER                                       {console.log("error");}
 
 ;
 
@@ -225,15 +235,15 @@ DECREMENTO
 ;
 
 INS_IF
-    :IF PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER                                      {$$="";}
-    |IF PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER ELSE INS_IF                          {$$="";}
-    |IF PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER ELSE LLIZQ INSTRUCCIONES LLDER       {$$="";}
+    :IF PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER                                      {$$= new IF.default(this._$.first_line, this._$.first_column,$3, $6);;}
+    |IF PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER ELSE INS_IF                          {$$= new IF.default(this._$.first_line, this._$.first_column,$3, $6, undefined, $9);}
+    |IF PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER ELSE LLIZQ INSTRUCCIONES LLDER       {$$= new IF.default(this._$.first_line, this._$.first_column,$3, $6, $10);}
     |IF error LLDER                                                                 {$$="";}    
 ;
 
 
 INS_WHILE
-    :WHILE PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER               {$$="";}
+    :WHILE PIZQ EX PDER LLIZQ INSTRUCCIONES LLDER               {$$= new WHILE.default(this._$.first_line, this._$.first_column, $3, $6);}
     |WHILE error LLDER                                          {$$="";}
 ;
 
@@ -252,9 +262,9 @@ INS_CASOS
 
 
 INS_FOR
-    :FOR PIZQ DECLE PTCOMA EX PTCOMA ACTUALIZACION LLIZQ INSTRUCCIONES LLDER     {$$="";}
-    |FOR PIZQ ASIG PTCOMA EX PTCOMA ACTUALIZACION LLIZQ INSTRUCCIONES LLDER      {$$="";}
-    |FOR error LLDER                                                                    {$$="";}
+    :FOR PIZQ DECLE PTCOMA EX PTCOMA ACTUALIZACION LLIZQ INSTRUCCIONES LLDER     {$$= new FOR.default(this._$.first_line, this._$.first_column, $3, $5, $7, $9);}
+    |FOR PIZQ ASIG PTCOMA EX PTCOMA ACTUALIZACION LLIZQ INSTRUCCIONES LLDER      {$$= new FOR.default(this._$.first_line, this._$.first_column, $3, $5, $7, $9);}
+    |FOR error LLDER                                                             {$$="";}
 ;
 
 
@@ -266,34 +276,34 @@ ACTUALIZACION
 
 
 INS_DOWHILE
-    :DO LLIZQ INSTRUCCIONES LLDER WHILE PIZQ EX PDER PTCOMA             {$$="";}
+    :DO LLIZQ INSTRUCCIONES LLDER WHILE PIZQ EX PDER PTCOMA             {new DO.default(this._$.first_line, this._$.first_column, $7, $3);}
     |DO error PTCOMA                                                    {$$="";}
 ;
 
 FUNCION
-    :INS_TIPO NOMBRE PIZQ PDER LLIZQ INSTRUCCIONES LLDER                {$$="";}
-    |INS_TIPO NOMBRE PIZQ PARAMETROS PDER LLIZQ INSTRUCCIONES LLDER     {$$="";}
-    |VOID NOMBRE PIZQ PARAMETROS PDER LLIZQ INSTRUCCIONES LLDER         {$$="";}
-    |VOID NOMBRE PIZQ PDER LLIZQ INSTRUCCIONES LLDER                    {$$="";}
+    :INS_TIPO NOMBRE PIZQ PDER LLIZQ INSTRUCCIONES LLDER                {$$="";TRADUCTOR1.FUNCTIONS.push(new FUNCION.default(this._$.first_line, this._$.first_column, $1, $2, $6, undefined));}
+    |INS_TIPO NOMBRE PIZQ PARAMETROS PDER LLIZQ INSTRUCCIONES LLDER     {$$="";TRADUCTOR1.FUNCTIONS.push(new FUNCION.default(this._$.first_line, this._$.first_column, $1, $2, $7, $4));}
+    |VOID NOMBRE PIZQ PARAMETROS PDER LLIZQ INSTRUCCIONES LLDER         {$$="";TRADUCTOR1.FUNCTIONS.push(new FUNCION.default(this._$.first_line, this._$.first_column, new TIPO.default(TIPO.tipos.ERROR), $2, $6, undefined));}
+    |VOID NOMBRE PIZQ PDER LLIZQ INSTRUCCIONES LLDER                    {$$="";TRADUCTOR1.FUNCTIONS.push(new FUNCION.default(this._$.first_line, this._$.first_column, new TIPO.default(TIPO.tipos.ERROR), $2, $6, undefined));}
     |VOID error LLDER                                                   {$$="";}
 ;
 
 PARAMETROS
-    :PARAMETROS COMA INS_TIPO NOMBRE        {$$="";}
-    |INS_TIPO NOMBRE                        {$$="";}
+    :PARAMETROS COMA INS_TIPO NOMBRE        {$$= $1; $1.push(new DECLARAR_VAR.default(this._$.first_line, this._$.first_column, $3, $4));}
+    |INS_TIPO NOMBRE                        {$$=[]; $$.push(new DECLARAR_VAR.default(this._$.first_line, this._$.first_column, $1, $2));}
 ;
 
 
 LLAMADA
-    :NOMBRE PIZQ LISTA_EX PDER              {$$="";}
-    |NOMBRE PIZQ PDER                       {$$="";}
-    |EXEC NOMBRE PIZQ LISTA_EX PDER         {$$="";}
-    |EXEC NOMBRE PIZQ PDER                  {$$="";}
+    :NOMBRE PIZQ LISTA_EX PDER              {$$=new FUNCION_E.default(this._$.first_line, this._$.first_column, $1, $3);}
+    |NOMBRE PIZQ PDER                       {$$=new FUNCION_E.default(this._$.first_line, this._$.first_column, $1);}
+    |EXEC NOMBRE PIZQ LISTA_EX PDER         {$$=""; TRADUCTOR1.EXEC.push(new LLAMADA.default(this._$.first_line, this._$.first_column, new FUNCION_E.default(this._$.first_line, this._$.first_column, $2, $4)));}
+    |EXEC NOMBRE PIZQ PDER                  {$$=""; TRADUCTOR1.EXEC.push(new LLAMADA.default(this._$.first_line, this._$.first_column, new FUNCION_E.default(this._$.first_line, this._$.first_column, $2)));}
 ;
 
 INS_RETURN
-    : RETURN PTCOMA                     {$$ = $1;}
-    | RETURN EX PTCOMA                  {$$ = $1;}
+    : RETURN PTCOMA                         {$$ = new RETURN.default(this._$.first_line, this._$.first_column, undefined);}
+    | RETURN EX PTCOMA                      {$$ = new RETURN.default(this._$.first_line, this._$.first_column, $2);}
 ;
 
 EX
@@ -306,8 +316,6 @@ EX
     |EX ELEVADO EX                                  {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |MENOS EX %prec UMENOS                          {$$= new aritmetica.default(this._$.first_line, this._$.first_column,$2,$1);}
     |PIZQ EX PDER                                   {$$=$2;}
-    |NOMBRE CIZQ  EX CDER                           {$$="";}//vector
-    |NOMBRE CIZQ CIZQ EX CDER CDER                  {$$="";}//lista
     |VALORES                                        {$$ = $1;}
     |EX MENORQUE EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
     |EX MAYORQUE EX                                 {$$= new relacional.default(this._$.first_line, this._$.first_column,$1,$2,$3);}
@@ -326,6 +334,8 @@ EX
     |INS_TOUPPER                                    {$$=$1;}
     |NOMBRE                                         {$$= new VARIABLE.default($1,this._$.first_line, this._$.first_column);}
     |LLAMADA                                        {$$=$1;}
+    |NOMBRE CIZQ  EX CDER                           {$$="";}//vector
+    |NOMBRE CIZQ CIZQ EX CDER CDER                  {$$="";}//lista
 ;
 
 INS_TERNARIO
@@ -354,9 +364,9 @@ INS_CAST
     :PIZQ INS_TIPO PDER EX %prec FUNCAST     {$$= new casteo.default(this._$.first_line, this._$.first_column,$2,$4);}
 ;
 
-LISTA_EXP
-    :LISTA_EXP COMA EX      {$$="";}
-    |EX                     {$$="";}
+LISTA_EX
+    :LISTA_EX COMA EX       {$$=$1; $$.push($3);}
+    |EX                     {$$=[]; $$.push($1);}
 ;
 
                                      

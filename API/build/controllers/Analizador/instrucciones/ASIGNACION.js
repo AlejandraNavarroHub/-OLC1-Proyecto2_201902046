@@ -25,7 +25,7 @@ const TIPO_INSTRUCCION_1 = __importStar(require("../tablaSimbolo/TIPO_INSTRUCCIO
 const nodoAST_1 = require("../Abstract/nodoAST");
 class Asignar_valor extends Instruccion_1.Instruccion {
     constructor(linea, columna, nombre, exp) {
-        super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.ASIGNACION));
+        super(linea, columna, new TIPO_INSTRUCCION_1.default(TIPO_INSTRUCCION_1.T_INS.ASIGNACION), nombre);
         this.exp = exp;
         this.ID = nombre;
     }

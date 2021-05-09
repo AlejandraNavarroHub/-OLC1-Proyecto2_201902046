@@ -8,9 +8,13 @@ const EXCEPTION_1 = __importDefault(require("../exceptions/EXCEPTION"));
 const Instruccion_1 = require("../Abstract/Instruccion");
 const list_simbol_1 = __importDefault(require("./list_simbol"));
 const nodoAST_1 = require("../Abstract/nodoAST");
+const FUNCION_1 = __importDefault(require("../instrucciones/FUNCION"));
+const TIPO_INSTRUCCION_1 = require("./TIPO_INSTRUCCION");
 class TRADUCTOR {
     // public pila_exec: Array<E> = new Array<Expresion>();
     constructor(instrucciones) {
+        this.FUNCTIONS = new Array();
+        this.EXEC = new Array();
         this.grafo = "";
         this.c = 0;
         this.raiz = new nodoAST_1.nodoAST("");
@@ -23,11 +27,37 @@ class TRADUCTOR {
         this.simbolos = new Array();
     }
     traducir() {
-        for (let instrucion of this.instrucciones) {
-            if (instrucion instanceof Instruccion_1.Instruccion) {
-                instrucion.ejecutar(this, this.global);
+        let x = 0;
+        if (this.EXEC.length === 0) {
+            this.newERROR("SEMANTICO", "No se encontro función exec", -1, -1);
+        }
+        for (let ex of this.EXEC) {
+            if (ex instanceof Instruccion_1.Instruccion) {
+                if (x > 0) {
+                    this.newERROR("SEMANTICO", "SOLO SE PUEDE TENER UNA FUNCIÓN EXEC", ex.linea, ex.columna);
+                    return;
+                }
+                this.EXEC[0] = ex;
+                x++;
             }
         }
+        for (let funciones of this.FUNCTIONS) {
+            if (funciones instanceof FUNCION_1.default) {
+                funciones.ejecutar(this, this.global);
+            }
+        }
+        for (let instrucion of this.instrucciones) {
+            if (instrucion instanceof Instruccion_1.Instruccion) {
+                console.log(instrucion);
+                if (instrucion.TIPO.getTipos() === TIPO_INSTRUCCION_1.T_INS.DECLARACION) {
+                    instrucion.ejecutar(this, this.global);
+                }
+                else {
+                    this.newERROR("SEMANTICO", "SOLO SE PUEDE REALIZAR DECLARACIONES EN EL AMBITO GLOBAL", instrucion.linea, instrucion.columna);
+                }
+            }
+        }
+        this.EXEC[0].ejecutar(this, this.global);
     }
     imprimirErrores() {
         for (let error of this.errores) {

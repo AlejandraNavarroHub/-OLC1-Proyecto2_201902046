@@ -11,10 +11,9 @@ import Primitivo from "../expresiones/PRIMITIVO";
 
 export default class VARIABLE extends Instruccion{
     private expresion: Expresion|any;
-    private ID: string;
     private TipoV: Tipo;
     constructor(linea:number, columna:number, TipoV: Tipo ,nombre:string, expresion?:Expresion){
-        super(linea, columna, new Tipo_INS(T_INS.DECLARACION));
+        super(linea, columna, new Tipo_INS(T_INS.DECLARACION), nombre);
         this.expresion = expresion;
         this.ID = nombre;
         this.TipoV = TipoV;
@@ -81,7 +80,7 @@ export default class VARIABLE extends Instruccion{
         }
         if (respuesta.tipo.getTipos()===tipos.ERROR) {
             tree.newERROR("SEMANTICO","LA VARIABLE YA ESTA DECLARADA", this.linea, this.columna);
-        }else{
+        }else if(table.nombre==="GLOBAL"){
             tree.newSimbol(this.ID, "VARIABLE",this.TipoV.getTipos(), table.nombre, this.linea, this.columna);
         }
     }

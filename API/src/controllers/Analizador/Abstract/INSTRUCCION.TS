@@ -8,10 +8,12 @@ export abstract class Instruccion {
     public linea: number;
     public columna: number;
     public TIPO: Tipo_INS
-    constructor(linea : number, columna:number, tipo:Tipo_INS) {
+    public ID:any;
+    constructor(linea : number, columna:number, tipo:Tipo_INS, ID:any=undefined) {
         this.linea = linea;
         this.columna = columna;
         this.TIPO = tipo;
+        this.ID = ID;
     }
 
     abstract ejecutar(arbol: TRADUCTOR, tabla: TablaSimbolos):any;

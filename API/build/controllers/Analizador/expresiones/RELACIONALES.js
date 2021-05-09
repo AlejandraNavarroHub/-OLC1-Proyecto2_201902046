@@ -29,7 +29,6 @@ const PRIMITIVO_1 = __importDefault(require("./PRIMITIVO"));
 class Relacionales extends EXPRESION_1.Expresion {
     constructor(linea, columna, exp1, simbolo, exp2) {
         super(linea, columna, undefined, new TIPO_1.default(TIPO_1.tipos.BOOLEANO));
-        console.log("entre1");
         this.exp1 = exp1;
         this.exp2 = exp2;
         this.simbolo = simbolo;
